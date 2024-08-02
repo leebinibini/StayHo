@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="제약 조건 추가">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/RoomDescriptionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/RoomDescriptionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/ViewEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/global/config/MybatisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomDescriptionMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +32,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -62,11 +76,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.StayHoApplication.executor": "Debug",
     "git-widget-placeholder": "room",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/NC13/StayHo_NC13/src/main/resources/mybatis/mappers",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -82,6 +102,11 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\NC13\StayHo_NC13\src\main\resources\mybatis\mappers" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -122,7 +147,7 @@
       <workItem from="1722504416185" duration="1257000" />
       <workItem from="1722509831933" duration="3091000" />
       <workItem from="1722515111956" duration="1112000" />
-      <workItem from="1722558457668" duration="9813000" />
+      <workItem from="1722558457668" duration="22973000" />
     </task>
     <task id="LOCAL-00001" summary="router 설정 및 room insert view 구성">
       <option name="closed" value="true" />
@@ -132,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722516208244</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="제약 조건 추가">
+      <option name="closed" value="true" />
+      <created>1722568574177</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722568574177</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +196,23 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="router 설정 및 room insert view 구성" />
-    <option name="LAST_COMMIT_MESSAGE" value="router 설정 및 room insert view 구성" />
+    <MESSAGE value="제약 조건 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="제약 조건 추가" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

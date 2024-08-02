@@ -9,9 +9,9 @@ let Insert = () => {
     let [inputs, setInputs] = useState({
         limitPeople: '',
         type: '',
-        bath: '',
+        bath: 'false',
         bed: '',
-        view: '',
+        view: 'city',
         price: '',
         surcharge: ''
     })
@@ -20,7 +20,7 @@ let Insert = () => {
         CITY: 'city',
         MOUNTAIN: 'mountain',
         OCEAN: 'ocean'
-    }
+    };
     Object.freeze(ViewEnum);
 
     let onChange = (e) => {
@@ -29,10 +29,22 @@ let Insert = () => {
             ...inputs,
             [name]: value
         })
+        console.log(inputs)
     }
     let onSubmit = async () => {
-        let response = await axios.get("", {});
+        let data = {
+            limitPeople: watch('limitPeople'),
+            type: watch('type'),
+            bath: inputs.bath,
+            bed: watch('bed'),
+            view: inputs.view,
+            price: watch('price'),
+            surcharge: watch('surcharge')
+        }
 
+        console.log(data, typeof data)
+        let response = await axios.post("http://localhost:8080/room/insert", data, {});
+        console.log(response)
     }
     return (
         <Container>
@@ -84,9 +96,9 @@ let Insert = () => {
                         <td>뷰</td>
                         <td>
                             <FormSelect onChange={onChange} name='view'>
-                                <option  value={ViewEnum.CITY}>도시뷰</option>
-                                <option  value={ViewEnum.MOUNTAIN}>산뷰</option>
-                                <option  value={ViewEnum.OCEAN}>바다뷰</option>
+                                <option value={ViewEnum.CITY}>도시뷰</option>
+                                <option value={ViewEnum.MOUNTAIN}>산뷰</option>
+                                <option value={ViewEnum.OCEAN}>바다뷰</option>
                             </FormSelect>
                         </td>
                     </tr>
@@ -94,7 +106,7 @@ let Insert = () => {
                         <td>가격</td>
                         <td><FormControl type={'number'} name={'price'} vaule={inputs.price} onChange={onChange}
                                          defaultValue={1}
-                                         {...register("view", {required: true, min: 1})}/> ₩/박
+                                         {...register("price", {required: true, min: 1})}/> ₩/박
                         </td>
                     </tr>
                     <tr>
