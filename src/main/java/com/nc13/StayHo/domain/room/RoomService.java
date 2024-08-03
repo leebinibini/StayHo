@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -13,5 +15,9 @@ public class RoomService {
 
     public void insert(RoomDTO roomDTO) {
         SESSION.insert(NAMESPACE + ".insert", roomDTO);
+    }
+
+    public List<RoomDTO> selectByHotel(int id){
+        return SESSION.selectList(NAMESPACE+".selectByHotel", id);
     }
 }

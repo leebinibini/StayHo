@@ -8,4 +8,8 @@
     (room_id, bath, bed, view)
     VALUES(#{roomId}, #{bath},#{bed}, #{view})
 </insert>
+    <select id="selectByRoom" parameterType="int" resultType="roomDescriptionDTO">
+        SELECT * FROM room_description
+        WHERE room_id= #{id}
+    </select>
 </mapper>

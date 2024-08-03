@@ -69,7 +69,7 @@ let Insert = () => {
                     <tr>
                         <td>객실 타입 이름</td>
                         <td><FormControl type={'text'} name={'type'} vaule={inputs.type} onChange={onChange}
-                                         aria-descripbedby='typeExplain'
+                                         aria-describedby='typeExplain'
                                          {...register("type", {required: true, maxLength: 50})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>

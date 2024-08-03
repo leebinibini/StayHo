@@ -13,4 +13,7 @@ public class RoomDescriptionService {
     public void insert(RoomDescriptionDTO roomDescriptionDTO){
         SESSION.insert(NAMESPACE+".insert", roomDescriptionDTO);
     }
+    public RoomDescriptionDTO selectByRoom(int id){
+        return SESSION.selectOne(NAMESPACE+".selectByRoom", id);
+    }
 }
