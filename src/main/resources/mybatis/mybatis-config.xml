@@ -8,6 +8,8 @@
     </settings>
     <typeAliases>
         <typeAlias type="com.nc13.StayHo.domain.room.RoomDTO" alias="roomDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.room.RequestDTO" alias="requestDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.roomDescription.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.price.PriceDTO" alias="priceDTO"/>
     </typeAliases>
 </configuration>

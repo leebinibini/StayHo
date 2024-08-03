@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import Button from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
 let RoomDescription = ({description, modalOpen, setModalOpen, room}) => {
     let customStyle = {

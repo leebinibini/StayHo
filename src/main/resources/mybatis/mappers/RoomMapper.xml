@@ -7,10 +7,12 @@
     INSERT INTO room (limit_people, type, hotel_id)
     values(#{limitPeople}, #{type}, #{hotelId})
 </insert>
-    <select id="selectByHotel" parameterType="int" resultType="roomDTO">
+    <select id="selectByHotel" parameterType="int" resultType="requestDTO">
         SELECT * FROM room
         INNER JOIN hotel
         ON hotel.id= room.hotel_id
+        INNER JOIN price
+        ON room.id= price.room_id
         WHERE room.hotel_id= #{id}
     </select>
 </mapper>

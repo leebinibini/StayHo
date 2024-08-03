@@ -45,7 +45,9 @@ let Management = () => {
                         <td>객실 타입</td>
                         <td> {room.type}</td>
                         <td>최대 입실 인원</td>
-                        <td> {room.limitPeople}</td>
+                        <td> {room.limitPeople}명</td>
+                        <td> 금액</td>
+                        <td> {room.price}원 </td>
                     </tr>
 
                 ))}
