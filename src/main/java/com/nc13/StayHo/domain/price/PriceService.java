@@ -13,4 +13,7 @@ public class PriceService {
     public void insert(PriceDTO priceDTO){
         SESSION.insert(NAMESPACE+".insert", priceDTO);
     }
+    public void update(PriceDTO priceDTO){
+        SESSION.update(NAMESPACE+ ".update", priceDTO);
+    }
 }

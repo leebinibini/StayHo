@@ -12,8 +12,6 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room}) => {
             transform: 'translate(-50%, -50%)'
         }
     }
-    console.log("모달창에서 렌더링함")
-    console.log(description.description)
     return (
         <Modal isOpen={modalOpen}
                onRequestClose={() => setModalOpen(false)}

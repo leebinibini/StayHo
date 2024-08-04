@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="roomDescription modal 로 띄우기">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/price/PriceDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/price/PriceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/PriceMapper.xml" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="price 추가">
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Update.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/price/PriceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/price/PriceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/ViewEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/ViewEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/RoomDescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/RoomDescriptionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/PriceMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/PriceMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomDescriptionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomDescriptionMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Management.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Management.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/RoomDescription.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/RoomDescription.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +81,7 @@
     "git-widget-placeholder": "jiHyun",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/NC13/StayHo_NC13/src/main/resources/mybatis/mappers",
+    "last_opened_file_path": "D:/NC13/StayHo_NC13/src/stayho-front/src/room",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,6 +99,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\NC13\StayHo_NC13\src\stayho-front\src\room" />
       <recent name="D:\NC13\StayHo_NC13\src\main\resources\mybatis\mappers" />
     </key>
   </component>
@@ -143,7 +146,7 @@
       <workItem from="1722558457668" duration="32760000" />
       <workItem from="1722663843706" duration="10000" />
       <workItem from="1722664171407" duration="7132000" />
-      <workItem from="1722673933629" duration="4299000" />
+      <workItem from="1722673933629" duration="21421000" />
     </task>
     <task id="LOCAL-00001" summary="router 설정 및 room insert view 구성">
       <option name="closed" value="true" />
@@ -177,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722673834555</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="price 추가">
+      <option name="closed" value="true" />
+      <created>1722680886286</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1722680886286</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +222,7 @@
     <MESSAGE value="제약 조건 추가" />
     <MESSAGE value="room insert (without image)" />
     <MESSAGE value="roomDescription modal 로 띄우기" />
-    <option name="LAST_COMMIT_MESSAGE" value="roomDescription modal 로 띄우기" />
+    <MESSAGE value="price 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="price 추가" />
   </component>
 </project>

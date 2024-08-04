@@ -1,21 +1,15 @@
 import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSelect} from "react-bootstrap";
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
+import {useParams} from "react-router-dom";
 
 
-let Insert = () => {
+let Update = () => {
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
-    let [inputs, setInputs] = useState({
-        limitPeople: '',
-        type: '',
-        bath: 'false',
-        bed: '',
-        view: 'city',
-        price: '',
-        surcharge: ''
-    })
-
+    let [inputs, setInputs] = useState({})
+    let params = useParams()
+    let id = parseInt(params.id)
     let ViewEnum = {
         CITY: 'city',
         MOUNTAIN: 'mountain',
@@ -29,10 +23,10 @@ let Insert = () => {
             ...inputs,
             [name]: value
         })
-        console.log(inputs)
     }
     let onSubmit = async () => {
         let data = {
+            id:id,
             limitPeople: watch('limitPeople'),
             type: watch('type'),
             bath: inputs.bath,
@@ -42,28 +36,36 @@ let Insert = () => {
             surcharge: watch('surcharge')
         }
 
-        console.log(data, typeof data)
-        let response = await axios.post("http://localhost:8080/room/insert", data, {});
-        if(response.status === 200){
-            window.alert("객실이 추가되었습니다. ")
+        let response = await axios.post("http://localhost:8080/room/update", data, {});
+        if (response.status===200){
+            window.alert("수정되었습니다.")
         }
     }
+    useEffect(() => {
+        let onLoad = async () => {
+            let response = await axios.get("http://localhost:8080/room/select/" + id, {});
+            if (response.status === 200) {
+                setInputs(response.data.room)
+            }
+        }
+        onLoad()
+    }, []);
     return (
         <Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Table>
                     <thead>
                     <tr>
-                        <th>객실 추가하기</th>
+                        <th>객실 정보 수정</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>최대 숙박 인원</td>
                         <td>
-                            <FormControl type={'number'} name={'limitPeople'} vaule={inputs.limitPeople}
-                                         onChange={onChange}
-                                         aria-describedby='limitPeopleExplain' defaultValue={1}
+                            <FormControl type={'number'} name={'limitPeople'}
+                                         onChange={onChange} vaule={inputs.limitPeople}
+                                         aria-describedby='limitPeopleExplain' defaultValue={inputs.limitPeople}
                                          {...register("limitPeople", {required: true, min: 1})}/>
                             <FormText id="limitPeopleExplain" muted>최소 인원은 1명입니다.</FormText>
                         </td>
@@ -71,7 +73,7 @@ let Insert = () => {
                     <tr>
                         <td>객실 타입 이름</td>
                         <td><FormControl type={'text'} name={'type'} vaule={inputs.type} onChange={onChange}
-                                         aria-describedby='typeExplain'
+                                         aria-describedby='typeExplain' defaultValue={inputs.type}
                                          {...register("type", {required: true, maxLength: 50})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>
@@ -81,39 +83,40 @@ let Insert = () => {
                         <td>
                             <div key={`inline-radio`} className="mb-3">
                                 <FormCheck inline label="O" name="bath" type='radio' id={`inline-radio-1`} value="true"
-                                           onChange={onChange}/>
+                                           onChange={onChange} />
                                 <FormCheck inline label="X" name="bath" type='radio' id={`inline-radio-2`} value="false"
-                                           onChange={onChange} checked/>
+                                           onChange={onChange} />
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>침대 개수</td>
                         <td><FormControl type={'number'} name={'bed'} vaule={inputs.bed} onChange={onChange}
-                                         defaultValue={'0'}
+                                         defaultValue={inputs.bed}
                                          {...register("bed", {required: true, min: 0})}/>개
                         </td>
                     </tr>
                     <tr>
                         <td>뷰</td>
                         <td>
-                            <FormSelect onChange={onChange} name='view'>
-                                <option value={ViewEnum.CITY}>도시뷰</option>
+                            <FormSelect onChange={onChange} name='view' defaultValue={inputs.view}>
+                                <option value={ViewEnum.CITY} >도시뷰</option>
                                 <option value={ViewEnum.MOUNTAIN}>산뷰</option>
-                                <option value={ViewEnum.OCEAN}>바다뷰</option>
+                                <option value={ViewEnum.OCEAN} >바다뷰</option>
                             </FormSelect>
                         </td>
                     </tr>
                     <tr>
                         <td>가격</td>
                         <td><FormControl type={'number'} name={'price'} vaule={inputs.price} onChange={onChange}
-                                         defaultValue={1}
+                                         defaultValue={inputs.price}
                                          {...register("price", {required: true, min: 1})}/> ₩/박
                         </td>
                     </tr>
                     <tr>
                         <td>성수기 할증 비율</td>
-                        <td><FormControl type={'number'} name={'surcharge'} vaule={inputs.surcharge} defaultValue={20}
+                        <td><FormControl type={'number'} name={'surcharge'} vaule={inputs.surcharge}
+                                         defaultValue={inputs.surcharge}
                                          onChange={onChange} aria-describedby='surchargeExplain'
                                          {...register("surcharge", {required: true, min: 1, max: 100})}/> %
                             <FormText id='surchargeExplain'>1 - 100 사이 숫자를 입력하세요.</FormText>
@@ -127,7 +130,7 @@ let Insert = () => {
                         </Form.Group>
                     </tr>
                     <tr>
-                        <td><Button type={'submit'}>추가하기</Button></td>
+                        <td><Button type={'submit'}>수정하기</Button></td>
                     </tr>
                     </tbody>
                 </Table>
@@ -135,4 +138,4 @@ let Insert = () => {
         </Container>
     )
 }
-export default Insert
+export default Update

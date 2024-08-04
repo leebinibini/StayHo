@@ -12,4 +12,9 @@
         SELECT * FROM room_description
         WHERE room_id= #{id}
     </select>
+    <update id="update" parameterType="roomDescriptionDTO">
+        UPDATE room_description SET
+        bath=#{bath}, bed=#{bed}, view=#{view}
+        WHERE room_id= #{roomId}
+    </update>
 </mapper>

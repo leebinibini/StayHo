@@ -20,4 +20,10 @@ public class RoomService {
     public List<RoomDTO> selectByHotel(int id){
         return SESSION.selectList(NAMESPACE+".selectByHotel", id);
     }
+    public RequestDTO select (int id){
+        return SESSION.selectOne(NAMESPACE+".select", id);
+    }
+    public void update(RoomDTO roomDTO){
+        SESSION.update(NAMESPACE+".update", roomDTO);
+    }
 }

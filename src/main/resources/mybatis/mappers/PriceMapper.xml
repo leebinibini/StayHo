@@ -8,4 +8,9 @@
         (room_id, price, surcharge)
         VALUES (#{roomId}, #{price}, #{surcharge})
     </insert>
+    <update id="update" parameterType="priceDTO">
+        UPDATE price SET
+        price=#{price}, surcharge=#{surcharge}
+        WHERE room_id= #{roomId}
+    </update>
 </mapper>

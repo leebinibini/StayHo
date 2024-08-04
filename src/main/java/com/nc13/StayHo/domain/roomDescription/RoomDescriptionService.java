@@ -16,4 +16,7 @@ public class RoomDescriptionService {
     public RoomDescriptionDTO selectByRoom(int id){
         return SESSION.selectOne(NAMESPACE+".selectByRoom", id);
     }
+    public void update(RoomDescriptionDTO roomDescriptionDTO){
+        SESSION.update(NAMESPACE+".update", roomDescriptionDTO);
+    }
 }

@@ -15,9 +15,9 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/room/")
 public class RoomController {
-    private RoomService ROOM_SERVICE;
-    private RoomDescriptionService DESCRIPTION_SERVICE;
-    private PriceService PRICE_SERVICE;
+    private final RoomService ROOM_SERVICE;
+    private final RoomDescriptionService DESCRIPTION_SERVICE;
+    private final PriceService PRICE_SERVICE;
 
     public RoomController(RoomService roomService, RoomDescriptionService roomDescriptionService, PriceService priceService) {
         this.ROOM_SERVICE = roomService;
@@ -32,14 +32,12 @@ public class RoomController {
 
     @PostMapping("insert")
     public ResponseEntity<Void> insert(@RequestBody RequestDTO params) {
-        System.out.println("경로 들어옴" + params);
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), 1);
         ROOM_SERVICE.insert(roomDTO);
         RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
         DESCRIPTION_SERVICE.insert(descriptionDTO);
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
-        System.out.println("추가 성공");
         return ResponseEntity.ok().build();
     }
 
@@ -58,5 +56,26 @@ public class RoomController {
         resultMap.put("description", DESCRIPTION_SERVICE.selectByRoom(id));
 
         return ResponseEntity.ok(resultMap);
+    }
+    @GetMapping("select/{id}")
+    public ResponseEntity<Map<String, Object>> select(@PathVariable int id){
+        Map<String, Object> resultMap= new HashMap<>();
+        resultMap.put("room", ROOM_SERVICE.select(id));
+        System.out.println("select"+ROOM_SERVICE.select(id));
+        return ResponseEntity.ok(resultMap);
+    }
+    @PostMapping("update")
+    public ResponseEntity<Void> update(@RequestBody RequestDTO params){
+        RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), 1);
+        roomDTO.setId(params.getId());
+        ROOM_SERVICE.update(roomDTO);
+
+        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
+        DESCRIPTION_SERVICE.update(descriptionDTO);
+
+        PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
+        PRICE_SERVICE.update(priceDTO);
+
+        return ResponseEntity.ok().build();
     }
 }
