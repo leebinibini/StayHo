@@ -81,12 +81,27 @@ let Update = () => {
                     <tr>
                         <td>욕조 여부</td>
                         <td>
-                            <div key={`inline-radio`} className="mb-3">
-                                <FormCheck inline label="O" name="bath" type='radio' id={`inline-radio-1`} value="true"
-                                           onChange={onChange} />
-                                <FormCheck inline label="X" name="bath" type='radio' id={`inline-radio-2`} value="false"
-                                           onChange={onChange} />
-                            </div>
+                            {inputs.bath ?
+                                <div key={`inline-radio`} className="mb-3">
+                                    <FormCheck inline label="O" name="bath" type='radio' id={`inline-radio-1`}
+                                               value="true"
+                                               onChange={onChange} checked/>
+                                    <FormCheck inline label="X" name="bath" type='radio' id={`inline-radio-2`}
+                                               value="false"
+                                               onChange={onChange}/>
+                                </div>
+                                :
+                                <div key={`inline-radio`} className="mb-3">
+                                    <FormCheck inline label="O" name="bath" type='radio' id={`inline-radio-1`}
+                                               value="true"
+                                               onChange={onChange}/>
+                                    <FormCheck inline label="X" name="bath" type='radio' id={`inline-radio-2`}
+                                               value="false"
+                                               onChange={onChange} checked/>
+                                </div>
+                            }
+
+
                         </td>
                     </tr>
                     <tr>
