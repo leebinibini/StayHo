@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Container, Form, FormCheck, Table} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 let ListForProvider = () => {
     let params = useParams()
     let hotelId = parseInt(params.id);

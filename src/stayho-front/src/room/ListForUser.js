@@ -4,7 +4,7 @@ import axios from "axios";
 
 import Description from "./Description"
 import {useParams} from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 let ListForUser = () => {
     let params= useParams()
     let id = parseInt(params.id)

@@ -3,7 +3,7 @@ import axios from "axios";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 let Insert = () => {
     let params=useParams()
