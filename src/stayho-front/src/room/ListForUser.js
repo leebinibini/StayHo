@@ -38,17 +38,19 @@ let ListForUser = () => {
             <Table>
                 <thead>
                 <tr>
-                    <td>객실 목록</td>
+                    <th>객실 목록</th>
                 </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td>객실 타입</td>
+                    <td>최대 입실 인원</td>
+                    <td> 금액</td>
+                </tr>
                 {rooms.roomList.map(room => (
                     <tr onClick={() => onClick(room)} key={room.id}>
-                        <td>객실 타입</td>
                         <td> {room.type}</td>
-                        <td>최대 입실 인원</td>
                         <td> {room.limitPeople}명</td>
-                        <td> 금액</td>
                         <td> {room.price}원 </td>
                     </tr>
 

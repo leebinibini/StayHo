@@ -13,6 +13,7 @@ function App() {
                 <Route path={"/room/update/:id"} element={<Update/>}/>
                 <Route path={"/room/insert/:id"} element={<Insert/>}/>
                 <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
+                <Route path={"/room/list/:id"} element={<ListForUser/>}/>
             </Routes>
         </div>
     );

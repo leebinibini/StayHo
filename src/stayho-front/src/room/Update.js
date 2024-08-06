@@ -26,7 +26,7 @@ let Update = () => {
     }
     let onSubmit = async () => {
         let data = {
-            id:id,
+            id: id,
             limitPeople: watch('limitPeople'),
             type: watch('type'),
             bath: inputs.bath,
@@ -37,7 +37,7 @@ let Update = () => {
         }
 
         let response = await axios.post("http://localhost:8080/room/update", data, {});
-        if (response.status===200){
+        if (response.status === 200) {
             window.alert("수정되었습니다.")
         }
     }
@@ -115,9 +115,9 @@ let Update = () => {
                         <td>뷰</td>
                         <td>
                             <FormSelect onChange={onChange} name='view' defaultValue={inputs.view}>
-                                <option value={ViewEnum.CITY} >도시뷰</option>
+                                <option value={ViewEnum.CITY}>도시뷰</option>
                                 <option value={ViewEnum.MOUNTAIN}>산뷰</option>
-                                <option value={ViewEnum.OCEAN} >바다뷰</option>
+                                <option value={ViewEnum.OCEAN}>바다뷰</option>
                             </FormSelect>
                         </td>
                     </tr>
