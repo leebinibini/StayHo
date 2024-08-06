@@ -17,4 +17,8 @@
         bath=#{bath}, bed=#{bed}, view=#{view}
         WHERE room_id= #{roomId}
     </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM room_description
+        WHERE room_id=#{id}
+    </delete>
 </mapper>

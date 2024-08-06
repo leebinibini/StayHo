@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import {Button} from "react-bootstrap";
 
-let RoomDescription = ({description, modalOpen, setModalOpen, room}) => {
+let Description = ({description, modalOpen, setModalOpen, room}) => {
     let customStyle = {
         content: {
             top: '50%',
@@ -29,4 +29,4 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room}) => {
     )
 }
 
-export default RoomDescription
+export default Description

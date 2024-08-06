@@ -32,7 +32,8 @@ public class RoomController {
 
     @PostMapping("insert")
     public ResponseEntity<Void> insert(@RequestBody RequestDTO params) {
-        RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), 1);
+        System.out.println(params);
+        RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
         RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
         DESCRIPTION_SERVICE.insert(descriptionDTO);
@@ -44,7 +45,7 @@ public class RoomController {
     @GetMapping("selectList/{id}")
     public ResponseEntity<Map<String, Object>> selectList(@PathVariable int id) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<RoomDTO> list = ROOM_SERVICE.selectByHotel(id);
+        List<RequestDTO> list = ROOM_SERVICE.selectByHotel(id);
         resultMap.put("roomList", list);
         return ResponseEntity.ok(resultMap);
     }
@@ -61,7 +62,6 @@ public class RoomController {
     public ResponseEntity<Map<String, Object>> select(@PathVariable int id){
         Map<String, Object> resultMap= new HashMap<>();
         resultMap.put("room", ROOM_SERVICE.select(id));
-        System.out.println("select"+ROOM_SERVICE.select(id));
         return ResponseEntity.ok(resultMap);
     }
     @PostMapping("update")
@@ -78,4 +78,17 @@ public class RoomController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("delete")
+    public ResponseEntity<Void> delete(@RequestBody int[] checkInputs){
+        System.out.println("delete 경로 진입"+checkInputs[0]);
+        for (Integer id:checkInputs){
+            PRICE_SERVICE.delete(id);
+            DESCRIPTION_SERVICE.delete(id);
+            ROOM_SERVICE.delete(id);
+        }
+
+        return ResponseEntity.ok().build();
+    }
 }
+

@@ -17,7 +17,7 @@ public class RoomService {
         SESSION.insert(NAMESPACE + ".insert", roomDTO);
     }
 
-    public List<RoomDTO> selectByHotel(int id){
+    public List<RequestDTO> selectByHotel(int id){
         return SESSION.selectList(NAMESPACE+".selectByHotel", id);
     }
     public RequestDTO select (int id){
@@ -25,5 +25,8 @@ public class RoomService {
     }
     public void update(RoomDTO roomDTO){
         SESSION.update(NAMESPACE+".update", roomDTO);
+    }
+    public void delete(int id){
+        SESSION.delete(NAMESPACE+".delete", id);
     }
 }

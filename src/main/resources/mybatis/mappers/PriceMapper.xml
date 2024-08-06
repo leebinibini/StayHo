@@ -13,4 +13,8 @@
         price=#{price}, surcharge=#{surcharge}
         WHERE room_id= #{roomId}
     </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM price
+        WHERE room_id= #{roomId}
+    </delete>
 </mapper>

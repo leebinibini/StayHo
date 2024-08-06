@@ -16,4 +16,7 @@ public class PriceService {
     public void update(PriceDTO priceDTO){
         SESSION.update(NAMESPACE+ ".update", priceDTO);
     }
+    public void delete(int id){
+        SESSION.delete(NAMESPACE+".delete", id);
+    }
 }

@@ -2,10 +2,12 @@ import {Container, Table} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-import RoomDesctiption from "./RoomDescription"
+import Description from "./Description"
+import {useParams} from "react-router-dom";
 
-let Management = () => {
-    let id = 1;
+let ListForUser = () => {
+    let params= useParams()
+    let id = parseInt(params.id)
     let [rooms, setRooms] = useState({roomList: []})
     let[roomD, setRoomD]= useState()
     let [description, setDescription] = useState([])
@@ -53,10 +55,10 @@ let Management = () => {
                 ))}
                 </tbody>
             </Table>
-            <RoomDesctiption description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}/>
+            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}/>
         </Container>
     )
 }
 
 
-export default Management
+export default ListForUser

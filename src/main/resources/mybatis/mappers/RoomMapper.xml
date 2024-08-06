@@ -13,6 +13,8 @@
         ON hotel.id= room.hotel_id
         INNER JOIN price
         ON room.id= price.room_id
+        INNER JOIN room_description
+        ON room.id= room_description.room_id
         WHERE room.hotel_id= #{id}
     </select>
     <select id="select" resultType="requestDTO" parameterType="int">
@@ -30,4 +32,8 @@
         limit_people=#{limitPeople}, type= #{type}
         WHERE id=#{id}
     </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM room
+        WHERE id=#{id}
+    </delete>
 </mapper>

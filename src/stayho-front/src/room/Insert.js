@@ -2,9 +2,13 @@ import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSe
 import axios from "axios";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 let Insert = () => {
+    let params=useParams()
+    let id=parseInt(params.id);
+    let navigate= useNavigate()
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
     let [inputs, setInputs] = useState({
         limitPeople: '',
@@ -13,7 +17,7 @@ let Insert = () => {
         bed: '',
         view: 'city',
         price: '',
-        surcharge: ''
+        surcharge: '',
     })
 
     let ViewEnum = {
@@ -29,7 +33,6 @@ let Insert = () => {
             ...inputs,
             [name]: value
         })
-        console.log(inputs)
     }
     let onSubmit = async () => {
         let data = {
@@ -39,13 +42,15 @@ let Insert = () => {
             bed: watch('bed'),
             view: inputs.view,
             price: watch('price'),
-            surcharge: watch('surcharge')
+            surcharge: watch('surcharge'),
+            hotelId:id
         }
 
         console.log(data, typeof data)
         let response = await axios.post("http://localhost:8080/room/insert", data, {});
         if(response.status === 200){
             window.alert("객실이 추가되었습니다. ")
+            navigate("/room/management/"+id)
         }
     }
     return (

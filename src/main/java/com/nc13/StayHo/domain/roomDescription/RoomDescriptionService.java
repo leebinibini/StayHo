@@ -19,4 +19,7 @@ public class RoomDescriptionService {
     public void update(RoomDescriptionDTO roomDescriptionDTO){
         SESSION.update(NAMESPACE+".update", roomDescriptionDTO);
     }
+    public void delete(int id){
+        SESSION.delete(NAMESPACE+".delete", id);
+    }
 }
