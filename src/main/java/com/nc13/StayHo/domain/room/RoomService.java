@@ -2,7 +2,6 @@ package com.nc13.StayHo.domain.room;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +16,10 @@ public class RoomService {
         SESSION.insert(NAMESPACE + ".insert", roomDTO);
     }
 
-    public List<RequestDTO> selectByHotel(int id){
+    public List<SynthesisDTO> selectByHotel(int id){
         return SESSION.selectList(NAMESPACE+".selectByHotel", id);
     }
-    public RequestDTO select (int id){
+    public SynthesisDTO select (int id){
         return SESSION.selectOne(NAMESPACE+".select", id);
     }
     public void update(RoomDTO roomDTO){

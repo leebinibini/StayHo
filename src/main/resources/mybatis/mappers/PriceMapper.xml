@@ -15,6 +15,6 @@
     </update>
     <delete id="delete" parameterType="int">
         DELETE FROM price
-        WHERE room_id= #{roomId}
+        WHERE room_id= #{id}
     </delete>
 </mapper>

@@ -1,10 +1,9 @@
 package com.nc13.StayHo.domain.room;
 
-import com.nc13.StayHo.domain.roomDescription.ViewEnum;
 import lombok.Data;
 
 @Data
-public class RequestDTO {
+public class SynthesisDTO {
     private int id;
     private int limitPeople;
     private String type;

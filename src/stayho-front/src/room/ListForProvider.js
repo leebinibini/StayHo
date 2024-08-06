@@ -96,7 +96,6 @@ let ListForProvider = () => {
                     </tbody>
                 </Table>
             </Form>
-
         </Container>
     )
 }

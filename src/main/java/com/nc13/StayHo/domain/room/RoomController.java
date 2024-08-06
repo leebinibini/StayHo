@@ -31,7 +31,7 @@ public class RoomController {
     }
 
     @PostMapping("insert")
-    public ResponseEntity<Void> insert(@RequestBody RequestDTO params) {
+    public ResponseEntity<Void> insert(@RequestBody SynthesisDTO params) {
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
         RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
@@ -44,7 +44,7 @@ public class RoomController {
     @GetMapping("selectList/{id}")
     public ResponseEntity<Map<String, Object>> selectList(@PathVariable int id) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<RequestDTO> list = ROOM_SERVICE.selectByHotel(id);
+        List<SynthesisDTO> list = ROOM_SERVICE.selectByHotel(id);
         resultMap.put("roomList", list);
         return ResponseEntity.ok(resultMap);
     }
@@ -64,7 +64,7 @@ public class RoomController {
         return ResponseEntity.ok(resultMap);
     }
     @PostMapping("update")
-    public ResponseEntity<Void> update(@RequestBody RequestDTO params){
+    public ResponseEntity<Void> update(@RequestBody SynthesisDTO params){
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), 1);
         roomDTO.setId(params.getId());
         ROOM_SERVICE.update(roomDTO);

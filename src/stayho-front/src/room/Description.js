@@ -25,6 +25,7 @@ let Description = ({description, modalOpen, setModalOpen, room}) => {
             <p>욕조: {description.description?.bath? 'O' : 'X'}</p>
             <p>침대수: {description.description?.bed}개</p>
             <Button>예약하기</Button>
+
         </Modal>
     )
 }
