@@ -46,7 +46,6 @@ let Insert = () => {
             hotelId:id
         }
 
-        console.log(data, typeof data)
         let response = await axios.post("http://localhost:8080/room/insert", data, {});
         if(response.status === 200){
             window.alert("객실이 추가되었습니다. ")

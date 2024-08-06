@@ -32,7 +32,6 @@ public class RoomController {
 
     @PostMapping("insert")
     public ResponseEntity<Void> insert(@RequestBody RequestDTO params) {
-        System.out.println(params);
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
         RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
@@ -81,7 +80,6 @@ public class RoomController {
 
     @PostMapping("delete")
     public ResponseEntity<Void> delete(@RequestBody int[] checkInputs){
-        System.out.println("delete 경로 진입"+checkInputs[0]);
         for (Integer id:checkInputs){
             PRICE_SERVICE.delete(id);
             DESCRIPTION_SERVICE.delete(id);

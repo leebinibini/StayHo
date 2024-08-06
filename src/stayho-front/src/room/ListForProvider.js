@@ -13,7 +13,6 @@ let ListForProvider = () => {
     useEffect(() => {
         let onLoad = async () => {
             let response = await axios.get("http://localhost:8080/room/selectList/" + hotelId, {})
-            console.log(response)
             if (response.status === 200) {
                 setRooms(response.data)
             }
@@ -22,11 +21,10 @@ let ListForProvider = () => {
     }, []);
 
     let MoveToUpdate = (id) => {
-        window.confirm("id: " + id)
         navigate("/room/update/" + id)
     }
-    let moveToInsert=()=>{
-        navigate("/room/insert/"+hotelId)
+    let moveToInsert = () => {
+        navigate("/room/insert/" + hotelId)
     }
 
     let onChecked = (checked, id) => {
@@ -42,9 +40,14 @@ let ListForProvider = () => {
         }
     }
     let onDelete = async () => {
-        console.log(checkInputs)
-        let response = await axios.post("http://localhost:8080/room/delete", checkInputs, {})
-        console.log(response)
+        let isDelete = window.confirm("정말 삭제하시겠습니까?")
+        if (isDelete) {
+            let response = await axios.post("http://localhost:8080/room/delete", checkInputs, {})
+            if (response.status === 200) {
+                window.alert("삭제되었습니다.")
+                navigate("/room/management/" + hotelId)
+            }
+        }
     }
 
     return (
@@ -58,7 +61,9 @@ let ListForProvider = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr><td><Button onClick={moveToInsert}>객실 추가하기</Button> </td></tr>
+                    <tr>
+                        <td><Button onClick={moveToInsert}>객실 추가하기</Button></td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td>객실 타입</td>
@@ -73,7 +78,7 @@ let ListForProvider = () => {
                     {rooms.roomList.map(room => (
                         <tr>
                             <td><FormCheck name="deleteRooms" type='checkbox'
-                                           onClick={(event) => onChecked(event.target.checked,room.id)}/></td>
+                                           onClick={(event) => onChecked(event.target.checked, room.id)}/></td>
                             <td> {room.type}</td>
                             <td> {room.limitPeople}명</td>
                             <td> {room.price}원</td>

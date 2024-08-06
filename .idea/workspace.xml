@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/room/ListForProvider.js" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="checkbox 이용한 delete 구현 및 router 설정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/price/PriceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/price/PriceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/room/RoomService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/RoomDescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/roomDescription/RoomDescriptionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/PriceMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/PriceMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomDescriptionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomDescriptionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RoomMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Management.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/ListForUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/RoomDescription.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Description.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/ListForProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/ListForProvider.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +141,7 @@
       <workItem from="1722673933629" duration="23520000" />
       <workItem from="1722837900731" duration="15000" />
       <workItem from="1722856344929" duration="1408000" />
-      <workItem from="1722903944872" duration="4359000" />
+      <workItem from="1722903944872" duration="5560000" />
     </task>
     <task id="LOCAL-00001" summary="router 설정 및 room insert view 구성">
       <option name="closed" value="true" />
@@ -200,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722776366589</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="checkbox 이용한 delete 구현 및 router 설정">
+      <option name="closed" value="true" />
+      <created>1722908876294</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1722908876294</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +216,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="jiHyun" />
                       </list>
                     </value>
                   </entry>
@@ -236,6 +235,7 @@
     <MESSAGE value="roomDescription modal 로 띄우기" />
     <MESSAGE value="price 추가" />
     <MESSAGE value="room update 구현 (* radio checked attribute 조정 필요)" />
-    <option name="LAST_COMMIT_MESSAGE" value="room update 구현 (* radio checked attribute 조정 필요)" />
+    <MESSAGE value="checkbox 이용한 delete 구현 및 router 설정" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkbox 이용한 delete 구현 및 router 설정" />
   </component>
 </project>
