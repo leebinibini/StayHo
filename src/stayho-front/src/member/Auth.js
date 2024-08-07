@@ -5,8 +5,8 @@ import {Button, Container, FormControl, Table} from "react-bootstrap";
 
 let Auth = () => {
     let [inputs, setInputs] = useState({
-        email:'',
-        password:''
+        email: '',
+        password: ''
     })
 
     let onChange = (e) => {
@@ -19,58 +19,64 @@ let Auth = () => {
 
     let navigate = useNavigate()
 
-    let onSubmit= async(e) => {
+    let onSubmit = async (e) => {
         e.preventDefault()
         let formData = new FormData()
         formData.append('email', inputs.email)
         formData.append('password', inputs.password)
 
         let response = await axios({
-            url:'http://localhost:8080/member/auth',
-            method:"POST",
+            url: 'http://localhost:8080/member/auth',
+            method: "POST",
             data: formData,
-            withCredentials:true
+            withCredentials: true
         })
 
         console.log(response)
 
+        let moveToShowList = () => {
+
+        }
+
         if (response.status === 200 && response.data.result === 'success') {
             let memberInfo = {
                 id: response.data.id,
-                email:response.data.email,
+                email: response.data.email,
                 password: response.data.password,
-                name : response.data.name,
-                tel:response.data.tel,
+                name: response.data.name,
+                tel: response.data.tel,
                 role: response.data.role
             }
-            navigate('/hotel/showList', {state: {memberInfo:memberInfo}})
+            navigate('/hotel/showList', {state: {memberInfo: memberInfo}})
+
+
         }
     }
 
-        let goRegister = () =>{
-           navigate('/member/register')
+    let goRegister = () => {
+        navigate('/member/register')
     }
 
 
-
-    return(
+    return (
         <form onSubmit={onSubmit}>
             <Container>
                 <Table>
                     <thead>
                     <tr>
-                        <td colSpan={2}>로그인 </td>
+                        <td colSpan={2}>로그인</td>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>아이디</td>
-                        <td><FormControl type={'text'} name={'email'} value={inputs.username} onChange={onChange} /></td>
+                        <td><FormControl type={'text'} name={'email'} value={inputs.username} onChange={onChange}/></td>
                     </tr>
                     <tr>
                         <td>비밀번호</td>
                         <td colSpan={2}>
-                            <FormControl type={'password'} name={'password'} value={inputs.password} onChange={onChange} />
+                            <FormControl type={'password'} name={'password'} value={inputs.password}
+                                         onChange={onChange}/>
                         </td>
                     </tr>
                     <tr>

@@ -24,20 +24,21 @@ let MyPage = () => {
     }, []);
 */
     let onLogOut = async() => {
-        try{
+
             let response = await axios.post('http://localhost:8080/member/logout',{
                 withCredentials: true
             })
             if(response.status === 200){
-                navigate('/member/logOutSuccess')
+                navigate('/')
             }
-        }catch(error){
-            console.log(error)
         }
-    }
+
     let navigate = useNavigate()
     let onUpdate = () => {
         navigate('/member/update', {state: {memberInfo:memberInfo}})
+    }
+    let onSecede = () => {
+        navigate('/member/secede', {state: {memberInfo:memberInfo}})
     }
  return(
      <Container>
@@ -47,6 +48,7 @@ let MyPage = () => {
                  <td colSpan={3} className={'text-end'}>
                      <Button onClick={onLogOut}>로그아웃</Button>
                      <Button onClick={onUpdate}>내 정보 수정하기</Button>
+                     <Button onClick={onSecede}>탈퇴하기</Button>
                  </td>
              </tr>
              </thead>
@@ -56,9 +58,6 @@ let MyPage = () => {
              </tr>
              <tr>
                  <td> 이메일: {memberInfo.email}</td>
-             </tr>
-             <tr>
-                 <td> 비밀번호: {memberInfo.password}</td>
              </tr>
              <tr>
                  <td> 이름: {memberInfo.name}</td>

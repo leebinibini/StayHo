@@ -26,7 +26,7 @@ public class MemberController {
     }
 
     @RequestMapping("authSuccess")
-    public ResponseEntity<Map<String, Object>> authSuccess(Authentication authentication){
+    public ResponseEntity<Map<String, Object>> authSuccess(Authentication authentication) {
         Map<String, Object> resultMap = new HashMap<>();
         MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
 
@@ -42,7 +42,7 @@ public class MemberController {
     }
 
     @RequestMapping("authFail")
-    public ResponseEntity<Map<String, Object>> authFail(){
+    public ResponseEntity<Map<String, Object>> authFail() {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "fail");
 
@@ -50,21 +50,22 @@ public class MemberController {
     }
 
     @RequestMapping("logOutSuccess")
-    public ResponseEntity<Void> logOutSuccess(){
+    public ResponseEntity<Void> logOutSuccess() {
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("register")
-    public String showRegister(){
+    public String showRegister() {
         return "member/register";
     }
 
     @PostMapping("register")
-    public String register(MemberDTO memberDTO, RedirectAttributes redirectAttributes){
-        if(memberService.validateEmail(memberDTO.getEmail())){
+    public String register(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+        if (memberService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
+            System.out.println(memberDTO);
             memberService.register(memberDTO);
-        }else {
+        } else {
             redirectAttributes.addAttribute("message", "중복된 아이디로는 가입할 수 없습니다.");
             return "redirect:showMessage";
         }
@@ -72,22 +73,22 @@ public class MemberController {
     }
 
     @PostMapping("update")
-    public HashMap<String, Object> update(@RequestBody MemberDTO memberDTO){
+    public HashMap<String, Object> update(@RequestBody MemberDTO memberDTO) {
+        System.out.println(memberDTO);
         HashMap<String, Object> resultMap = new HashMap<>();
         memberService.update(memberDTO);
-        resultMap.put("upId", memberDTO.getId());
+        resultMap.put("id", memberDTO.getId());
         return resultMap;
     }
 
-    @GetMapping("delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id){
-        memberService.delete(id);
+    @PostMapping("withdraw")
+    public ResponseEntity<Void> withdraw(@RequestBody MemberDTO inputs) {
+        String password = inputs.getPassword();
+        MemberDTO original = memberService.selectByEmail(inputs.getEmail());
+        if (encoder.matches(password, original.getPassword())) {
+            memberService.delete(inputs.getId());
+
+        }
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("myPage/{memberDTO}")
-    public MemberDTO myPage (@RequestBody MemberDTO memberDTO){
-
-        return memberDTO;
     }
 }

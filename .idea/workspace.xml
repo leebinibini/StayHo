@@ -4,27 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/global/Config/MyBatisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/global/Config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/MemberMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="commit -0807(2)">
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Secede.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/MemberMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/MemberMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Controller/MemberController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO$Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO$Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +52,11 @@
         </map>
       </branch-storage>
     </favorite-branches>
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="bini &lt;qpdjvn0601@naver.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="main" />
@@ -68,12 +71,12 @@
     &quot;assignee&quot;: &quot;leebinibini&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/leebinibini/StayHo_NC13.git",
-    "accountId": "3474fbe8-e670-48ae-9353-13657731cc61"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/leebinibini/StayHo_NC13.git&quot;,
+    &quot;accountId&quot;: &quot;3474fbe8-e670-48ae-9353-13657731cc61&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -91,26 +94,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.StayHoApplication.executor": "Run",
-    "git-widget-placeholder": "soobin",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.StayHoApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;soobin&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.nc13.StayHo.domain.Member.Service" />
@@ -158,8 +161,35 @@
       <workItem from="1722581413820" duration="17184000" />
       <workItem from="1722682051099" duration="2468000" />
       <workItem from="1722905098827" duration="29300000" />
-      <workItem from="1722990322733" duration="26137000" />
+      <workItem from="1722990322733" duration="34811000" />
+      <workItem from="1723077411771" duration="12863000" />
+      <workItem from="1723095446873" duration="18454000" />
     </task>
+    <task id="LOCAL-00001" summary="commit">
+      <option name="closed" value="true" />
+      <created>1723025749578</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723025749578</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commit -0807(2)">
+      <option name="closed" value="true" />
+      <created>1723033398518</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723033398518</updated>
+    </task>
+    <task id="LOCAL-00003" summary="commit -0807(2)">
+      <option name="closed" value="true" />
+      <created>1723034213687</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1723034213687</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,5 +217,14 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+    <MESSAGE value="commit" />
+    <MESSAGE value="commit -0807(2)g" />
+    <MESSAGE value="commit -0807(2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit -0807(2)" />
   </component>
 </project>

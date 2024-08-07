@@ -1,19 +1,20 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Container, FormControl, Table} from "react-bootstrap";
+import {Button, Container, FormControl, Table} from "react-bootstrap";
 
 let Update = () => {
     let location = useLocation()
     let memberInfo = location.state.memberInfo
 
-    let params = useParams()
-    let id = params.id
+    let id = memberInfo.id
     let [inputs, setInputs] = useState({
-        email:'',
-        password:'',
-        name:'',
-        tel:''
+        id:memberInfo.id,
+        email:memberInfo.email,
+        password:"",
+        name:memberInfo.name,
+        tel:memberInfo.tel,
+        role: memberInfo.role
     })
 
     let onChange = (e) => {
@@ -25,29 +26,32 @@ let Update = () => {
     }
 
     let navigate = useNavigate()
-    let moveToNext = (id) => {
-        navigate('/member/myPage/'+id, {state:{memberInfo:memberInfo}})
+    let moveToNext = () => {
+        navigate('/member/myPage', {state:{memberInfo:inputs}})
     }
 
     let onSubmit = async (e) => {
+        console.log(inputs)
         e.preventDefault()
-        let resp = await axios.post('http://localhost:8080/member/update', inputs,{
-            withCredentials: true
-        })
+            let resp = await axios.post('http://localhost:8080/member/update', inputs, {
+                withCredentials: true
+            })
         if(resp.status === 200){
-            moveToNext(resp.data.upId)
+            moveToNext()
         }
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         let getUpdate = async () => {
-            let resp = await axios.get('http://localhost:8080/member/myPage' + id,{
+            let resp = await axios.get('http://localhost:8080/member/myPage/'+id,{
                 withCredentials: true
             })
-            console.log(resp.data)
+            if(resp.status===200){
+                setInputs(resp.data)
+            }
         }
         getUpdate()
-    }, [id]);
+    }, [id]);*/
 
     return(
         <Container>
@@ -86,7 +90,7 @@ let Update = () => {
                         <td>
                             <FormControl
                                 type={'tel'}
-                                name={'phoneNumber'}
+                                name={'tel'}
                                 value={inputs.tel}
                                 onChange={onChange}
                             />
@@ -103,6 +107,7 @@ let Update = () => {
                             />
                         </td>
                     </tr>
+                    <Button type={'submit'}>수정하기</Button>
                     </tbody>
                 </Table>
             </form>

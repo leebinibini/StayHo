@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .logout((logout) ->
                         logout
                                 .logoutUrl("/member/logout")
-                                .logoutSuccessUrl("/member/logoutSuccess")
+                                .logoutSuccessUrl("/member/logOutSuccess")
                                 .clearAuthentication(true)
                                 .deleteCookies("JSESSIONID"))
                 .userDetailsService(memberDetailsService);

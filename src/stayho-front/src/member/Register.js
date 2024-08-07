@@ -10,7 +10,6 @@ let Register = ()=> {
         password:'',
         name:'',
         tel:'',
-
     })
 
     let onChange = (e)=> {
@@ -29,7 +28,7 @@ let Register = ()=> {
         formData.append('email', inputs.email)
         formData.append('name', inputs.name)
         formData.append('password', inputs.password)
-
+        formData.append('role', 'ROLE_USER')
         formData.append('tel', inputs.tel)
 
         let response = await axios({
@@ -48,10 +47,6 @@ let Register = ()=> {
         }
         navigate('/', {state: {memberInfo: memberInfo}})
     }
-
-
-
-
         return(
             <form onSubmit={onSubmit}>
                 <Container>
@@ -64,7 +59,7 @@ let Register = ()=> {
                         <tbody>
                         <tr>
                             <td>아이디</td>
-                            <td><FormControl type={'text'} name={'email'} value={inputs.username} onChange={onChange}/>
+                            <td><FormControl type={'email'} name={'email'} value={inputs.username} onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
@@ -84,7 +79,7 @@ let Register = ()=> {
                         <tr>
                             <td>전화번호</td>
                             <td colSpan={2}>
-                                <FormControl type={'tel'} name={'tel'} value={inputs.tel}
+                                <FormControl type="text"  name={'tel'} value={inputs.tel}
                                              onChange={onChange}/>
                             </td>
                         </tr>

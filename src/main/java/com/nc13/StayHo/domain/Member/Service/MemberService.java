@@ -44,11 +44,15 @@ public class MemberService {
         SESSION.insert(NAMESPACE + ".register", attempt);
     }
 
-    public void update(MemberDTO attempt){
-        SESSION.update(NAMESPACE + ".update", attempt);
+    public void update(MemberDTO memberDTO){
+        SESSION.update(NAMESPACE + ".update", memberDTO);
     }
 
     public void delete(int id){
         SESSION.delete(NAMESPACE + ".delete" , id);
+    }
+
+    public boolean selectByPassword (String password){
+        return SESSION.selectOne(NAMESPACE + ".selectByPassword", password) != null;
     }
 }

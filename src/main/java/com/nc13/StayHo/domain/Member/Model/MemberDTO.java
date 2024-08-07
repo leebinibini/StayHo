@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 @Data
 public class MemberDTO implements UserDetails {
@@ -24,17 +25,19 @@ public class MemberDTO implements UserDetails {
 
 
     @Override
-    public Collection< GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
+
         return authorities;
+
     }
 
     @Override
     public String getUsername() {
         return "";
     }
-    
+
 
     public enum Role {
         ROLE_USER("ROLE_USER"),
