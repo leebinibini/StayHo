@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.HotelMapper">
+    <select id="selectList" resultType="HotelDTO">
+        SELECT *, member.name as providerName
+        FROM hotel
+        INNER JOIN member
+        WHERE hotel.member_id=member.id
+    </select>
+    <select id="selectOne" parameterType="int" resultType="HotelDTO">
+        SELECT *, member.name as providerName
+        FROM hotel
+        INNER JOIN member
+        WHERE hotel.member_id=member.id
+        AND hotel.id = #{id}
+    </select>
+    <insert id="insert" parameterType="HotelDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO hotel(name, tel, member_id)
+        VALUES(#{name}, #{tel}, #{memberId})
+    </insert>
+    <update id="update" parameterType="HotelDTO">
+        UPDATE hotel
+        SET name = #{name},
+        tel = #{tel}
+        WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM hotel
+        WHERE hotel.id = #{id}
+    </delete>
+</mapper>
