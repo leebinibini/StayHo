@@ -1,23 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes} from "react-router-dom";
+import ReservationAll from "./Reservation/user/ReservationAll";
+import ReservationOne from "./Reservation/user/ReservationOne";
+import ReservationUpdate from "./Reservation/user/ReservationUpdate";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Routes>
+          <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
+          <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
+          <Route path={"/reservation/update/:id"} element={<ReservationUpdate/>}/>
+        </Routes>
     </div>
   );
 }

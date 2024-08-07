@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ReservationMapper">
+    <select id="selectAll" resultType="ReservationDTO" parameterType="int">
+        SELECT * FROM reservation
+        WHERE member_id = #{member_id}
+    </select>
+
+    <select id="selectOne" resultType="ReservationDTO" parameterType="int">
+        SELECT * FROM reservation
+        WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="ReservationDTO">
+        UPDATE reservation
+        SET check_in = #{checkIn}, check_out = #{checkOut}, confirmed = #{confirmed}, status = #{status}
+        WHERE id = #{id}
+    </update>
+</mapper>
