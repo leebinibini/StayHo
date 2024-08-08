@@ -1,6 +1,5 @@
 import DaumPostcodeEmbed from "react-daum-postcode";
 import Modal from "react-modal";
-import 'bootstrap/dist/css/bootstrap.min.css';
 let InsertAddress = ({modalState, setModalState, hotelId, setAddressData}) => {
     let postStyle = {
         width: '500px',

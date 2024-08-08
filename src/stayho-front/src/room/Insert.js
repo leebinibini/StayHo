@@ -3,7 +3,6 @@ import axios from "axios";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 let Insert = () => {
     let params=useParams()
@@ -17,7 +16,7 @@ let Insert = () => {
         bed: '',
         view: 'city',
         price: '',
-        surcharge: '',
+        surcharge: 20,
     })
 
     let ViewEnum = {
@@ -117,7 +116,7 @@ let Insert = () => {
                     </tr>
                     <tr>
                         <td>성수기 할증 비율</td>
-                        <td><FormControl type={'number'} name={'surcharge'} vaule={inputs.surcharge} defaultValue={20}
+                        <td><FormControl type={'number'} name={'surcharge'} vaule={inputs.surcharge}
                                          onChange={onChange} aria-describedby='surchargeExplain'
                                          {...register("surcharge", {required: true, min: 1, max: 100})}/> %
                             <FormText id='surchargeExplain'>1 - 100 사이 숫자를 입력하세요.</FormText>

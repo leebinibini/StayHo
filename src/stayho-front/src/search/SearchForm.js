@@ -1,64 +1,126 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Button, Container, Form, FormControl, FormFloating, FormSelect} from "react-bootstrap";
+import {Button, Container, Form, FormControl, FormFloating, FormSelect, Table} from "react-bootstrap";
 import DatePicker from "react-date-picker";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-date-picker/dist/DatePicker.css';
-import 'react-calendar/dist/Calendar.css';
 
 let SearchForm = () => {
     let [sidos, setSidos] = useState([])
     let [sigungus, setSigungus] = useState([])
-    let [startDate, setStartDate]= useState(new Date())
-    let [endDate, setEndDate]= useState(new Date())
-    let [inputs, setInputs]= useState({})
+    let [startDate, setStartDate] = useState(new Date())
+    let [endDate, setEndDate] = useState(new Date())
+    let [inputs, setInputs] = useState({
+        sido: '',
+        sigungu: '',
+        people: 2,
+        rooms: 1,
+        checkinDate: new Date(),
+        checkoutDate: new Date()
+    })
+
     useEffect(() => {
         let onLoad = async () => {
             let response = await axios.get("http://localhost:8080/location/sido")
-            console.log(response.data)
             if (response.status === 200) {
                 setSidos(response.data.sido)
             }
         }
         onLoad()
     }, []);
+
     let onSido = async (e) => {
-        let response = await axios.get("http://localhost:8080/location/sigungu/" + e.target.value)
-        console.log(response.data)
+        let sido = e.target.value;
+        setInputs({
+            ...inputs,
+            sido: sido
+        })
+        let response = await axios.get("http://localhost:8080/location/sigungu/" + sido)
         if (response.status === 200) {
             setSigungus(response.data.sigungu)
         }
     }
-    let onChange=(date, type)=>{
 
-        console.log(date+"date"+type)
-        if (type==='start'){
+    let onChange = (e) => {
+        let {name, value} = e.target
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
+    }
+
+    let selectDate = (date, type) => {
+        if (type === 'start') {
             setStartDate(date)
-        }else {
+            setInputs({
+                ...inputs,
+                checkinDate: date
+            })
+        } else {
             setEndDate(date)
+            setInputs({
+                ...inputs,
+                checkoutDate: date
+            })
         }
     }
+
+    let onSearch = async () => {
+        let response = await axios.post("http://localhost:8080/search", inputs, {})
+        if (response.status === 200) {
+            console.log("응답이 돌아왔다!" + response)
+            window.alert(response.data)
+
+        }
+    }
+
     return (
         <Container>
-            <Form>
-                <FormSelect onChange={onSido} name='sido'>
-                    {sidos.map(sido => (
-                        <option value={sido}>{sido}</option>
-                    ))}
-                </FormSelect>
-                <FormSelect name='sigungu'>
-                    {sigungus.map(sigungu => (
-                        <option value={sigungu}>{sigungu}</option>
-                    ))}
-                </FormSelect>
-                <DatePicker onChange={(date)=>onChange(date, 'start')} value={startDate} minDate={new Date()}/>
-                <DatePicker onChange={(date)=>onChange(date, 'end')} value={endDate} minDate={startDate}/>
-                <FormFloating>
-                    <FormControl type={'number'} value={inputs.people} name={'people'} defaultValue="2" placeholder="people" id='people'/>
-                    <label htmlFor='people'>숙박인원</label>
-                    
-                </FormFloating>
-                <Button type={'submit'}>검색하기</Button>
+            <Form onSubmit={onSearch}>
+                <Table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <FormSelect onChange={onSido} name='sido'>
+                                {sidos.map(sido => (
+                                    <option value={sido} key={sido}>{sido}</option>
+                                ))}
+                            </FormSelect>
+                        </td>
+                        <td>
+                            <FormSelect name='sigungu' onChange={onChange}>
+                                {sigungus.map(sigungu => (
+                                    <option value={sigungu} name='sigungu' key={sigungu}>{sigungu}</option>
+                                ))}
+                            </FormSelect>
+                        </td>
+                        <td>
+                            <DatePicker onChange={(date) => selectDate(date, 'start')} value={startDate}
+                                        minDate={new Date()}
+                                        name='startDate'/>
+                        </td>
+                        <td>
+                            <DatePicker onChange={(date) => selectDate(date, 'end')} value={endDate} minDate={startDate}
+                                        name='endDate'/>
+                        </td>
+                        <td>
+                            <FormFloating>
+                                <FormControl type={'number'} value={inputs.people} name={'people'}
+                                             placeholder="people" id='people' onChange={onChange}/>
+                                <label htmlFor='people'>숙박인원</label>
+                            </FormFloating>
+                        </td>
+                        <td>
+                            <FormFloating>
+                                <FormControl type={'number'} value={inputs.rooms} name={'rooms'}
+                                             placeholder="rooms" id='rooms' onChange={onChange}/>
+                                <label htmlFor='rooms'>객실수</label>
+                            </FormFloating>
+                        </td>
+                        <td>
+                            <Button type={'submit'}>검색하기</Button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
             </Form>
         </Container>
     )

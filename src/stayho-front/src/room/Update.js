@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useParams} from "react-router-dom";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 let Update = () => {
     let {register, handleSubmit, watch, formState: {errors}} = useForm();

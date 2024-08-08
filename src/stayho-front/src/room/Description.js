@@ -1,6 +1,5 @@
 import Modal from "react-modal";
 import {Button} from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 let Description = ({description, modalOpen, setModalOpen, room}) => {
     let customStyle = {
         content: {

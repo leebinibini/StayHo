@@ -7,10 +7,10 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.nc13.StayHo.domain.room.RoomDTO" alias="roomDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.room.SynthesisDTO" alias="synthesisDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.roomDescription.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.price.PriceDTO" alias="priceDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.location.LocationDTO" alias="locationDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.room.dto.RoomDTO" alias="roomDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.room.dto.SynthesisDTO" alias="synthesisDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.price.dto.PriceDTO" alias="priceDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationDTO" alias="locationDTO"/>
     </typeAliases>
 </configuration>

@@ -3,7 +3,6 @@ import InsertAddress from "./InsertAddress";
 import {useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
 let Test = () => {
     let id = parseInt(useParams().id);
     let [modalState, setModalState] = useState(false)
