@@ -10,4 +10,5 @@ public interface ReservationService {
     List<ReservationDTO> selectAll(int member_id);
     ReservationDTO selectOne(int id);
     void update(ReservationDTO reservationDTO);
+    void delete(int id);
 }

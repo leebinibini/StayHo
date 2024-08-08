@@ -29,4 +29,10 @@ public class ReservationRepositoryImpl implements ReservationRepository{
     public void update(ReservationDTO reservationDTO) {
         SESSION.update(NAMESPACE + ".update", reservationDTO);
     }
+
+    @Override
+    public void delete(int id) {
+        SESSION.delete(NAMESPACE + ".delete", id);
+    }
+
 }
