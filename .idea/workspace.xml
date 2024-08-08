@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/reservation/controller/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/reservation/controller/ReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/Reservation/user/ReservationAll.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/Reservation/user/ReservationAll.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/Reservation/user/ReservationOne.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/Reservation/user/ReservationOne.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/reservation/controller/ReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/reservation/controller/ReservationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/Reservation/user/ReservationInsert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/Reservation/user/ReservationInsert.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +113,7 @@
       <workItem from="1722995566021" duration="10326000" />
       <workItem from="1723014196857" duration="6560000" />
       <workItem from="1723082868245" duration="942000" />
-      <workItem from="1723083869471" duration="15977000" />
+      <workItem from="1723083869471" duration="16366000" />
     </task>
     <servers />
   </component>
