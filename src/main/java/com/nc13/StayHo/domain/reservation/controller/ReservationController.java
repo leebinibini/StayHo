@@ -32,6 +32,12 @@ public class ReservationController {
         return RESVE_SERVICE.selectOne(id);
     }
 
+    @PostMapping("updateApproval")
+    public ResponseEntity<Void> update(@RequestBody ReservationDTO reservationDTO){
+        RESVE_SERVICE.update(reservationDTO);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("delete/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable int id){
         RESVE_SERVICE.delete(id);

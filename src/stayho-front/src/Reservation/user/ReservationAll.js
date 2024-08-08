@@ -13,7 +13,7 @@ let ReservationAll = () => {
 
     let number = 1; // 번호
 
-    let user_id = 1; // 사용자 id 정보 받기
+    let user_id = 2; // 사용자 id 정보 받기
 
     useEffect(() => {
         let selectList = async () => {
@@ -51,6 +51,7 @@ let ReservationAll = () => {
                 </tr>
                 </thead>
                 <tbody className={"text-center"}>
+                {data.resve.length === 0 ? <tr><td colSpan={6}>현재 예약한 호텔이 없습니다.</td></tr> : ''}
                 {data.resve.map(resve => (
                     <tr key={resve.id} onClick={() => movoToSingle(resve.id)}>
                         <td>{number++}</td>
