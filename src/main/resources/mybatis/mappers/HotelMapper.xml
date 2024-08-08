@@ -7,14 +7,14 @@
         SELECT *, member.name as providerName
         FROM hotel
         INNER JOIN member
-        WHERE hotel.member_id=member.id
+        ON hotel.member_id=member.id
     </select>
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
         SELECT *, member.name as providerName
         FROM hotel
         INNER JOIN member
-        WHERE hotel.member_id=member.id
-        AND hotel.id = #{id}
+        ON hotel.member_id=member.id
+        WHERE hotel.id = #{id}
     </select>
     <insert id="insert" parameterType="HotelDTO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO hotel(name, tel, member_id)
