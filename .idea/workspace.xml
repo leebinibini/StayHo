@@ -4,43 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="git commit 0807">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e5d69103-0e77-41bb-b66f-450cf185f211.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/e5d69103-0e77-41bb-b66f-450cf185f211/storage_v2/_src_/schema/sayho.MnqCBg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/controller/HotelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/model/HotelDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/service/HotelService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/global/config/MyBatisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowOne.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/write.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/StayHoApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/controller/HotelController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/model/HotelDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/service/HotelService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/global/config/MyBatisConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/mybatis/mappers/HotelMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/mybatis/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/com/nc13/StayHo/StayHoApplicationTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="HotelMapper.xml 코드수정">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/controller/HotelDescriptionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/model/HotelDescriptionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/service/HotelDescriptionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelDescriptionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/controller/HotelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/write.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/controller/HotelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/controller/HotelController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -82,7 +60,6 @@
   <component name="ProjectId" id="2k3FZahwWsNzfw1LTkuiabS7kZr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
@@ -102,7 +79,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -145,8 +122,42 @@
       <workItem from="1722504416185" duration="1257000" />
       <workItem from="1722509254125" duration="17964000" />
       <workItem from="1722578875573" duration="5186000" />
-      <workItem from="1722584084191" duration="76584000" />
+      <workItem from="1722584084191" duration="78149000" />
+      <workItem from="1723057792990" duration="18605000" />
     </task>
+    <task id="LOCAL-00001" summary="git commit 0807">
+      <option name="closed" value="true" />
+      <created>1723024874527</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723024874527</updated>
+    </task>
+    <task id="LOCAL-00002" summary="git commit 0807">
+      <option name="closed" value="true" />
+      <created>1723058090694</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723058090694</updated>
+    </task>
+    <task id="LOCAL-00003" summary="HotelMapper.xml 코드수정">
+      <option name="closed" value="true" />
+      <created>1723089569064</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1723089569064</updated>
+    </task>
+    <task id="LOCAL-00004" summary="HotelMapper.xml 코드수정">
+      <option name="closed" value="true" />
+      <created>1723089613073</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723089613073</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +191,7 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="git commit 0807" />
-    <option name="LAST_COMMIT_MESSAGE" value="git commit 0807" />
+    <MESSAGE value="HotelMapper.xml 코드수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="HotelMapper.xml 코드수정" />
   </component>
 </project>

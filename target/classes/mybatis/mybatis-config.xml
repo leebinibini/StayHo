@@ -8,5 +8,6 @@
     </settings>
     <typeAliases>
         <package name="com.nc13.StayHo.domain.hotel.model"/>
+        <package name="com.nc13.StayHo.domain.hotelDescription.model"/>
     </typeAliases>
 </configuration>

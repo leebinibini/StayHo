@@ -5,6 +5,7 @@ import com.nc13.StayHo.domain.hotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 
@@ -34,11 +35,10 @@ public class HotelController {
         return HOTEL_SERVICE.selectOne(id);
     }
 
-    // write할 때 이미지 처리 어떻게 할 건지
     @PostMapping("write")
     public HashMap<String, Object> write(@RequestBody HotelDTO hotelDTO) {
         System.out.println(hotelDTO);
-        hotelDTO.setMemberId(1);
+        hotelDTO.setMemberId(1);     // 로그인정보 연결하면 수정
 
         HashMap<String, Object> resultMap = new HashMap();
         try {

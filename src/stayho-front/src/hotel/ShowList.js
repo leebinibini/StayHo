@@ -3,8 +3,6 @@ import {Button, Container, Table, Card} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-
-
 let ShowList = () => {
     let [data, setData] = useState({hotelList: []})
     let navigate = useNavigate()
@@ -12,8 +10,6 @@ let ShowList = () => {
     let moveToSingle = (id) => {
         navigate(`/hotel/showOne/` + id);
     };
-
-
 
     let onWrite = async (e) => {
         navigate('/hotel/write')
@@ -71,7 +67,7 @@ let WithHeaderExample = ({hotel, moveToSingle}) => {
     return (
         <Card>
             <Card.Header>무슨 호텔~~</Card.Header>
-            <Card.Img variant="top" src="" />
+            <Card.Img variant="top" src="" alt="사진첨부해야"/>
             <Card.Body>
                 <Card.Title>{hotel.name}</Card.Title>
                 <Card.Text>
