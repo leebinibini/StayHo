@@ -1,5 +1,6 @@
-package com.nc13.StayHo.domain.locationInfo;
+package com.nc13.StayHo.domain.locationInfo.controller;
 
+import com.nc13.StayHo.domain.locationInfo.service.LocationInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

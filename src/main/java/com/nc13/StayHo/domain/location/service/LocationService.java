@@ -1,5 +1,6 @@
-package com.nc13.StayHo.domain.location;
+package com.nc13.StayHo.domain.location.service;
 
+import com.nc13.StayHo.domain.location.dto.LocationDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;

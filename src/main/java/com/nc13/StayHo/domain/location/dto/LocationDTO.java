@@ -1,4 +1,4 @@
-package com.nc13.StayHo.domain.location;
+package com.nc13.StayHo.domain.location.dto;
 
 import lombok.Data;
 

@@ -1,9 +1,12 @@
-package com.nc13.StayHo.domain.room;
+package com.nc13.StayHo.domain.room.controller;
 
-import com.nc13.StayHo.domain.price.PriceDTO;
-import com.nc13.StayHo.domain.price.PriceService;
-import com.nc13.StayHo.domain.roomDescription.RoomDescriptionDTO;
-import com.nc13.StayHo.domain.roomDescription.RoomDescriptionService;
+import com.nc13.StayHo.domain.price.dto.PriceDTO;
+import com.nc13.StayHo.domain.price.service.PriceService;
+import com.nc13.StayHo.domain.room.dto.RoomDTO;
+import com.nc13.StayHo.domain.room.service.RoomService;
+import com.nc13.StayHo.domain.room.dto.SynthesisDTO;
+import com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO;
+import com.nc13.StayHo.domain.roomDescription.service.RoomDescriptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

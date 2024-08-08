@@ -1,4 +1,4 @@
-package com.nc13.StayHo.domain.room;
+package com.nc13.StayHo.domain.room.dto;
 
 import lombok.Data;
 

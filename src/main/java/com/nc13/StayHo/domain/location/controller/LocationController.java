@@ -1,5 +1,7 @@
-package com.nc13.StayHo.domain.location;
+package com.nc13.StayHo.domain.location.controller;
 
+import com.nc13.StayHo.domain.location.service.LocationService;
+import com.nc13.StayHo.domain.location.dto.LocationDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

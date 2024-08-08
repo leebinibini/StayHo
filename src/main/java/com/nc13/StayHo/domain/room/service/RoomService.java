@@ -1,5 +1,7 @@
-package com.nc13.StayHo.domain.room;
+package com.nc13.StayHo.domain.room.service;
 
+import com.nc13.StayHo.domain.room.dto.RoomDTO;
+import com.nc13.StayHo.domain.room.dto.SynthesisDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;

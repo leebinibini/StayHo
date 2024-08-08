@@ -1,8 +1,6 @@
-package com.nc13.StayHo.domain.room;
+package com.nc13.StayHo.domain.room.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 public class RoomDTO {

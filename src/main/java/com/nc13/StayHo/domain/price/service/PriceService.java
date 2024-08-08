@@ -1,5 +1,6 @@
-package com.nc13.StayHo.domain.price;
+package com.nc13.StayHo.domain.price.service;
 
+import com.nc13.StayHo.domain.price.dto.PriceDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
