@@ -11,6 +11,22 @@
         SELECT * FROM review
         WHERE id = #{id}
     </select>
+    <select id="selectListByHotel" parameterType="int" resultType="Review">
+        SELECT r.*, res.member_id AS memberId
+        FROM review r
+        INNER JOIN reservation res ON r.reservation_id = res.id
+        INNER JOIN room rm ON res.room_id = rm.id
+        INNER JOIN hotel h ON rm.hotel_id = h.id
+        WHERE h.id = #{hotelId};
+    </select>
+    <select id="selectListByRoom" parameterType="int" resultType="Review">
+        SELECT r.*, res.member_id AS memberId
+        FROM review r
+        INNER JOIN reservation res ON r.reservation_id = res.id
+        INNER JOIN room rm ON res.room_id = rm.id
+        WHERE rm.id = #{roomId};
+    </select>
+
     <update id="update" parameterType="ReviewUpdateDTO">
         UPDATE review
         SET comment = #{comment},

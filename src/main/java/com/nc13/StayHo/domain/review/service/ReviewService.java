@@ -32,8 +32,11 @@ public class ReviewService {
         session.delete(NAMESPACE + "delete", reviewId);
     }
 
-    public List<Review> selectAll(int hotelId) {
-        return session.selectList(NAMESPACE + "selectAll", hotelId);
+    public List<Review> selectListByHotel(int hotelId) {
+        return session.selectList(NAMESPACE + "selectListByHotel", hotelId);
     }
 
+    public List<Review> selectListByRoom(int roomId) {
+        return session.selectList(NAMESPACE + "selectListByRoom", roomId);
+    }
 }
