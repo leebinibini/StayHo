@@ -13,6 +13,7 @@ public class Review {
     private float rating;
     private Date createdAt;
     private Date updatedAt;
+    private int memberId;
 
     public void updateComment(String comment) {
         this.comment = comment;
