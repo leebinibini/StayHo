@@ -17,7 +17,7 @@ let ShowList = () => {
             withCredentials: true
         })
         if (response.status === 200) {
-            navigate('/')
+            navigate('/member/auth')
         }
     }
     let onAuth = () => {
@@ -34,6 +34,10 @@ let ShowList = () => {
             let memberInfo = state.memberInfo
             navigate('/member/myPage', {state: {memberInfo: memberInfo}})
         }
+    }
+
+    let onHotelWrite = () => {
+        navigate('/registrant/auth')
     }
 
     /* let onRegisterPage = () => {
@@ -57,6 +61,7 @@ let ShowList = () => {
                                     로그인이 되지 않은 리스트
                                 <Button onClick={onAuth}>로그인</Button>
                                     <Button onClick={onRegister}>회원가입</Button>
+                                    <Button onClick={onHotelWrite}>숙박시설 등록하러 가기</Button>
                                 </>
                             )}
                     </tr>

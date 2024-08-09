@@ -45,7 +45,7 @@ let Register = ()=> {
             name: response.data.name,
             tel: response.data.tel
         }
-        navigate('/', {state: {memberInfo: memberInfo}})
+        navigate('/member/auth', {state: {memberInfo: memberInfo}})
     }
         return(
             <form onSubmit={onSubmit}>

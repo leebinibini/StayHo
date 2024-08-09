@@ -29,7 +29,7 @@ let MyPage = () => {
                 withCredentials: true
             })
             if(response.status === 200){
-                navigate('/')
+                navigate('/member/auth')
             }
         }
 

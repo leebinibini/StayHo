@@ -7,6 +7,8 @@ import Update from "./member/Update";
 import ShowList from "./hotel/ShowList";
 import MyPage from "./member/MyPage";
 import Secede from "./member/Secede";
+import ReRegister from "./registrant/ReRegister";
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
            <Route path="/hotel/showList" element={<ShowList/>}/>
            <Route path="/member/myPage" element={<MyPage/>}/>
            <Route path="/member/secede" element={<Secede/>}/>
+           <Route path="/registrant/reregister" element={<ReRegister/>}/>
        </Routes>
       </header>
     </div>

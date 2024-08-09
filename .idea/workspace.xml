@@ -4,25 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="commit -0807(2)">
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Secede.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="commit -0808(1)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/RegistrantController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantDetailsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RegistrantMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReRegister.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/MemberMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/MemberMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO$Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO$Role.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Controller/MemberController.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -163,7 +159,8 @@
       <workItem from="1722905098827" duration="29300000" />
       <workItem from="1722990322733" duration="34811000" />
       <workItem from="1723077411771" duration="12863000" />
-      <workItem from="1723095446873" duration="18454000" />
+      <workItem from="1723095446873" duration="19299000" />
+      <workItem from="1723163497662" duration="12685000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -189,7 +186,31 @@
       <option name="project" value="LOCAL" />
       <updated>1723034213687</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit -0807(2)">
+      <option name="closed" value="true" />
+      <created>1723116776628</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723116776628</updated>
+    </task>
+    <task id="LOCAL-00005" summary="commit -0808(1)">
+      <option name="closed" value="true" />
+      <created>1723117009014</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723117009014</updated>
+    </task>
+    <task id="LOCAL-00006" summary="commit -0808(1)">
+      <option name="closed" value="true" />
+      <created>1723117047538</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723117047538</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +245,9 @@
     </ignored-roots>
     <MESSAGE value="commit" />
     <MESSAGE value="commit -0807(2)g" />
+    <MESSAGE value="commit -080(1)" />
     <MESSAGE value="commit -0807(2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit -0807(2)" />
+    <MESSAGE value="commit -0808(1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit -0808(1)" />
   </component>
 </project>
