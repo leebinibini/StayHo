@@ -1,6 +1,5 @@
 package com.nc13.StayHo.domain.hotel.controller;
 
-import com.nc13.StayHo.domain.hotel.entity.Hotel;
 import com.nc13.StayHo.domain.review.dto.ReviewSelectDTO;
 import com.nc13.StayHo.domain.review.entity.Review;
 import com.nc13.StayHo.domain.review.service.ReviewService;
