@@ -21,3 +21,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# 추가사항
+.idea/
+.idea/**
+.mvn/
+.mvn/**
+.target/
+.target/**

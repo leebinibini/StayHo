@@ -14,16 +14,22 @@ import java.util.Map;
 @CrossOrigin
 public class SearchController {
     private final SearchService SEARCH_SERVICE;
-    public SearchController(SearchService searchService){
-        this.SEARCH_SERVICE= searchService;
+
+    public SearchController(SearchService searchService) {
+        this.SEARCH_SERVICE = searchService;
     }
+
     @PostMapping("/search")
-    public ResponseEntity<Map<String, Object>> search(@RequestBody SearchConditionDTO searchConditionDTO){
-        searchConditionDTO.setSido(searchConditionDTO.getSido().substring(0,2));
-        Map<String, Object> resultMap= new HashMap<>();
+    public ResponseEntity<Map<String, Object>> search(@RequestBody SearchConditionDTO searchConditionDTO) {
+        if (!searchConditionDTO.getSido().isEmpty()) {
+            searchConditionDTO.setSido(searchConditionDTO.getSido().substring(0, 2));
+            if (searchConditionDTO.getSido().equals("시도")) {
+                searchConditionDTO.setSido("");
+            }
+        }
+        Map<String, Object> resultMap = new HashMap<>();
 //        SEARCH_SERVICE.createView();
-//        System.out.println("View 생성 혹은 갱신");
-        List<SearchResultDTO> list= SEARCH_SERVICE.selectSearch(searchConditionDTO);
+        List<SearchResultDTO> list = SEARCH_SERVICE.selectSearch(searchConditionDTO);
         resultMap.put("list", list);
         return ResponseEntity.ok(resultMap);
     }

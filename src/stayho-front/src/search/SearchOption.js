@@ -30,9 +30,6 @@ let SearchOption = ({origin, hotels, setHotels}) => {
 
     ]
     useEffect(() => {
-        console.log(hotels)
-        console.log(options)
-        console.log(hotels.map(hotel => options.includes('swimmingPool') && hotel.swimmingPool === true))
         setHotels(
             origin.filter((hotel) => hotel.price >= inputs.minPrice && hotel.price <= inputs.maxPrice)
                 .filter((hotel) => hotel.rating >= inputs.minRating && hotel.rating <= inputs.maxRating)
