@@ -1,25 +1,50 @@
-import {Container, FormCheck} from "react-bootstrap";
+import {Button, Container, FormCheck, FormControl} from "react-bootstrap";
 import Slider from "rc-slider";
 import 'rc-slider/assets/index.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-let SearchOption = () => {
+let SearchOption = ({origin, hotels, setHotels}) => {
     let styles = {
         width: '15vw',
         display: 'inline-block'
     }
+    let price = []
+    origin.map(hotel => (
+        price.push(parseInt(hotel.price))
+    ))
+    let maxPriceValue = Math.max(...price);
     let [inputs, setInputs] = useState({
         minPrice: 0,
-        maxPrice: 100000,
+        maxPrice: maxPriceValue,
         minRating: 0.0,
         maxRating: 10.0,
-        swimmingPool: false,
-        parking: false,
-        restaurant: false,
-        smoking: false,
-        laundry: false,
-        fitness: false,
     })
+    let [options, setOptions] = useState([])
+    let facilities = [
+        {value: 'swimmingPool', name: "수영장"},
+        {value: 'parking', name: "주차장"},
+        {value: 'laundryFacilities', name: '세탁실'},
+        {value: 'smoking', name: '흡연구역'},
+        {value: 'fitnessCenter', name: '운동실'},
+        {value: 'restaurant', name: "식당"}
+
+    ]
+    useEffect(() => {
+        console.log(hotels)
+        console.log(options)
+        console.log(hotels.map(hotel => options.includes('swimmingPool') && hotel.swimmingPool === true))
+        setHotels(
+            origin.filter((hotel) => hotel.price >= inputs.minPrice && hotel.price <= inputs.maxPrice)
+                .filter((hotel) => hotel.rating >= inputs.minRating && hotel.rating <= inputs.maxRating)
+                .filter((hotel) => options.includes('swimmingPool') ? hotel.swimmingPool === true : hotel)
+                .filter((hotel) => options.includes('parking') ? hotel.parking === true : hotel)
+                .filter((hotel) => options.includes('laundryFacilities') ? hotel.laundryFacilities === true : hotel)
+                .filter((hotel) => options.includes('smoking') ? hotel.smoking === true : hotel)
+                .filter((hotel) => options.includes('fitnessCenter') ? hotel.fitnessCenter === true : hotel)
+                .filter((hotel) => options.includes('restaurant') ? hotel.restaurant === true : hotel)
+        )
+    }, [options, inputs]);
+
     let onChange = (value, type) => {
         if (type === 'price') {
             setInputs({
@@ -35,24 +60,31 @@ let SearchOption = () => {
             })
         }
     }
+
     let onChecked = (checked, value) => {
-        console.log(value + ":" + checked)
-        setInputs({
-            ...inputs,
-            [value]: checked
-        })
+        if (checked) {
+            setOptions([
+                ...options,
+                value
+            ])
+        } else {
+            setOptions(options.filter((e) => e !== value))
+        }
     }
     return (
         <Container style={styles} className={'mt-5'}>
             <div>
-                <span>가격</span>
-                <Slider range min={0} max={100000} value={[inputs.minPrice, inputs.maxPrice]} allowCross={false}
+                <span>1박당 금액</span>
+                <div>{inputs.minPrice.toLocaleString()}원 - {inputs.maxPrice.toLocaleString()}원</div>
+
+                <Slider range min={0} max={maxPriceValue} value={[inputs.minPrice, inputs.maxPrice]} allowCross={false}
                         className={'Price'}
                         onChange={(value) => onChange(value, 'price')}/>
             </div>
             <hr/>
             <div>
                 <span>평점</span>
+                <div>{inputs.minRating} - {inputs.maxRating}</div>
                 <Slider range min={0} max={10} value={[inputs.minRating, inputs.maxRating]} allowCross={false}
                         className={'Rating'}
                         onChange={(value) => onChange(value, 'rating')}/>
@@ -60,36 +92,14 @@ let SearchOption = () => {
             <hr/>
             <div>
                 <div className={'d-flex mb-2'}><strong>편의시설</strong></div>
-                <div className={'d-flex'}>
-                    <span className={'me-3'}>수영장</span>
-                    <FormCheck type='checkbox' value='swimmingPool'
-                               onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
-                </div>
-                <div className={'d-flex'}>
-                    <span className={'me-3'}>흡연구역</span>
-                    <FormCheck type='checkbox' value='smoking'
-                               onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
-                </div>
-                <div className={'d-flex'}>
-                    <span className={'me-3'}>레스토랑</span>
-                    <FormCheck type='checkbox' value='restaurant'
-                               onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
-                </div>
-                <div className={'d-flex'}>
-                    <span className={'me-3'}>세탁서비스</span>
-                    <FormCheck type='checkbox' value='laundry'
-                               onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
-                </div>
-                <div className={'d-flex'}>
-                    <span className={'me-3'}>피트니트 센터</span
-                    ><FormCheck type='checkbox' value='fitness'
-                                onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
-                </div>
-                <div className={'d-flex'}>
-                    <span className={'me-3'}>주차장</span>
-                    <FormCheck type='checkbox' value='parking'
-                               onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
-                </div>
+                {facilities.map(facility => (
+                    <div className={'d-flex'}>
+                        <span className={'me-3'}>{facility.name}</span>
+                        <FormCheck type='checkbox' value={facility.value}
+                                   onClick={(event) => onChecked(event.target.checked, event.target.value)}/>
+                    </div>
+                ))}
+
             </div>
             <hr/>
         </Container>

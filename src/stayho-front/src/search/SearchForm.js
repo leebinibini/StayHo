@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Container, Form, FormControl, FormFloating, FormSelect, Table} from "react-bootstrap";
 import DatePicker from "react-date-picker";
+import {useNavigate} from "react-router-dom";
 
 let SearchForm = () => {
     let [sidos, setSidos] = useState([])
@@ -16,7 +17,8 @@ let SearchForm = () => {
         checkinDate: new Date(),
         checkoutDate: new Date()
     })
-
+    let [hotels, setHotels] = useState({})
+    let navigate = useNavigate()
     useEffect(() => {
         let onLoad = async () => {
             let response = await axios.get("http://localhost:8080/location/sido")
@@ -63,12 +65,12 @@ let SearchForm = () => {
         }
     }
 
-    let onSearch = async () => {
+    let onSearch = async (e) => {
+        e.preventDefault()
         let response = await axios.post("http://localhost:8080/search", inputs, {})
         if (response.status === 200) {
-            console.log("응답이 돌아왔다!" + response)
-            window.alert(response.data)
-
+            setHotels(response.data.list)
+            navigate("/search", {state: response.data.list})
         }
     }
 
@@ -94,12 +96,11 @@ let SearchForm = () => {
                         </td>
                         <td>
                             <DatePicker onChange={(date) => selectDate(date, 'start')} value={startDate}
-                                        minDate={new Date()}
-                                        name='startDate'/>
+                                        minDate={new Date()} required={true} name='startDate'/>
                         </td>
                         <td>
-                            <DatePicker onChange={(date) => selectDate(date, 'end')} value={endDate} minDate={startDate}
-                                        name='endDate'/>
+                            <DatePicker onChange={(date) => selectDate(date, 'end')} value={endDate}
+                                        minDate={inputs.checkinDate} required={true} name='endDate'/>
                         </td>
                         <td>
                             <FormFloating>

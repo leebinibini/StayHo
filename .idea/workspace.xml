@@ -5,23 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/search/SearchConditionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/search/SearchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchOption.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchResult.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/search/dto/SearchResultDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/search/service/SearchService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/SearchMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/search/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/search/controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/address/InsertAddress.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/address/InsertAddress.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/address/Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/address/Test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Description.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Description.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Insert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/ListForProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/ListForProvider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/ListForUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/ListForUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/room/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/room/Update.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/search/SearchForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/search/SearchList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/search/SearchOption.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchOption.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/search/SearchResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/search/SearchResult.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -105,7 +99,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\NC13\StayHo_NC13\src\main\resources\mybatis\mappers" />
-      <recent name="D:\NC13\StayHo_NC13\src\stayho-front\src\room" />
+      <recent name="D:\NC13\StayHo_NC13\src\main\java\com\nc13\StayHo\domain\search" />
+      <recent name="D:\NC13\StayHo_NC13\src\main\java\com\nc13\StayHo\domain\roomDescription" />
+      <recent name="D:\NC13\StayHo_NC13\src\main\java\com\nc13\StayHo\domain\room" />
+      <recent name="D:\NC13\StayHo_NC13\src\main\java\com\nc13\StayHo\domain\price" />
     </key>
   </component>
   <component name="RunManager">
@@ -157,6 +154,8 @@
       <workItem from="1722903944872" duration="21382000" />
       <workItem from="1722989511961" duration="30769000" />
       <workItem from="1723040208671" duration="1327000" />
+      <workItem from="1723077116224" duration="25090000" />
+      <workItem from="1723163786824" duration="8582000" />
     </task>
     <task id="LOCAL-00001" summary="router 설정 및 room insert view 구성">
       <option name="closed" value="true" />
@@ -254,7 +253,23 @@
       <option name="project" value="LOCAL" />
       <updated>1722935035081</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="패키지 변경">
+      <option name="closed" value="true" />
+      <created>1723077517545</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1723077517546</updated>
+    </task>
+    <task id="LOCAL-00014" summary="검색창 view">
+      <option name="closed" value="true" />
+      <created>1723077540023</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1723077540023</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,6 +311,8 @@
     <MESSAGE value="list ui 개선" />
     <MESSAGE value="주소 api 검색" />
     <MESSAGE value="bootstrap 적용 및 검색 view 작성" />
-    <option name="LAST_COMMIT_MESSAGE" value="bootstrap 적용 및 검색 view 작성" />
+    <MESSAGE value="패키지 변경" />
+    <MESSAGE value="검색창 view" />
+    <option name="LAST_COMMIT_MESSAGE" value="검색창 view" />
   </component>
 </project>

@@ -9,9 +9,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
+import SearchForm from "./search/SearchForm";
 function App() {
     return (
         <div>
+            <SearchForm/>
             <Routes>
                 <Route path={"/room/update/:id"} element={<Update/>}/>
                 <Route path={"/room/insert/:id"} element={<Insert/>}/>
