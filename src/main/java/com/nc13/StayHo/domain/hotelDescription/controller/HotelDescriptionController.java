@@ -1,5 +1,6 @@
 package com.nc13.StayHo.domain.hotelDescription.controller;
 
+import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import com.nc13.StayHo.domain.hotelDescription.model.HotelDescriptionDTO;
 import com.nc13.StayHo.domain.hotelDescription.service.HotelDescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,14 @@ public class HotelDescriptionController {
         HOTEL_DESCRIPTION_SERVICE = hotelDescriptionService;
     }
 
+    @GetMapping("showOne/{id}")
+    public HotelDescriptionDTO selectOne(@PathVariable int id) {
+        System.out.println(HOTEL_DESCRIPTION_SERVICE.selectOne(id));
+        return HOTEL_DESCRIPTION_SERVICE.selectOne(id);
+    }
+
     @PostMapping("write")
-    public HashMap<String, Object> write(@RequestBody HotelDescriptionDTO hotelDescriptionDTO, MultipartFile[] file) {
+    public HashMap<String, Object> write(@RequestBody HotelDescriptionDTO hotelDescriptionDTO) {
         System.out.println(hotelDescriptionDTO);
 
         HashMap<String, Object> resultMap = new HashMap();

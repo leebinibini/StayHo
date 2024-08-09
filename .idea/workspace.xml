@@ -4,21 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="HotelMapper.xml 코드수정">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/controller/HotelDescriptionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/model/HotelDescriptionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/service/HotelDescriptionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelDescriptionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="hotelDescription 도메인 추가 및 중간 커밋">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotel/controller/HotelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/controller/HotelDescriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/controller/HotelDescriptionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/model/HotelDescriptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/model/HotelDescriptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/service/HotelDescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/hotelDescription/service/HotelDescriptionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelDescriptionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelDescriptionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/HotelMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/update.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/update.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/write.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/controller/HotelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/hotel/controller/HotelController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mappers/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mappers/HotelMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +118,8 @@
       <workItem from="1722509254125" duration="17964000" />
       <workItem from="1722578875573" duration="5186000" />
       <workItem from="1722584084191" duration="78149000" />
-      <workItem from="1723057792990" duration="18605000" />
+      <workItem from="1723057792990" duration="29297000" />
+      <workItem from="1723169100698" duration="6792000" />
     </task>
     <task id="LOCAL-00001" summary="git commit 0807">
       <option name="closed" value="true" />
@@ -157,7 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723089613073</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="hotelDescription 도메인 추가 및 중간 커밋">
+      <option name="closed" value="true" />
+      <created>1723145520235</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723145520235</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +196,7 @@
     </ignored-roots>
     <MESSAGE value="git commit 0807" />
     <MESSAGE value="HotelMapper.xml 코드수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="HotelMapper.xml 코드수정" />
+    <MESSAGE value="hotelDescription 도메인 추가 및 중간 커밋" />
+    <option name="LAST_COMMIT_MESSAGE" value="hotelDescription 도메인 추가 및 중간 커밋" />
   </component>
 </project>

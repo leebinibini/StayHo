@@ -3,23 +3,31 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.HotelDescriptionMapper">
-    <select id="selectList" parameterType="int" resultType="HotelDescriptionDTO">
+    <select id="selectOne" parameterType="int" resultType="HotelDescriptionDTO">
         SELECT *
         FROM hotel_description
         WHERE hotel_id = #{id}
     </select>
     <insert id="insert" parameterType="HotelDescriptionDTO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO hotel_description(swimming_pool, parking, restaurant, smoking, laundry_facilities, fitness_center)
-        VALUES(#{swimming_pool}, #{parking}, #{restaurant}, #{smoking}, #{laundry_facilities}, #{fitness_center})
+        INSERT INTO hotel_description(hotel_id, swimming_pool, parking, restaurant, smoking, laundry_facilities, fitness_center)
+        VALUES (
+        #{hotelId},
+        CASE WHEN #{swimmingPool} THEN 1 ELSE 0 END,
+        CASE WHEN #{parking} THEN 1 ELSE 0 END,
+        CASE WHEN #{restaurant} THEN 1 ELSE 0 END,
+        CASE WHEN #{smoking} THEN 1 ELSE 0 END,
+        CASE WHEN #{laundryFacilities} THEN 1 ELSE 0 END,
+        CASE WHEN #{fitnessCenter} THEN 1 ELSE 0 END
+        )
     </insert>
     <update id="update" parameterType="HotelDescriptionDTO">
         UPDATE hotel_description
-        SET swimming_pool = #{swimming_pool},
-        parking = #{parking},
-        restaurant = #{restaurant},
-        smoking = #{smoking},
-        laundry_facilities = #{laundry_facilities},
-        fitness_center = #{fitness_center}
-        WHERE hotel_id = #{id}
+        SET (CASE WHEN #{swimmingPool} THEN 1 ELSE 0 END,
+        CASE WHEN #{parking} THEN 1 ELSE 0 END,
+        CASE WHEN #{restaurant} THEN 1 ELSE 0 END,
+        CASE WHEN #{smoking} THEN 1 ELSE 0 END,
+        CASE WHEN #{laundryFacilities} THEN 1 ELSE 0 END,
+        CASE WHEN #{fitnessCenter} THEN 1 ELSE 0 END)
+        WHERE hotel_id = #{hotelId}
     </update>
 </mapper>

@@ -9,30 +9,18 @@ let Update = () => {
 
     let [inputs, setInputs] = useState({
         name: '',
-        tel: ''
+        tel: '',
+        facilities: {}
     })
 
-    const [checkedList, setCheckedList] = useState([]);
+    const categoryList = ['swimmingPool', 'parking', 'restaurant', 'smoking', 'laundryFacilities', 'fitnessCenter'];
 
-    const onCheckedItem = useCallback(
-        (checked, item) => {
-            if (checked) {
-                setCheckedList((prev) => [...prev, item]);
-            } else {
-                setCheckedList((prev) => prev.filter((el) => el !== item));
-            }
-        },
-        []
-    )
-
-    let categoryList = [
-        { name: '수영장' },
-        { name: '주차장' },
-        { name: '식당' },
-        { name: '비흡연구역' },
-        { name: '세탁시설' },
-        { name: '휘트니스센터' }
-    ]
+    const onCheckedItem = useCallback((checked, item) => {
+        setInputs(prev => ({
+            ...prev,
+            facilities: checked ? {...prev.facilities, [item]: 'true'} : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== item))
+        }));
+    }, []);
 
     let onChange = (e) => {
         let {name, value}= e.target
@@ -49,16 +37,37 @@ let Update = () => {
     let onSubmit = async (e) => {
         e.preventDefault()
 
-        // if (inputs.providerName == userInfo.id) {
-            let resp = await axios.post("http://localhost:8080/hotel/update", inputs);
+        try {
+            const hotelResponse = await axios.post('http://localhost:8080/hotel/update', {
+                name: inputs.name,
+                tel: inputs.tel
+            });
 
-            if (resp.status === 200) {
-                console.log(resp.data)
-                moveToNext(id)
+            const hotelId = hotelResponse.data.resultId;
+
+            console.log(hotelResponse.data.resultId);
+
+            if (hotelId) {
+                console.log(inputs.facilities)
+                const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/update', {
+                    hotelId: hotelId,
+                    swimmingPool: !!inputs.facilities.swimmingPool,
+                    parking: !!inputs.facilities.parking,
+                    restaurant: !!inputs.facilities.restaurant,
+                    smoking: !!inputs.facilities.smoking,
+                    laundryFacilities: !!inputs.facilities.laundryFacilities,
+                    fitnessCenter: !!inputs.facilities.fitnessCenter
+
+                });
+
+                console.log(inputs, hotelDescriptionResponse.data);
+                navigate(`/hotel/showOne/${hotelId}`);
             }
-        // }
+        } catch (error) {
+            console.error(error);
+        }
 
-    }
+    };
 
     let navigate = useNavigate();
     let goBack= () => {
@@ -67,10 +76,13 @@ let Update = () => {
 
     useEffect(() => {
         let getUpdate = async () => {
-            let resp = await axios.get('http://localhost:8080/hotel/showOne/' + id)
+            let hotelResponse = await axios.get('http://localhost:8080/hotel/showOne/' + id)
 
-            if (resp.status === 200) {
-                setInputs(resp.data)
+            if (hotelResponse.status === 200) {
+                let hotelDescriptionResponse = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id)
+
+                setInputs(hotelResponse.data)
+                setInputs(hotelDescriptionResponse.data)
             }
         }
 
@@ -102,20 +114,17 @@ let Update = () => {
                     <td>시설정보</td>
                     <td>
                         <div className='list'>
-                            {categoryList.map((item) => {
-                                return (
-                                    <label className='checkboxLabel' key={item.name}>
-                                        <input
-                                            type='checkbox'
-                                            id={item.name}
-                                            onChange={(e) => {
-                                                onCheckedItem(e.target.checked, e.target.id);
-                                            }}
-                                        />
-                                        <span>{item.name}</span>
-                                    </label>
-                                );
-                            })}
+                            {categoryList.map(name => (
+                                <label className="checkboxLabel" key={name}>
+                                    <input
+                                        type="checkbox"
+                                        id={name}
+                                        value={name}
+                                        onChange={(e) => onCheckedItem(e.target.checked, name)}
+                                    />
+                                    <span>{name}</span>
+                                </label>
+                            ))}
                         </div>
                     </td>
                     </tr>
@@ -147,17 +156,5 @@ let Update = () => {
 )
 }
 
-let CheckFacilities = () => {
-    return (
-        <Form>
-        <div key={'checkbox'} className="mb-3">
-                <Form.Check type={'checkbox'} id={`check-api-${'checkbox'}`}>
-                    <Form.Check.Input type={'checkbox'} isValid/>
-                    <Form.Check.Label>{`Custom api ${'checkbox'}`}</Form.Check.Label>
-                </Form.Check>
-            </div>
-        </Form>
-    )
-}
 
 export default Update;

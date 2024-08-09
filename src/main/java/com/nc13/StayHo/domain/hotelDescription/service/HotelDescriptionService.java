@@ -17,8 +17,8 @@ public class HotelDescriptionService {
         SESSION = session;
     }
 
-    public List<HotelDescriptionDTO> selectAll(int id) {
-        return SESSION.selectList(NAMESPACE + ".selectList", id);
+    public HotelDescriptionDTO selectOne(int id) {
+        return SESSION.selectOne(NAMESPACE + ".selectOne", id);
     }
 
     public void insert(HotelDescriptionDTO hotelDescriptionDTO) { SESSION.insert(NAMESPACE + ".insert", hotelDescriptionDTO); }
