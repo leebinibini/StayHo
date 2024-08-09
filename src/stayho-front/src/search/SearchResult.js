@@ -1,7 +1,6 @@
 import {Container} from "react-bootstrap";
 import SearchOption from "./SearchOption";
 import SearchList from "./SearchList";
-import SearchForm from "./SearchForm";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 

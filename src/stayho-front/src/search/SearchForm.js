@@ -17,7 +17,6 @@ let SearchForm = () => {
         checkinDate: new Date(),
         checkoutDate: new Date()
     })
-    let [hotels, setHotels] = useState({})
     let navigate = useNavigate()
     useEffect(() => {
         let onLoad = async () => {
@@ -63,13 +62,13 @@ let SearchForm = () => {
                 checkoutDate: date
             })
         }
+        console.log(new Date().setDate(...Math.abs(inputs.checkoutDate-inputs.checkinDate)))
     }
 
     let onSearch = async (e) => {
         e.preventDefault()
         let response = await axios.post("http://localhost:8080/search", inputs, {})
         if (response.status === 200) {
-            setHotels(response.data.list)
             navigate("/search", {state: response.data.list})
         }
     }

@@ -1,4 +1,4 @@
-import {Button, Container, FormCheck, FormControl} from "react-bootstrap";
+import { Container, FormCheck} from "react-bootstrap";
 import Slider from "rc-slider";
 import 'rc-slider/assets/index.css';
 import {useEffect, useState} from "react";

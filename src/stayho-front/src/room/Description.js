@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import {Button} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 let Description = ({description, modalOpen, setModalOpen, room}) => {
     let customStyle = {
         content: {
@@ -19,11 +19,22 @@ let Description = ({description, modalOpen, setModalOpen, room}) => {
                ariaHideApp={false}
 
         >
-            <h1>{room?.type}</h1>
-            <p>뷰:{description.description?.view}</p>
-            <p>욕조: {description.description?.bath? 'O' : 'X'}</p>
-            <p>침대수: {description.description?.bed}개</p>
-            <Button>예약하기</Button>
+            <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src="" style={{border: 'black 1px solid', height:'20vh'}} />
+                <Card.Body>
+                    <Card.Title>{room?.type}</Card.Title>
+                    <Card.Text>
+                        <p>뷰:{description.description?.view}</p>
+                        <p>욕조: {description.description?.bath ? 'O' : 'X'}</p>
+                        <p>침대수: {description.description?.bed}개</p>
+                    </Card.Text>
+                    <Button>예약하기</Button>
+                </Card.Body>
+            </Card>
+
+            <h1></h1>
+
+
 
         </Modal>
     )

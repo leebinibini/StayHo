@@ -31,18 +31,17 @@
         select * from search_view;
     </select>
     <select id="selectSearch" resultType="searchResultDTO" parameterType="searchConditionDTO">
-        select id, name, rating, price, room_id, swimming_pool, parking, smoking, restaurant, laundry_facilities,
-        fitness_center
+        select id, name, rating, price, room_id, swimming_pool, parking, smoking, restaurant, laundry_facilities, fitness_center
         from search_view
         where sido like concat('%', #{sido}, '%') and limit_people>=#{people}
-        and sigungu like concat('%', #{sigungu}, '%')
-        and room_id not in(
-        select room_id from search_view
-        where #{checkinDate} &lt; check_out
-        or ( #{checkinDate} &lt; check_in and #{checkoutDate} > check_out )
-        or #{checkoutDate} &gt; check_out
-        or (#{checkinDate} &gt; check_in and #{checkoutDate} &lt; check_out)
-        group by room_id
+            and sigungu like concat('%', #{sigungu}, '%')
+            and room_id not in(
+            select room_id from search_view
+                where #{checkinDate} &lt; check_out
+                    or ( #{checkinDate} &lt; check_in and #{checkoutDate} > check_out )
+                    or #{checkoutDate} &gt; check_out
+                    or ( #{checkinDate} &gt; check_in and #{checkoutDate} &lt; check_out )
+            group by room_id
         );
     </select>
 </mapper>
