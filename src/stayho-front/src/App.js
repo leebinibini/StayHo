@@ -1,4 +1,5 @@
 import './App.css';
+
 import {Route, Routes} from "react-router-dom";
 import Insert from "./room/Insert";
 import ListForUser from "./room/ListForUser";
@@ -15,6 +16,7 @@ function App() {
         <div>
             <SearchForm/>
             <Routes>
+                <Route path="/hotel/showOne/:hotelId" element={<ShowOne/>}/>
                 <Route path={"/room/update/:id"} element={<Update/>}/>
                 <Route path={"/room/insert/:id"} element={<Insert/>}/>
                 <Route path={"/room/management/:id"} element={<ListForProvider/>}/>

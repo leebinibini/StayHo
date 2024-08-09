@@ -1,0 +1,17 @@
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.application.name=StayHo\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+--- a/src/main/resources/application.properties	
++++ b/src/main/resources/application.properties	
+@@ -1,1 +1,5 @@
+ spring.application.name=StayHo
++spring.datasource.url=jdbc:mysql://localhost:3306/stayho
++spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
++spring.datasource.username=root
++spring.datasource.password=Qkr1593574!s
+\ No newline at end of file
