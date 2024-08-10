@@ -9,6 +9,7 @@ import com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO;
 import com.nc13.StayHo.domain.roomDescription.service.RoomDescriptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,8 @@ public class RoomController {
     }
 
     @PostMapping("insert")
-    public ResponseEntity<Void> insert(@RequestBody SynthesisDTO params) {
+    public ResponseEntity<Void> insert(@RequestPart(value = "params") SynthesisDTO params,
+                                       @RequestPart(value = "files", required = false) MultipartFile files) {
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
         RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
@@ -42,6 +44,10 @@ public class RoomController {
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
         return ResponseEntity.ok().build();
+    }
+
+    public void imageProcess() {
+
     }
 
     @GetMapping("selectList/{id}")
@@ -60,14 +66,17 @@ public class RoomController {
 
         return ResponseEntity.ok(resultMap);
     }
+
     @GetMapping("select/{id}")
-    public ResponseEntity<Map<String, Object>> select(@PathVariable int id){
-        Map<String, Object> resultMap= new HashMap<>();
+    public ResponseEntity<Map<String, Object>> select(@PathVariable int id) {
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("room", ROOM_SERVICE.select(id));
         return ResponseEntity.ok(resultMap);
     }
+
     @PostMapping("update")
-    public ResponseEntity<Void> update(@RequestBody SynthesisDTO params){
+    public ResponseEntity<Void> update(@RequestBody SynthesisDTO params, MultipartFile multipartFile) {
+        System.out.println("사진 받았습니다. " + multipartFile);
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), 1);
         roomDTO.setId(params.getId());
         ROOM_SERVICE.update(roomDTO);
@@ -82,8 +91,8 @@ public class RoomController {
     }
 
     @PostMapping("delete")
-    public ResponseEntity<Void> delete(@RequestBody int[] checkInputs){
-        for (Integer id:checkInputs){
+    public ResponseEntity<Void> delete(@RequestBody int[] checkInputs) {
+        for (Integer id : checkInputs) {
             PRICE_SERVICE.delete(id);
             DESCRIPTION_SERVICE.delete(id);
             ROOM_SERVICE.delete(id);

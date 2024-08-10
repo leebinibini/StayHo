@@ -62,7 +62,6 @@ let SearchForm = () => {
                 checkoutDate: date
             })
         }
-        console.log(new Date().setDate(...Math.abs(inputs.checkoutDate-inputs.checkinDate)))
     }
 
     let onSearch = async (e) => {
