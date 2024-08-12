@@ -7,10 +7,12 @@
         INSERT INTO review(comment, reservation_id, rating, created_at, updated_at)
         VALUES(#{comment}, #{reservationId}, #{rating}, NOW(), NOW())
     </insert>
+
     <select id="selectOne" parameterType="int" resultType="Review">
         SELECT * FROM review
         WHERE id = #{id}
     </select>
+
     <select id="selectListByHotel" parameterType="int" resultType="Review">
         SELECT r.*, res.member_id AS memberId
         FROM review r
@@ -19,12 +21,24 @@
         INNER JOIN hotel h ON rm.hotel_id = h.id
         WHERE h.id = #{hotelId};
     </select>
+
     <select id="selectListByRoom" parameterType="int" resultType="Review">
         SELECT r.*, res.member_id AS memberId
         FROM review r
         INNER JOIN reservation res ON r.reservation_id = res.id
         INNER JOIN room rm ON res.room_id = rm.id
         WHERE rm.id = #{roomId};
+    </select>
+
+    <select id="averageRating" parameterType="int" resultType="double">
+        SELECT AVG(rating) FROM review WHERE hotel_id = #{hotelId}
+    </select>
+
+    <select id="searchReviewsByComment" parameterType="map" resultType="Review">
+        SELECT *
+        FROM review
+        WHERE hotel_id = #{hotelId}
+        AND comment LIKE CONCAT('%', #{keyword}, '%');
     </select>
 
     <update id="update" parameterType="ReviewUpdateDTO">
@@ -34,6 +48,7 @@
         updated_at = NOW()
         WHERE id = #{id}
     </update>
+
     <delete id="delete" parameterType="int">
         DELETE FROM review
         WHERE id = #{id}
