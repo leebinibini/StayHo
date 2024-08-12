@@ -39,6 +39,16 @@
       </list>
     </option>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -74,7 +84,6 @@
   <component name="ProjectId" id="2k3FZahwWsNzfw1LTkuiabS7kZr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
 
@@ -98,7 +107,10 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+      &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
+      &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+      &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -106,6 +118,22 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\IdeaProjects\팀프로젝트\StayHo\src\stayho-front\src\Reservation\user" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="StayHoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="StayHo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nc13.StayHo.StayHoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+}
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\NC13\StayHo_NC13\src\main\resources\mybatis\mappers" />
@@ -152,7 +180,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1722504414626</updated>
-      <workItem from="1722504416185" duration="1257000" />
+      <workItem from="1722504416185" duration="10752000" />
+      <workItem from="1722560026294" duration="16028000" />
+      <workItem from="1722846292036" duration="592000" />
+      <workItem from="1722862071621" duration="22000" />
+      <workItem from="1722991373953" duration="3948000" />
+      <workItem from="1722995566021" duration="10326000" />
+      <workItem from="1723014196857" duration="6560000" />
+      <workItem from="1723082868245" duration="942000" />
+      <workItem from="1723083869471" duration="16366000" />
+      <workItem from="1723425449255" duration="316000" />
       <workItem from="1722509831933" duration="3091000" />
       <workItem from="1722515111956" duration="1112000" />
       <workItem from="1722558457668" duration="32760000" />
@@ -324,5 +361,10 @@
     <MESSAGE value="패키지 변경" />
     <MESSAGE value="검색창 view" />
     <option name="LAST_COMMIT_MESSAGE" value="검색창 view" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
   </component>
 </project>
