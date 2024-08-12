@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface ReservationService {
     List<ReservationDTO> selectAll(int member_id);
+    List<ReservationDTO> selectAllAdmin();
     ReservationDTO selectOne(int id);
     void update(ReservationDTO reservationDTO);
     void delete(int id);

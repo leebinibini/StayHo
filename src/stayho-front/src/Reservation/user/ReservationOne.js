@@ -23,14 +23,7 @@ let ReservationOne = () =>{
 
     let goBack = () => navigate('/reservation/showAll')
 
-    let onDelete = async (e) => {
-        let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
-            withCredentials: true
-        })
-        if (response.status === 200){
-            navigate('/reservation/showAll')
-        }
-    }
+    g
 
     let onApproval = async (e) => {
         data.status = true

@@ -12,6 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
 import ShowOne from "./hotel/ShowOne";
+import Registrant from "./Reservation/registerant/Registrant";
+import Admin from "./Reservation/admin/Admin";
 
 function App() {
     return (
@@ -19,6 +21,8 @@ function App() {
             {/*<SearchForm/>*/}
             <Routes>
                 <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
+                <Route path={"/reservation/registrant"} element={<Registrant/>}/>
+                <Route path={"/reservation/admin"} element={<Admin/>}/>
                 <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                 <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                 <Route path="/hotel/showOne/:hotelId" element={<ShowOne/>}/>

@@ -20,6 +20,11 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
+    public List<ReservationDTO> selectAllAdmin() {
+        return REPOSITORY.selectAllAdmin();
+    }
+
+    @Override
     public ReservationDTO selectOne(int id) {
         return REPOSITORY.selectOne(id);
     }

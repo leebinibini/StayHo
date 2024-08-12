@@ -7,6 +7,9 @@
         SELECT * FROM reservation
         WHERE member_id = #{member_id}
     </select>
+    <select id="selectAllAdmin" resultType="reservationDTO">
+        SELECT * FROM reservation
+    </select>
 
     <select id="selectOne" resultType="reservationDTO" parameterType="int">
         SELECT * FROM reservation

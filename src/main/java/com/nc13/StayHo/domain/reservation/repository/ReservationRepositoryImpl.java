@@ -21,6 +21,11 @@ public class ReservationRepositoryImpl implements ReservationRepository{
     }
 
     @Override
+    public List<ReservationDTO> selectAllAdmin() {
+        return SESSION.selectList(NAMESPACE + ".selectAllAdmin");
+    }
+
+    @Override
     public ReservationDTO selectOne(int id) {
         return SESSION.selectOne(NAMESPACE + ".selectOne", id);
     }

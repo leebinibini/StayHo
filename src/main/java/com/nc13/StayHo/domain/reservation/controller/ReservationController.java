@@ -59,4 +59,13 @@ public class ReservationController {
 
         return resultMap;
     }
+
+    @GetMapping("adminAll")
+    public Map<String, Object> getAdminAll(){
+        Map<String, Object> resultMap = new HashMap<>();
+        List<ReservationDTO> reservations = RESVE_SERVICE.selectAllAdmin();
+        resultMap.put("resve",reservations);
+
+        return resultMap;
+    }
 }
