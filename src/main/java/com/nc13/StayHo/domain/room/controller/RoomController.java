@@ -1,5 +1,7 @@
 package com.nc13.StayHo.domain.room.controller;
 
+import com.nc13.StayHo.domain.img.dto.RoomImgDTO;
+import com.nc13.StayHo.domain.img.service.ImgService;
 import com.nc13.StayHo.domain.price.dto.PriceDTO;
 import com.nc13.StayHo.domain.price.service.PriceService;
 import com.nc13.StayHo.domain.room.dto.RoomDTO;
@@ -11,9 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -22,31 +27,51 @@ public class RoomController {
     private final RoomService ROOM_SERVICE;
     private final RoomDescriptionService DESCRIPTION_SERVICE;
     private final PriceService PRICE_SERVICE;
+    private final ImgService IMG_SERVICE;
+    private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static";
+    private final String ROOM_PATH = "\\image\\room";
 
-    public RoomController(RoomService roomService, RoomDescriptionService roomDescriptionService, PriceService priceService) {
+    public RoomController(RoomService roomService, RoomDescriptionService roomDescriptionService, PriceService priceService, ImgService imgService) {
         this.ROOM_SERVICE = roomService;
         this.DESCRIPTION_SERVICE = roomDescriptionService;
         this.PRICE_SERVICE = priceService;
-    }
-
-    @GetMapping("")
-    public String test() {
-        return "hi";
+        this.IMG_SERVICE = imgService;
     }
 
     @PostMapping("insert")
     public ResponseEntity<Void> insert(@RequestPart(value = "params") SynthesisDTO params,
-                                       @RequestPart(value = "files", required = false) MultipartFile files) {
+                                       @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
         RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
         DESCRIPTION_SERVICE.insert(descriptionDTO);
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
+
+        imageProcess(files, roomDTO.getId());
         return ResponseEntity.ok().build();
     }
 
-    public void imageProcess() {
+    public void imageProcess(List<MultipartFile> files, int roomId) {
+        File pathDir = new File(ROOM_PATH);
+        if (!pathDir.exists()) {
+            new File(ROOM_PATH).mkdirs();
+        }
+
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            String extension = fileName.substring(fileName.lastIndexOf("."));
+            String uploadName = UUID.randomUUID() + extension;
+            String path= STATIC_PATH+ROOM_PATH;
+            RoomImgDTO roomImgDTO= new RoomImgDTO(path, uploadName, roomId);
+            File target = new File(path, uploadName);
+            try {
+                file.transferTo(target);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            IMG_SERVICE.insertRoom(roomImgDTO);
+        }
 
     }
 
@@ -63,7 +88,8 @@ public class RoomController {
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("description", DESCRIPTION_SERVICE.selectByRoom(id));
-
+        List<RoomImgDTO> imgDTO= IMG_SERVICE.selectRoom(id);
+        resultMap.put("image", imgDTO);
         return ResponseEntity.ok(resultMap);
     }
 

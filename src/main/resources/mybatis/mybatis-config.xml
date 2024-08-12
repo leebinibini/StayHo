@@ -14,5 +14,6 @@
         <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationDTO" alias="locationDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchResultDTO" alias="searchResultDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchConditionDTO" alias="searchConditionDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.img.dto.RoomImgDTO" alias="roomImgDTO"/>
     </typeAliases>
 </configuration>
