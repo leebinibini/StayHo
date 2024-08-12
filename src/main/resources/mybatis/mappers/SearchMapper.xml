@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.SearchMapper">
+    <insert id="createView">
+        create or replace view search_view as
+        select
+        hotel.id, hotel.name, hotel.rating, price.price, img.filepath, img.filename, location.sido, location.sigungu,
+        reservation.check_in, reservation.check_out, room.limit_people, room.id as room_id,
+        hotel_description.swimming_pool, hotel_description.parking, hotel_description.smoking,
+        hotel_description.restaurant, hotel_description.laundry_facilities, hotel_description.fitness_center
+        from hotel
+        left join hotel_description
+        on hotel.id= hotel_description.hotel_id
+        left join location
+        on hotel.id= location.hotel_id
+        left join room
+        on hotel.id= room.hotel_id
+        left join room_description
+        on room.id= room_description.room_id
+        left join reservation
+        on reservation.room_id= room.id
+        left join price
+        on room.id= price.room_id
+        left join img
+        on hotel.id= img.hotel_id
+        ;
+    </insert>
+    <select id="selectView" resultType="searchResultDTO">
+        select * from search_view;
+    </select>
+    <select id="selectSearch" resultType="searchResultDTO" parameterType="searchConditionDTO">
+        select id, name, rating, price, room_id, swimming_pool, parking, smoking, restaurant, laundry_facilities, fitness_center
+        from search_view
+        where sido like concat('%', #{sido}, '%') and limit_people>=#{people}
+            and sigungu like concat('%', #{sigungu}, '%')
+            and room_id not in(
+            select room_id from search_view
+                where #{checkinDate} &lt; check_out
+                    or ( #{checkinDate} &lt; check_in and #{checkoutDate} > check_out )
+                    or #{checkoutDate} &gt; check_out
+                    or ( #{checkinDate} &gt; check_in and #{checkoutDate} &lt; check_out )
+            group by room_id
+        );
+    </select>
+</mapper>
