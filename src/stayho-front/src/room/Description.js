@@ -12,7 +12,6 @@ let Description = ({description, modalOpen, setModalOpen, room, image}) => {
             transform: 'translate(-50%, -50%)'
         }
     }
-    let imgPath = ""
     return (
         <Modal isOpen={modalOpen}
                onRequestClose={() => setModalOpen(false)}

@@ -44,7 +44,6 @@ let ListForProvider = () => {
             let response = await axios.post("http://localhost:8080/room/delete", checkInputs, {})
             if (response.status === 200) {
                 window.alert("삭제되었습니다.")
-                navigate("/room/management/" + hotelId)
             }
         }
     }
@@ -57,12 +56,10 @@ let ListForProvider = () => {
                     <thead>
                     <tr>
                         <th>객실 목록</th>
+                        <td><Button onClick={moveToInsert}>추가하기</Button></td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><Button onClick={moveToInsert}>객실 추가하기</Button></td>
-                    </tr>
                     <tr>
                         <td></td>
                         <td>객실 타입</td>
@@ -90,7 +87,7 @@ let ListForProvider = () => {
 
                     ))}
                     <tr>
-                        <td><Button type={'submit'}>객실 삭제하기</Button></td>
+                        <td><Button type={'submit'} className={'btn-danger'}>객실 삭제하기</Button></td>
                     </tr>
                     </tbody>
                 </Table>
