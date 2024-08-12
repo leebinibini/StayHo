@@ -28,8 +28,8 @@ public class RoomController {
     private final RoomDescriptionService DESCRIPTION_SERVICE;
     private final PriceService PRICE_SERVICE;
     private final ImgService IMG_SERVICE;
-    private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static";
-    private final String ROOM_PATH = "\\image\\room";
+    private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static\\image\\";
+    private final String ROOM_PATH = "room";
 
     public RoomController(RoomService roomService, RoomDescriptionService roomDescriptionService, PriceService priceService, ImgService imgService) {
         this.ROOM_SERVICE = roomService;
@@ -63,7 +63,7 @@ public class RoomController {
             String extension = fileName.substring(fileName.lastIndexOf("."));
             String uploadName = UUID.randomUUID() + extension;
             String path= STATIC_PATH+ROOM_PATH;
-            RoomImgDTO roomImgDTO= new RoomImgDTO(path, uploadName, roomId);
+            RoomImgDTO roomImgDTO= new RoomImgDTO(ROOM_PATH, uploadName, roomId);
             File target = new File(path, uploadName);
             try {
                 file.transferTo(target);

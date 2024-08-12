@@ -9,7 +9,8 @@ let ListForUser = () => {
     let id = parseInt(params.id)
     let [rooms, setRooms] = useState({roomList: []})
     let[roomD, setRoomD]= useState()
-    let [description, setDescription] = useState([])
+    let [description, setDescription] = useState({})
+    let [image, setImage]= useState([])
     let [modalOpen, setModalOpen] = useState(false)
 
 
@@ -25,8 +26,12 @@ let ListForUser = () => {
 
     let onClick = async (room) => {
         let response = await axios.get("http://localhost:8080/room/description/" + room.id, {})
+        console.log("응답이 왔어요");
+        console.log(response.data.description)
+        console.log(response.data.image)
         if (response.status === 200) {
-            setDescription(response.data)
+            setDescription(response.data.description)
+            setImage(response.data.image)
             setRoomD(room)
         }
 
@@ -56,7 +61,7 @@ let ListForUser = () => {
                 ))}
                 </tbody>
             </Table>
-            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}/>
+            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD} image={image}/>
         </Container>
     )
 }
