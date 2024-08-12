@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 let Description = ({description, modalOpen, setModalOpen, room}) => {
     let customStyle = {
         content: {
@@ -11,6 +12,13 @@ let Description = ({description, modalOpen, setModalOpen, room}) => {
             transform: 'translate(-50%, -50%)'
         }
     }
+
+    let navation = useNavigate();
+
+    let onClick = () => { // 버튼 추가 (정민)
+        navation('/reservation/insert', {state:{roomId: `${room.id}`, price:`${room.price}`}})
+    }
+
     return (
         <Modal isOpen={modalOpen}
                onRequestClose={() => setModalOpen(false)}
@@ -23,7 +31,7 @@ let Description = ({description, modalOpen, setModalOpen, room}) => {
             <p>뷰:{description.description?.view}</p>
             <p>욕조: {description.description?.bath? 'O' : 'X'}</p>
             <p>침대수: {description.description?.bed}개</p>
-            <Button>예약하기</Button>
+            <Button onClick={onClick}>예약하기</Button>
 
         </Modal>
     )

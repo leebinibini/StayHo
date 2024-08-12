@@ -3,39 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ReviewMapper">
-    <insert id="insert" parameterType="ReviewRegisterDTO">
-        INSERT INTO review(comment, reservation_id, rating, created_at, updated_at)
-        VALUES(#{comment}, #{reservationId}, #{rating}, NOW(), NOW())
-    </insert>
-    <select id="selectOne" parameterType="int" resultType="Review">
-        SELECT * FROM review
-        WHERE id = #{id}
-    </select>
-    <select id="selectListByHotel" parameterType="int" resultType="Review">
-        SELECT r.*, res.member_id AS memberId
-        FROM review r
-        INNER JOIN reservation res ON r.reservation_id = res.id
-        INNER JOIN room rm ON res.room_id = rm.id
-        INNER JOIN hotel h ON rm.hotel_id = h.id
-        WHERE h.id = #{hotelId};
-    </select>
-    <select id="selectListByRoom" parameterType="int" resultType="Review">
-        SELECT r.*, res.member_id AS memberId
-        FROM review r
-        INNER JOIN reservation res ON r.reservation_id = res.id
-        INNER JOIN room rm ON res.room_id = rm.id
-        WHERE rm.id = #{roomId};
-    </select>
+<!--    <insert id="insert" parameterType="ReviewRegisterDTO">-->
+<!--        INSERT INTO review(comment, reservation_id, rating, created_at, updated_at)-->
+<!--        VALUES(#{comment}, #{reservationId}, #{rating}, NOW(), NOW())-->
+<!--    </insert>-->
+<!--    <select id="selectOne" parameterType="int" resultType="Review">-->
+<!--        SELECT * FROM review-->
+<!--        WHERE id = #{id}-->
+<!--    </select>-->
+<!--    <select id="selectListByHotel" parameterType="int" resultType="Review">-->
+<!--        SELECT r.*, res.member_id AS memberId-->
+<!--        FROM review r-->
+<!--        INNER JOIN reservation res ON r.reservation_id = res.id-->
+<!--        INNER JOIN room rm ON res.room_id = rm.id-->
+<!--        INNER JOIN hotel h ON rm.hotel_id = h.id-->
+<!--        WHERE h.id = #{hotelId};-->
+<!--    </select>-->
+<!--    <select id="selectListByRoom" parameterType="int" resultType="Review">-->
+<!--        SELECT r.*, res.member_id AS memberId-->
+<!--        FROM review r-->
+<!--        INNER JOIN reservation res ON r.reservation_id = res.id-->
+<!--        INNER JOIN room rm ON res.room_id = rm.id-->
+<!--        WHERE rm.id = #{roomId};-->
+<!--    </select>-->
 
-    <update id="update" parameterType="ReviewUpdateDTO">
-        UPDATE review
-        SET comment = #{comment},
-        rating = #{rating},
-        updated_at = NOW()
-        WHERE id = #{id}
-    </update>
-    <delete id="delete" parameterType="int">
-        DELETE FROM review
-        WHERE id = #{id}
-    </delete>
+<!--    <update id="update" parameterType="ReviewUpdateDTO">-->
+<!--        UPDATE review-->
+<!--        SET comment = #{comment},-->
+<!--        rating = #{rating},-->
+<!--        updated_at = NOW()-->
+<!--        WHERE id = #{id}-->
+<!--    </update>-->
+<!--    <delete id="delete" parameterType="int">-->
+<!--        DELETE FROM review-->
+<!--        WHERE id = #{id}-->
+<!--    </delete>-->
 </mapper>

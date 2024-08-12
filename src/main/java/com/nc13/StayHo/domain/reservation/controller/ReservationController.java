@@ -44,4 +44,19 @@ public class ReservationController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("insert")
+    public HashMap<String, Object> insertReservation(@RequestBody ReservationDTO reservationDTO){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        try{
+            RESVE_SERVICE.insert(reservationDTO);
+            resultMap.put("result","success");
+            resultMap.put("resultId",reservationDTO.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("result","fail");
+        }
+
+        return resultMap;
+    }
 }

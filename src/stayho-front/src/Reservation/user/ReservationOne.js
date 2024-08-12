@@ -21,7 +21,7 @@ let ReservationOne = () =>{
     let closeModalDelete = () => setIsOpenDelete(false);
     let closeModalApproval = () => setIsOpenApproval(false);
 
-    let goBack = () => navigate(-1)
+    let goBack = () => navigate('/reservation/showAll')
 
     let onDelete = async (e) => {
         let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
@@ -64,7 +64,6 @@ let ReservationOne = () =>{
                     withCredentials: true
                 })
                 if(resp.status === 200){
-                    console.log(resp.data)
                     setData(resp.data)
                 }
             }catch (e){

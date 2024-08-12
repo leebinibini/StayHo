@@ -13,7 +13,7 @@ let ReservationAll = () => {
 
     let number = 1; // 번호
 
-    let user_id = 2; // 사용자 id 정보 받기
+    let user_id = 1; // 사용자 id 정보 받기
 
     useEffect(() => {
         let selectList = async () => {
@@ -25,7 +25,6 @@ let ReservationAll = () => {
                     console.log(e)
                 })
             if (resp.status === 200) {
-                console.log("success")
                 setData(resp.data)
             }
         }

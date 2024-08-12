@@ -34,5 +34,10 @@ public class ReservationServiceImpl implements ReservationService{
         REPOSITORY.delete(id);
     }
 
+    @Override
+    public void insert(ReservationDTO reservationDTO) {
+        REPOSITORY.insert(reservationDTO);
+    }
+
 
 }

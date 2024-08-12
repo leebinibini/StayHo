@@ -11,4 +11,5 @@ public interface ReservationRepository {
     ReservationDTO selectOne(int id);
     void update(ReservationDTO reservationDTO);
     void delete(int id);
+    void insert(ReservationDTO reservationDTO);
 }

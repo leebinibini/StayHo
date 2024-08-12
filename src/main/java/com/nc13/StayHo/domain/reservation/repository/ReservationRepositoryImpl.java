@@ -35,4 +35,9 @@ public class ReservationRepositoryImpl implements ReservationRepository{
         SESSION.delete(NAMESPACE + ".delete", id);
     }
 
+    @Override
+    public void insert(ReservationDTO reservationDTO) {
+        SESSION.insert(NAMESPACE + ".insert", reservationDTO);
+    }
+
 }

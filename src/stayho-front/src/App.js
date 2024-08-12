@@ -9,15 +9,14 @@ import Update from "./room/Update";
 import ListForProvider from "./room/ListForProvider";
 import Test from "./address/Test";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-date-picker/dist/DatePicker.css';
-import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
+import ShowOne from "./hotel/ShowOne";
 
 function App() {
     return (
         <div>
-            <SearchForm/>
+            {/*<SearchForm/>*/}
             <Routes>
                 <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
                 <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>

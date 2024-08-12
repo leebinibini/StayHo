@@ -7,8 +7,8 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <package name="com.nc13.StayHo.domain.review.dto"/>
-        <package name="com.nc13.StayHo.domain.review.entity"/>
+<!--        <typeAlias type="com.nc13.StayHo.domain.review.dto" alias="Review"/>-->
+<!--        <typeAlias type="com.nc13.StayHo.domain.review.entity" alias=""/>-->
         <typeAlias type="com.nc13.StayHo.domain.room.dto.RoomDTO" alias="roomDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.room.dto.SynthesisDTO" alias="synthesisDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
