@@ -35,9 +35,6 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="PerforceDirect.Settings">
-    <option name="CHARSET" value="없음" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -112,6 +109,7 @@
       <workItem from="1723014196857" duration="6560000" />
       <workItem from="1723082868245" duration="942000" />
       <workItem from="1723083869471" duration="16366000" />
+      <workItem from="1723425449255" duration="316000" />
     </task>
     <servers />
   </component>
