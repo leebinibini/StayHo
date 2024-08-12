@@ -67,8 +67,8 @@ public class RoomController {
             String fileName = file.getOriginalFilename();
             String extension = fileName.substring(fileName.lastIndexOf("."));
             String uploadName = UUID.randomUUID() + extension;
-            String path= STATIC_PATH+ROOM_PATH;
-            RoomImgDTO roomImgDTO= new RoomImgDTO(ROOM_PATH, uploadName, roomId);
+            String path = STATIC_PATH + ROOM_PATH;
+            RoomImgDTO roomImgDTO = new RoomImgDTO(ROOM_PATH, uploadName, roomId);
             File target = new File(path, uploadName);
             try {
                 file.transferTo(target);
@@ -93,8 +93,8 @@ public class RoomController {
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("description", DESCRIPTION_SERVICE.selectByRoom(id));
-        List<RoomImgDTO> roomImageList= IMG_SERVICE.selectRoom(id);
-        if (roomImageList.isEmpty()){
+        List<RoomImgDTO> roomImageList = IMG_SERVICE.selectRoom(id);
+        if (roomImageList.isEmpty()) {
             roomImageList.add(new RoomImgDTO("room", "default.png", id));
         }
         resultMap.put("image", roomImageList);
@@ -105,12 +105,15 @@ public class RoomController {
     public ResponseEntity<Map<String, Object>> select(@PathVariable int id) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("room", ROOM_SERVICE.select(id));
+        resultMap.put("images", IMG_SERVICE.selectRoom(id));
         return ResponseEntity.ok(resultMap);
     }
 
     @PostMapping("update")
-    public ResponseEntity<Void> update(@RequestBody SynthesisDTO params, MultipartFile multipartFile) {
-        RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), 1);
+    public ResponseEntity<Void> update(@RequestPart(value = "params") SynthesisDTO params,
+                                       @RequestPart(value = "files", required = false) List<MultipartFile> files,
+                                       @RequestPart(value = "delImgList", required = false) int[] delImgList) {
+        RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         roomDTO.setId(params.getId());
         ROOM_SERVICE.update(roomDTO);
 
@@ -120,6 +123,14 @@ public class RoomController {
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.update(priceDTO);
 
+        if (files!=null) {
+            imageProcess(files, roomDTO.getId());
+        }
+        if (delImgList!=null) {
+            for (Integer id : delImgList) {
+                IMG_SERVICE.delete(id);
+            }
+        }
         return ResponseEntity.ok().build();
     }
 

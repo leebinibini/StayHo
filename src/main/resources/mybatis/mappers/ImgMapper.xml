@@ -16,4 +16,8 @@
         SELECT * FROM img
         WHERE hotel_id= #{id}
     </select>
+    <delete id="delete" parameterType="int">
+        DELETE FROM img
+        WHERE id= #{id}
+    </delete>
 </mapper>

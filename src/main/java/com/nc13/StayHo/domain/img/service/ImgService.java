@@ -23,4 +23,7 @@ public class ImgService {
     public List<HotelImgDTO> selectHotel(int id){
         return SESSION.selectList(NAMESPACE+".selectHotel", id);
     }
+    public void delete(int id){
+        SESSION.delete(NAMESPACE+".delete", id);
+    }
 }

@@ -1,8 +1,8 @@
-import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSelect} from "react-bootstrap";
+import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSelect, Image} from "react-bootstrap";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 let Update = () => {
@@ -11,6 +11,7 @@ let Update = () => {
     let params = useParams()
     let id = parseInt(params.id)
     let [imgList, setImgList] = useState([])
+    let [delImgList, setDelImgList]= useState([])
     let ViewEnum = {
         CITY: 'city',
         MOUNTAIN: 'mountain',
@@ -18,6 +19,7 @@ let Update = () => {
     };
     Object.freeze(ViewEnum);
 
+    let navigate= useNavigate()
     let onChange = (e) => {
         let {name, value} = e.target
         setInputs({
@@ -31,7 +33,17 @@ let Update = () => {
             ...e.target.files
         ])
     }
+    let onDelete=(id)=>{
+        setImgList(imgList.filter((img)=> img.id!==id))
+        setDelImgList([
+            ...delImgList,
+            id
+        ])
+    }
+
     let onSubmit = async () => {
+        console.log(typeof delImgList)
+        console.log(delImgList)
         let data = {
             id: id,
             limitPeople: watch('limitPeople'),
@@ -43,9 +55,22 @@ let Update = () => {
             surcharge: watch('surcharge')
         }
 
-        let response = await axios.post("http://localhost:8080/room/update", data, {});
+        const formData= new FormData()
+        imgList.map(image=>{
+            formData.append('files', image)
+        })
+        formData.append(
+            'params',
+            new Blob([JSON.stringify(data)], {type: 'application/json'})
+        )
+        formData.append('delImgList', new Blob([JSON.stringify(delImgList)], {type: 'application/json'}))
+        let response = await axios.post(
+            "http://localhost:8080/room/update", formData,
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+        )
         if (response.status === 200) {
             window.alert("수정되었습니다.")
+            navigate(-1)
         }
     }
     useEffect(() => {
@@ -53,6 +78,7 @@ let Update = () => {
             let response = await axios.get("http://localhost:8080/room/select/" + id, {});
             if (response.status === 200) {
                 setInputs(response.data.room)
+                setImgList(response.data.images)
             }
         }
         onLoad()
@@ -145,8 +171,18 @@ let Update = () => {
                         </td>
                     </tr>
                     <tr>
-                            <td>객실 사진 추가</td>
-                            <td><Form.Control type="file" multiple={true} onChange={onChangeImg} accept={'image.jpg,image/png,image/jpeg'}/></td>
+                            <td>객실 사진</td>
+                            <td>
+                                <div className={'d-flex'}>
+                                    {imgList.map(img=>(
+                                        <div className={'justify-content-center'}>
+                                        <Image src={"http://localhost:8080/image?path="+img.filepath+"&name="+img.filename} style={{width:'20rem'}}/>
+                                            <Button onClick={()=>onDelete(img.id)} style={{display:'block'}} className={'btn-danger'}>삭제</Button>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Form.Control type="file" multiple={true} onChange={onChangeImg} accept={'image.jpg,image/png,image/jpeg'}/>
+                            </td>
                     </tr>
                     <tr>
                         <td><Button type={'submit'}>수정하기</Button></td>
