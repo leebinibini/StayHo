@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ImgMapper">
+<insert id="insertRoom" parameterType="roomImgDTO">
+    INSERT INTO img
+    (filepath, filename, room_id)
+    VALUES(#{filepath}, #{filename}, #{roomId} )
+</insert>
+    <select id="selectRoom" parameterType="int" resultType="roomImgDTO">
+        SELECT * FROM img
+        WHERE room_id= #{id}
+    </select>
+    <select id="selectHotel" parameterType="int" resultType="hotelImgDTO">
+        SELECT * FROM img
+        WHERE hotel_id= #{id}
+    </select>
+</mapper>
