@@ -5,10 +5,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,17 +13,18 @@ import java.nio.file.Paths;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/image/")
 public class ImgController {
-    @GetMapping("/image")
+    @GetMapping("/room")
     public ResponseEntity<?> getImg(@RequestParam String path, @RequestParam String name) {
-        System.out.println("사진 경로 탐");
-        String finalPath="D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static\\image\\"+path+"\\"+name;
+        String projectPath = "D:\\NC13\\StayHo_NC13\\";
+        String totalPath = projectPath + "src\\main\\resources\\static\\image\\" + path + "\\" + name;
 
-        Resource resource= new FileSystemResource(finalPath);
+        Resource resource = new FileSystemResource(totalPath);
         System.out.println(resource);
-        HttpHeaders headers= new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         try {
-            headers.add("Content-Type", Files.probeContentType(Paths.get(finalPath)));
+            headers.add("Content-Type", Files.probeContentType(Paths.get(totalPath)));
         } catch (IOException e) {
             e.printStackTrace();
         }

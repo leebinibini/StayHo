@@ -24,7 +24,7 @@ let Description = ({description, modalOpen, setModalOpen, room, image}) => {
             <Card style={{width: '18rem'}}>
                 {image.map(img=> (
                     <Card.Img variant="top"
-                        src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+                        src={"http://localhost:8080/image/room?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
                               style={{border: 'black 1px solid', height: '20vh'}}/>
                 ))}
 

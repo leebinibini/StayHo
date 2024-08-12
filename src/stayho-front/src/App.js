@@ -13,6 +13,7 @@ import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
+import ShowOne from "./hotel/ShowOne";
 
 function App() {
     return (
