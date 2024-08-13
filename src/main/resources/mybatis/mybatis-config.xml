@@ -21,5 +21,6 @@
         <typeAlias type="com.nc13.StayHo.domain.reservation.domain.ReservationDTO" alias="reservationDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.img.dto.HotelImgDTO" alias="hotelImgDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.img.dto.RoomImgDTO" alias="roomImgDTO"/>
+        <package name="com.nc13.StayHo.domain.Member.Model"/>
     </typeAliases>
 </configuration>
