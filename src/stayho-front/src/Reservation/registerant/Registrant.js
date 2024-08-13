@@ -6,9 +6,9 @@ import dayjs from "dayjs";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-let ReservationAll = () => {
+let Registrant = () => {
 
-    let [data, setData] = useState({resve:[]})
+    let [data, setData] = useState({resve: []})
     let navigate = useNavigate()
 
     let index = 1; // 번호
@@ -18,7 +18,7 @@ let ReservationAll = () => {
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
-                .get("http://localhost:8080/reservation/all/" + user_id, {
+                .get("http://localhost:8080/reservation/registrant/" + user_id, {
                     withCredentials: true
                 })
                 .catch((e) => {
@@ -46,11 +46,12 @@ let ReservationAll = () => {
                     <td>체크아웃</td>
                     <td>객실</td>
                     <td>사장</td>
-                    <td>사용자</td>
                 </tr>
                 </thead>
                 <tbody className={"text-center"}>
-                {data.resve.length === 0 ? <tr><td colSpan={6}>현재 예약한 호텔이 없습니다.</td></tr> : ''}
+                {data.resve.length === 0 ? <tr>
+                    <td colSpan={6}>현재 등록한 호텔이 없습니다.</td>
+                </tr> : ''}
                 {data.resve.map(resve => (
                     <tr key={resve.id} onClick={() => movoToSingle(resve.id)}>
                         <td>{index++}</td>
@@ -58,7 +59,6 @@ let ReservationAll = () => {
                         <td>{dayjs(resve.checkOut).format('YYYY-MM-DD HH:mm:ss')}</td>
                         <td>{resve.roomId}</td>
                         <td>{resve.confirmed ? "완료" : "대기"}</td>
-                        <td>{resve.status ? "완료" : "대기"}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -67,4 +67,4 @@ let ReservationAll = () => {
     )
 }
 
-export default ReservationAll
+export default Registrant

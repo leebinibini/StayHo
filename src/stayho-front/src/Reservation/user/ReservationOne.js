@@ -27,7 +27,7 @@ let ReservationOne = () => {
     let closeModalDelete = () => setIsOpenDelete(false);
     let closeModalApproval = () => setIsOpenApproval(false);
 
-    let goBack = () => navigate(-1)
+    let goBack = () => navigate('/reservation/showAll')
 
     let onDelete = async (e) => {
         let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
@@ -70,7 +70,6 @@ let ReservationOne = () => {
                     withCredentials: true
                 })
                 if (resp.status === 200) {
-                    console.log(resp.data)
                     setData(resp.data)
                 }
             } catch (e) {
@@ -92,9 +91,8 @@ let ReservationOne = () => {
     return (
         <Container className={"mt-3"}>
             <Button onClick={goBack}>뒤로가기</Button>
-            {data.confirmed ? data.status ?
-                <Button className={"m-lg-1"} onClick={openModalDelete}>취소하기</Button> :
-                <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ""}
+            {data.confirmed ? <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ""}
+            <Button className={"m-lg-1"} onClick={openModalDelete}>예약 취소하기</Button>
 
             <Table striped className={"table-dark mt-1"}>
                 <thead>
@@ -109,7 +107,7 @@ let ReservationOne = () => {
                 <tr>
                     <td>
                         객실: &nbsp;
-                        <Button size={"sm"} onClick={onOpenRooms}>객실 정보</Button>
+                        <Button size={"sm"}>객실 정보</Button>
                     </td>
                 </tr>
                 <tr>

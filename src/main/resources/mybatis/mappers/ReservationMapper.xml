@@ -2,11 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="mapper.ReservationMapper">
     <select id="selectAll" resultType="reservationDTO" parameterType="int">
         SELECT * FROM reservation
         WHERE member_id = #{member_id}
+    </select>
+    <select id="selectAllAdmin" resultType="reservationDTO">
+        SELECT * FROM reservation
     </select>
 
     <select id="selectOne" resultType="reservationDTO" parameterType="int">
@@ -24,4 +26,9 @@
         DELETE FROM reservation
         WHERE id = #{id}
     </delete>
+
+    <insert id="insert" parameterType="reservationDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reservation(check_in, check_out, room_id, member_id)
+        VALUES(#{checkIn}, #{checkOut}, #{roomId}, #{memberId})
+    </insert>
 </mapper>

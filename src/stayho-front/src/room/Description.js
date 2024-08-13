@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 let Description = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
     let customStyle = {
@@ -12,6 +13,13 @@ let Description = ({description, modalOpen, setModalOpen, room, images, reservat
             transform: 'translate(-50%, -50%)'
         }
     }
+
+    let navation = useNavigate();
+
+    let onClick = () => { // 버튼 추가 (정민)
+        navation('/reservation/insert', {state:{roomId: `${room.id}`, price:`${room.price}`}})
+    }
+
     return (
         <Modal isOpen={modalOpen}
                onRequestClose={() => setModalOpen(false)}
@@ -39,7 +47,7 @@ let Description = ({description, modalOpen, setModalOpen, room, images, reservat
                         침대수: {description.bed}개<br/>
                         최대  입실 인원: {room?.limitPeople}명
                     </Card.Text>
-                    {reservation ? null : <Button>예약하기</Button>}
+                    {reservation ? null : <Button onClick={onClick}>예약하기</Button>}
                 </Card.Body>
             </Card>
         </Modal>
