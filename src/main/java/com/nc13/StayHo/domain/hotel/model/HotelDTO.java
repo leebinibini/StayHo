@@ -9,6 +9,7 @@ public class HotelDTO {
     private String name;
     private String tel;
     private float rating;
+    private String content;
 
     private String providerName;
 }
