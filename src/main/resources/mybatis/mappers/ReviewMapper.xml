@@ -31,12 +31,19 @@
     </select>
 
     <select id="averageRating" parameterType="int" resultType="double">
-        SELECT AVG(rating) FROM review WHERE hotel_id = #{hotelId}
+        SELECT AVG(r.rating)
+        FROM review r
+        INNER JOIN reservation res ON r.reservation_id = res.id
+        INNER JOIN room rm ON res.room_id = rm.id
+        INNER JOIN hotel h ON rm.hotel_id = h.id
+        WHERE h.id = #{hotelId}
     </select>
 
     <select id="searchReviewsByComment" parameterType="map" resultType="Review">
-        SELECT *
-        FROM review
+        SELECT * FROM review r
+        INNER JOIN reservation res ON r.reservation_id = res.id
+        INNER JOIN room rm ON res.room_id = rm.id
+        INNER JOIN hotel h ON rm.hotel_id = h.id
         WHERE hotel_id = #{hotelId}
         AND comment LIKE CONCAT('%', #{keyword}, '%');
     </select>
