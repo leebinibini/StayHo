@@ -1,6 +1,7 @@
 package com.nc13.StayHo.domain.Member.Controller;
 
 import com.nc13.StayHo.domain.Member.Model.MemberDTO;
+import com.nc13.StayHo.domain.Member.Model.Role;
 import com.nc13.StayHo.domain.Member.Service.RegistrantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,12 @@ public class RegistrantController {
     @Autowired
     private final RegistrantService registrantService;
 
-    public RegistrantController(RegistrantService registrantService){
+    public RegistrantController(RegistrantService registrantService) {
         this.registrantService = registrantService;
     }
 
     @RequestMapping("authSuccess")
-    public ResponseEntity<Map<String, Object>> authSuccess(Authentication authentication){
+    public ResponseEntity<Map<String, Object>> authSuccess(Authentication authentication) {
         Map<String, Object> resultMap = new HashMap<>();
         MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
 
@@ -45,7 +46,7 @@ public class RegistrantController {
     }
 
     @RequestMapping("authFail")
-    public ResponseEntity<Map<String,Object>> authFail(){
+    public ResponseEntity<Map<String, Object>> authFail() {
         Map<String, Object> resultMap = new HashMap<>();
 
         resultMap.put("result", "fail");
@@ -56,6 +57,7 @@ public class RegistrantController {
     public ResponseEntity<Void> register(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
         if (registrantService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
+            memberDTO.setRole(Role.ROLE_REGISTRANT);
             System.out.println(memberDTO);
             registrantService.register(memberDTO);
         }
@@ -71,8 +73,10 @@ public class RegistrantController {
 
         registrantService.update(memberDTO);
         resultMap.put("id", memberDTO.getId());
+        System.out.println(memberDTO);
         return resultMap;
     }
+
     @PostMapping("withdraw")
     public ResponseEntity<Void> withdraw(@RequestBody MemberDTO inputs) {
         String password = inputs.getPassword();

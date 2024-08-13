@@ -2,6 +2,7 @@ import {Button, Container, FormControl, Table} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.css'
 
 let Secede = () => {
     // 비밀번호 입력할 창
@@ -28,7 +29,7 @@ let Secede = () => {
 
     let navigate = useNavigate()
     let moveToNext = () => {
-        navigate('/hotel/showList')
+        navigate('/')
     }
 
     let onSecede = async (e) => {

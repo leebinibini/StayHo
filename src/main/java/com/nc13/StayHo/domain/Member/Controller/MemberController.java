@@ -3,9 +3,12 @@ package com.nc13.StayHo.domain.Member.Controller;
 
 import com.nc13.StayHo.domain.Member.Model.MemberDTO;
 import com.nc13.StayHo.domain.Member.Service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,6 +49,7 @@ public class MemberController {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "fail");
 
+
         return ResponseEntity.ok(resultMap);
     }
 
@@ -54,16 +58,10 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("register")
-    public String showRegister() {
-        return "member/register";
-    }
-
     @PostMapping("register")
-    public ResponseEntity<Void> register(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+    public ResponseEntity<Void> register(MemberDTO memberDTO) {
         if (memberService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
-            System.out.println(memberDTO);
             memberService.register(memberDTO);
         }
         return ResponseEntity.ok().build();

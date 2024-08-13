@@ -20,39 +20,20 @@ public class MemberDTO implements UserDetails {
     private String email;
 
     private Collection<GrantedAuthority> authorities;
-    private String role;
-    private Role state;
+    private Role role;
 
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
+        authorities.add(new SimpleGrantedAuthority(role.getValue()));
 
         return authorities;
-
     }
 
     @Override
     public String getUsername() {
-        return "";
-    }
-
-
-    public enum Role {
-        ROLE_USER("ROLE_USER"),
-        ROLE_ADMIN("ROLE_ADMIN"),
-        ROLE_REGISTRANT("ROLE_REGISTRANT");
-
-        String role;
-
-        Role(String role) {
-            this.role = role;
-        }
-
-        public String value() {
-            return role;
-        }
+        return email;
     }
 }
 

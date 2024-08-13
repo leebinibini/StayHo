@@ -5,20 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c393e9d7-8b6c-4106-b0f0-a3dd9df47e9c" name="변경" comment="commit -0808(1)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/RegistrantController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RegistrantMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReRegister.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/AdminService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/AdminMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/admin/AdAuth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/admin/AdMyPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/admin/Menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/Write.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReAuth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReMyPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReSecede.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReUpdate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/RegistrantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Controller/RegistrantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Model/MemberDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantDetailsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nc13/StayHo/domain/Member/Service/RegistrantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RegistrantMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mappers/RegistrantMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/hotel/ShowList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/MyPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Controller/MemberController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Secede.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Secede.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/member/Update.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReRegister.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stayho-front/src/registrant/ReRegister.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO$Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Model/MemberDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberDetailsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/MemberService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/RegistrantDetailsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/RegistrantService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/domain/Member/Service/RegistrantService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/global/Config/MyBatisConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/global/Config/MyBatisConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/global/Config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nc13/StayHo/global/Config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mappers/RegistrantMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mappers/RegistrantMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +56,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="JavaScript File" />
         <option value="Class" />
       </list>
@@ -69,7 +97,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/leebinibini/StayHo_NC13.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/jungmin7315/StayHo_NC13.git&quot;,
     &quot;accountId&quot;: &quot;3474fbe8-e670-48ae-9353-13657731cc61&quot;
   }
 }</component>
@@ -79,6 +107,9 @@
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -161,6 +192,12 @@
       <workItem from="1723077411771" duration="12863000" />
       <workItem from="1723095446873" duration="19299000" />
       <workItem from="1723163497662" duration="12685000" />
+      <workItem from="1723199609726" duration="7603000" />
+      <workItem from="1723372622241" duration="3456000" />
+      <workItem from="1723425098825" duration="12550000" />
+      <workItem from="1723442956736" duration="18418000" />
+      <workItem from="1723509977576" duration="18874000" />
+      <workItem from="1723535360537" duration="373000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -210,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723117047538</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="commit -0808(1)">
+      <option name="closed" value="true" />
+      <created>1723535572275</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1723535572275</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,12 +267,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="soobin" />
                       </list>
                     </value>
                   </entry>
@@ -249,5 +299,15 @@
     <MESSAGE value="commit -0807(2)" />
     <MESSAGE value="commit -0808(1)" />
     <option name="LAST_COMMIT_MESSAGE" value="commit -0808(1)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

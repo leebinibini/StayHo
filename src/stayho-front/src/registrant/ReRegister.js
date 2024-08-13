@@ -2,17 +2,19 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {Button, Container, FormControl, Table} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.css'
 
-let ReRegister =() => {
+let ReRegister = () => {
 
     let [inputs, setInputs] = useState({
-        email:'',
-        password:'',
-        name:'',
-        tel:'',
+        email: '',
+        password: '',
+        passwordCheck: '',
+        name: '',
+        tel: '',
     })
 
-    let onChange = (e)=> {
+    let onChange = (e) => {
         let {name, value} = e.target
         setInputs({
             ...inputs,
@@ -20,10 +22,21 @@ let ReRegister =() => {
         })
     }
 
+    let isSame = inputs.password === inputs.passwordCheck
+    let isValid = inputs.email !== '' && isSame === true
+        && inputs.name !== '' && inputs.tel !== ''
+
     let navigate = useNavigate()
 
     let onSubmit = async (e) => {
         e.preventDefault()
+        if (!isSame) {
+            alert("비밀번호를 다시 확인해주세요.")
+            return
+        } else if (!isValid) {
+            alert("필요한 정보가 누락 되었습니다.")
+            return
+        }
         let formData = new FormData()
         formData.append('email', inputs.email)
         formData.append('name', inputs.name)
@@ -43,11 +56,12 @@ let ReRegister =() => {
             emil: response.data.emil,
             password: response.data.password,
             name: response.data.name,
+            role: response.data.role,
             tel: response.data.tel
         }
-        navigate('/registrant/auth', {state: {registrantInfo: registrantInfo}})
+        navigate('/registrant/reAuth', {state: {registrantInfo: registrantInfo}})
     }
-    return(
+    return (
         <form onSubmit={onSubmit}>
             <Container>
                 <Table>
@@ -59,28 +73,39 @@ let ReRegister =() => {
                     <tbody>
                     <tr>
                         <td>아이디</td>
-                        <td><FormControl type={'email'} name={'email'} value={inputs.email} onChange={onChange}/>
+                        <td><FormControl type={'email'} name={'email'} value={inputs.username}
+                                         onChange={onChange} placeholder="email"/>
                         </td>
                     </tr>
                     <tr>
                         <td>비밀번호</td>
                         <td colSpan={2}>
                             <FormControl type={'password'} name={'password'} value={inputs.password}
-                                         onChange={onChange}/>
+                                         onChange={onChange} placeholder="password"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td>비밀번호 확인</td>
+                        <td colSpan={2}>
+                            <FormControl type={'password'} name={'passwordCheck'} value={inputs.passwordCheck}
+                                         onChange={onChange} placeholder="passwordCheck"/>
+                        </td>
+                    </tr>
+                    {inputs.passwordCheck !== '' && !isSame && (
+                        <p className="passwordCheck">비밀번호를 다시 확인해주세요.</p>
+                    )}
                     <tr>
                         <td>닉네임</td>
                         <td colSpan={2}>
                             <FormControl type={'name'} name={'name'} value={inputs.name}
-                                         onChange={onChange}/>
+                                         onChange={onChange} placeholder="nickname"/>
                         </td>
                     </tr>
                     <tr>
                         <td>전화번호</td>
                         <td colSpan={2}>
-                            <FormControl type="text"  name={'tel'} value={inputs.tel}
-                                         onChange={onChange}/>
+                            <FormControl type="text" name={'tel'} value={inputs.tel}
+                                         onChange={onChange} placeholder="tel"/>
                         </td>
                     </tr>
                     <tr>

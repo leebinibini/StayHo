@@ -13,43 +13,32 @@ public class MemberService {
     private final String NAMESPACE = "mappers.MemberMapper";
 
     @Autowired
-    public MemberService(SqlSession session){
+    public MemberService(SqlSession session) {
         SESSION = session;
     }
 
-    public MemberDTO selectByEmail(String email){
+    public MemberDTO selectByEmail(String email) {
         return SESSION.selectOne(NAMESPACE + ".selectByEmail", email);
     }
 
-    /*private UserDetails createDetails(MemberDTO memberDTO) {
 
-        String role = memberDTO.getState().value();
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role);
-
-        return new org.springframework.security.core.userdetails.User(
-                String.valueOf(memberDTO.getId()),
-                memberDTO.getPassword(),
-                Collections.singleton(grantedAuthority)
-        );
-    }*/
-
-    public boolean validateEmail(String email){
-      return SESSION.selectOne(NAMESPACE + ".selectByEmail", email) == null;
+    public boolean validateEmail(String email) {
+        return SESSION.selectOne(NAMESPACE + ".selectByEmail", email) == null;
     }
 
-    public void register(MemberDTO attempt){
+    public void register(MemberDTO attempt) {
         SESSION.insert(NAMESPACE + ".register", attempt);
     }
 
-    public void update(MemberDTO memberDTO){
+    public void update(MemberDTO memberDTO) {
         SESSION.update(NAMESPACE + ".update", memberDTO);
     }
 
-    public void delete(int id){
-        SESSION.delete(NAMESPACE + ".delete" , id);
+    public void delete(int id) {
+        SESSION.delete(NAMESPACE + ".delete", id);
     }
 
-    public boolean selectByPassword (String password){
+    public boolean selectByPassword(String password) {
         return SESSION.selectOne(NAMESPACE + ".selectByPassword", password) != null;
     }
 }
