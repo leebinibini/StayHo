@@ -1,4 +1,4 @@
-import {Button, Container, FormCheck, FormControl} from "react-bootstrap";
+import { Container, FormCheck} from "react-bootstrap";
 import Slider from "rc-slider";
 import 'rc-slider/assets/index.css';
 import {useEffect, useState} from "react";
@@ -30,9 +30,6 @@ let SearchOption = ({origin, hotels, setHotels}) => {
 
     ]
     useEffect(() => {
-        console.log(hotels)
-        console.log(options)
-        console.log(hotels.map(hotel => options.includes('swimmingPool') && hotel.swimmingPool === true))
         setHotels(
             origin.filter((hotel) => hotel.price >= inputs.minPrice && hotel.price <= inputs.maxPrice)
                 .filter((hotel) => hotel.rating >= inputs.minRating && hotel.rating <= inputs.maxRating)

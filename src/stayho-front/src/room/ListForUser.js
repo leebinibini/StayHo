@@ -4,14 +4,13 @@ import axios from "axios";
 
 import Description from "./Description"
 import {useParams} from "react-router-dom";
-let ListForUser = () => {
-    let params= useParams()
-    let id = parseInt(params.id)
-    let [rooms, setRooms] = useState({roomList: []})
-    let[roomD, setRoomD]= useState()
-    let [description, setDescription] = useState([])
-    let [modalOpen, setModalOpen] = useState(false)
+let ListForUser = ({id}) => {
 
+    let [rooms, setRooms] = useState({roomList: []})
+    let [roomD, setRoomD]= useState()
+    let [description, setDescription] = useState({})
+    let [images, setImages]= useState([])
+    let [modalOpen, setModalOpen] = useState(false)
 
     useEffect(() => {
         let onLoad = async () => {
@@ -23,11 +22,12 @@ let ListForUser = () => {
         onLoad()
     }, []);
 
-    let onClick = async (room) => {
-        let response = await axios.get("http://localhost:8080/room/description/" + room.id, {})
+    let onClick = async (id) => {
+        let response = await axios.get("http://localhost:8080/room/description/" + id)
         if (response.status === 200) {
-            setDescription(response.data)
-            setRoomD(room)
+            setDescription(response.data.description)
+            setImages(response.data.image)
+            setRoomD(response.data.room)
         }
 
         setModalOpen(true)
@@ -47,7 +47,7 @@ let ListForUser = () => {
                     <td> 금액</td>
                 </tr>
                 {rooms.roomList.map(room => (
-                    <tr onClick={() => onClick(room)} key={room.id}>
+                    <tr onClick={() => onClick(room.id)} key={room.id}>
                         <td> {room.type}</td>
                         <td> {room.limitPeople}명</td>
                         <td> {room.price}원 </td>
@@ -56,7 +56,7 @@ let ListForUser = () => {
                 ))}
                 </tbody>
             </Table>
-            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}/>
+            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD} images={images} reservation={false}/>
         </Container>
     )
 }

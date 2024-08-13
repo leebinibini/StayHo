@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import Modal from "react-modal";
+import Description from "../../room/Description";
 
 let ReservationOne = () => {
     let [data, setData] = useState({})
@@ -14,9 +15,14 @@ let ReservationOne = () => {
 
     let [isOpenDelete, setIsOpenDelete] = useState(false);
     let [isOpenApproval, setIsOpenApproval] = useState(false);
+    let [isOpenRoom, setIsOpenRoom] = useState(false)
+    let [description, setDescription] = useState({})
+    let [images, setImages] = useState([])
+    let [room, setRoom]= useState({})
 
     let openModalDelete = () => setIsOpenDelete(true)
     let openModalApproval = () => setIsOpenApproval(true);
+    let openModalRoom=()=>setIsOpenRoom(true)
 
     let closeModalDelete = () => setIsOpenDelete(false);
     let closeModalApproval = () => setIsOpenApproval(false);
@@ -73,6 +79,15 @@ let ReservationOne = () => {
         selectOne()
     }, [])
 
+    let onOpenRooms = async () => {
+        let response = await axios.get("http://localhost:8080/room/description/" + data.roomId)
+        if (response.status === 200) {
+            setDescription(response.data.description)
+            setImages(response.data.image)
+            setRoom(response.data.room)
+        }
+        openModalRoom()
+    }
     return (
         <Container className={"mt-3"}>
             <Button onClick={goBack}>뒤로가기</Button>
@@ -121,6 +136,7 @@ let ReservationOne = () => {
                 <Button className={"m-lg-1"} onClick={onApproval}>예</Button>
                 <Button onClick={closeModalApproval}>아니요</Button>
             </Modal>
+            <Description modalOpen={isOpenRoom} setModalOpen={setIsOpenRoom} description={description} room={room}  images={images} reservation={true}/>
         </Container>
     )
 }

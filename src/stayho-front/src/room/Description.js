@@ -1,7 +1,8 @@
 import Modal from "react-modal";
-import {Button} from "react-bootstrap";
+import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
-let Description = ({description, modalOpen, setModalOpen, room}) => {
+
+let Description = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
     let customStyle = {
         content: {
             top: '50%',
@@ -27,12 +28,28 @@ let Description = ({description, modalOpen, setModalOpen, room}) => {
                ariaHideApp={false}
 
         >
-            <h1>{room?.type}</h1>
-            <p>뷰:{description.description?.view}</p>
-            <p>욕조: {description.description?.bath? 'O' : 'X'}</p>
-            <p>침대수: {description.description?.bed}개</p>
-            <Button onClick={onClick}>예약하기</Button>
+            <Card style={{width: '18rem'}}>
+                <Carousel>
+                    {images?.map(img => (
+                        <CarouselItem key={img.id}>
+                            <Card.Img variant="top"
+                                      src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+                                      style={{border: 'black 1px solid', height: '20vh'}}/>
+                        </CarouselItem>
 
+                    ))}
+                </Carousel>
+                <Card.Body>
+                    <Card.Title>{room?.type}</Card.Title>
+                    <Card.Text>
+                        뷰: {description.view}<br/>
+                        욕조: {description.bath ? 'O' : 'X'}<br/>
+                        침대수: {description.bed}개<br/>
+                        최대  입실 인원: {room?.limitPeople}명
+                    </Card.Text>
+                    {reservation ? null : <Button onClick={onClick}>예약하기</Button>}
+                </Card.Body>
+            </Card>
         </Modal>
     )
 }
