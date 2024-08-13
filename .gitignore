@@ -6,6 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+.idea/**
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
@@ -143,7 +144,7 @@ replay_pid*
 ### Maven ###
 target/**/*.xml
 target/**/*.class
-target/**/*.lsx
+target/**/*.lst
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -162,9 +163,10 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# End of https://www.toptal.com/developers/gitignore/api/intellij,java,maven
+
 ### react ###
 .DS_*
-*.log
 logs
 **/*.backup.*
 **/*.back.*
@@ -178,5 +180,4 @@ psd
 thumb
 sketch
 
-
-# End of https://www.toptal.com/developers/gitignore/api/intellij,java,maven
+# End of https://www.toptal.com/developers/gitignore/api/react,intellij
