@@ -1,4 +1,4 @@
-package com.nc13.StayHo.global.Config;
+package com.nc13.StayHo.global.config;
 
 
 import com.nc13.StayHo.domain.Member.Service.MemberDetailsServiceImpl;
@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/member/**").permitAll()
+                                .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")
+                                .requestMatchers("/admin/adMyPage").hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin((form) ->

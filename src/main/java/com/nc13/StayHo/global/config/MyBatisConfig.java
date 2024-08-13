@@ -1,4 +1,4 @@
-package com.nc13.StayHo.global.Config;
+package com.nc13.StayHo.global.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -14,21 +14,21 @@ import javax.sql.DataSource;
 @Configuration
 public class MyBatisConfig {
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource)throws Exception{
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis/mybatis-config.xml"));
 
         Resource[] resources
-                =new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mappers/*.xml");
-                sqlSessionFactoryBean.setMapperLocations(resources);
+                = new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mappers/*.xml");
+        sqlSessionFactoryBean.setMapperLocations(resources);
 
-                return sqlSessionFactoryBean.getObject();
+        return sqlSessionFactoryBean.getObject();
     }
 
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate (SqlSessionFactory sqlSessionFactory){
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }
