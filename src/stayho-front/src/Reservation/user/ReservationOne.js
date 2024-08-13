@@ -138,7 +138,7 @@ let ReservationOne = () => {
                 <Button className={"m-lg-1"} onClick={onApproval}>예</Button>
                 <Button onClick={closeModalApproval}>아니요</Button>
             </Modal>
-            <Description modalOpen={isOpenRoom} setModalOpen={setIsOpenRoom} description={description} room={room}  images={images}/>
+            <Description modalOpen={isOpenRoom} setModalOpen={setIsOpenRoom} description={description} room={room}  images={images} reservation={true}/>
         </Container>
     )
 }

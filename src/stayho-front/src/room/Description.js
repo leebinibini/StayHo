@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
 
-let Description = ({description, modalOpen, setModalOpen, room, images}) => {
+let Description = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
     let customStyle = {
         content: {
             top: '50%',
@@ -22,9 +22,8 @@ let Description = ({description, modalOpen, setModalOpen, room, images}) => {
         >
             <Card style={{width: '18rem'}}>
                 <Carousel>
-
-                    {images.map(img => (
-                        <CarouselItem>
+                    {images?.map(img => (
+                        <CarouselItem key={img.id}>
                             <Card.Img variant="top"
                                       src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
                                       style={{border: 'black 1px solid', height: '20vh'}}/>
@@ -38,9 +37,9 @@ let Description = ({description, modalOpen, setModalOpen, room, images}) => {
                         뷰: {description.view}<br/>
                         욕조: {description.bath ? 'O' : 'X'}<br/>
                         침대수: {description.bed}개<br/>
-                        수용 인원: {room.limitPeople}명
+                        최대  입실 인원: {room?.limitPeople}명
                     </Card.Text>
-                    <Button>예약하기</Button>
+                    {reservation ? null : <Button>예약하기</Button>}
                 </Card.Body>
             </Card>
         </Modal>
