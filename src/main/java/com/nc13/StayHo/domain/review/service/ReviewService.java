@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +40,17 @@ public class ReviewService {
 
     public List<Review> selectListByRoom(int roomId) {
         return session.selectList(NAMESPACE + "selectListByRoom", roomId);
+    }
+
+    public List<Review> searchReviewsByComment(int hotelId, String keyword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("hotelId", hotelId);
+        params.put("keyword", keyword);
+        return session.selectList(NAMESPACE + "searchReviewsByComment", params);
+    }
+
+    public double averageRating(int hotelId) {
+        Double averageRating = session.selectOne(NAMESPACE + "averageRating", hotelId);
+        return averageRating != null ? averageRating : 0.0;
     }
 }

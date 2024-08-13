@@ -16,23 +16,4 @@ import java.util.stream.Collectors;
 @RequestMapping("/hotel/")
 public class HotelController {
 
-    private final ReviewService reviewService;
-
-    @GetMapping("/showOne/{hotelId}")
-    public HashMap<String, Object> showOne(@PathVariable int hotelId) {
-        HashMap<String, Object> resultMap = new HashMap<>();
-        List<Review> reviewList = reviewService.selectListByHotel(hotelId);
-        List<ReviewSelectDTO> reviewDTOList = reviewList.stream()
-                .map(review -> new ReviewSelectDTO(
-                        review.getId(),
-                        review.getComment(),
-                        review.getRating(),
-                        review.getCreatedAt(),
-                        review.getUpdatedAt(),
-                        review.getMemberId()))
-                .collect(Collectors.toList());
-
-        resultMap.put("reviewList", reviewDTOList);
-        return resultMap;
-    }
 }

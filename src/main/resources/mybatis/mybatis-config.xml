@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        PUBLIC "-//mybatis.org//DTD config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
+        <typeAlias type="com.nc13.StayHo.domain.review.entity.Review" alias="Review"/>
+        <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewUpdateDTO" alias="ReviewUpdateDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewSelectDTO" alias="ReviewSelectDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewRegisterDTO" alias="ReviewRegisterDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.room.dto.RoomDTO" alias="roomDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.room.dto.SynthesisDTO" alias="synthesisDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
@@ -14,8 +18,5 @@
         <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationDTO" alias="locationDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchResultDTO" alias="searchResultDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchConditionDTO" alias="searchConditionDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.img.dto.RoomImgDTO" alias="roomImgDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.img.dto.HotelImgDTO" alias="hotelImgDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.reservation.domain.ReservationDTO" alias="reservationDTO"/>
     </typeAliases>
 </configuration>
