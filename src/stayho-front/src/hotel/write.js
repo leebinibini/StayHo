@@ -17,37 +17,61 @@ const Write = () => {
 
     const categoryList = ['swimmingPool', 'parking', 'restaurant', 'smoking', 'laundryFacilities', 'fitnessCenter'];
 
-    const onCheckedItem = useCallback((checked, item) => {
-        setInputs(prev => ({
-            ...prev,
-            facilities: checked ? {...prev.facilities, [item]: 'true'} : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== item))
-        }));
+    const onCheckedItem = useCallback((e) => {
+        if (e && e.target) {
+            const { checked, value } = e.target;
+            setInputs(prev => ({
+                ...prev,
+                facilities: checked
+                    ? { ...prev.facilities, [value]: 'true' }
+                    : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== value))
+            }));
+        } else {
+            console.error("Event or event.target is undefined");
+        }
     }, []);
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        setInputs({ ...inputs, [name]: value });
+        setInputs((prev) => ({ ...prev, [name]: value }));
     };
 
     const onFileChange = (e) => {
-        setInputs({ ...inputs, file: e.target.files[0] });
+        setInputs((prev) => ({ ...prev, file: e.target.files[0] }));
+    };
+
+    const onEditorChange = (event, editor) => {
+        if (editor) {
+            const data = editor.getData();
+            setInputs((prev) => ({ ...prev, content: data }));
+        } else {
+            console.error("Editor is undefined");
+        }
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const hotelResponse = await axios.post('http://localhost:8080/hotel/write', {
+            const formData = new FormData();
+            console.log(inputs);
+            formData.append('hotelDTO', new Blob([JSON.stringify({
                 name: inputs.name,
-                tel: inputs.tel
-            });
+                tel: inputs.tel,
+                content: inputs.content,
+                facilities: inputs.facilities,
+                files: inputs.file
+            })], { type: "application/json" }));
+
+            if (inputs.file) {
+                formData.append('files', inputs.file);
+            }
+
+            const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData);
 
             const hotelId = hotelResponse.data.resultId;
 
-            console.log(hotelResponse.data.resultId);
-
             if (hotelId) {
-                console.log(inputs.facilities)
-                const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/write', {
+                await axios.post('http://localhost:8080/hotelDescription/write', {
                     hotelId: hotelId,
                     swimmingPool: !!inputs.facilities.swimmingPool,
                     parking: !!inputs.facilities.parking,
@@ -55,16 +79,13 @@ const Write = () => {
                     smoking: !!inputs.facilities.smoking,
                     laundryFacilities: !!inputs.facilities.laundryFacilities,
                     fitnessCenter: !!inputs.facilities.fitnessCenter
-
                 });
 
-                console.log(inputs, hotelDescriptionResponse.data);
                 navigate(`/hotel/showOne/${hotelId}`);
             }
         } catch (error) {
-            console.error(error);
+            console.error("An error occurred during the request:", error);
         }
-
     };
 
     return (
@@ -99,7 +120,7 @@ const Write = () => {
                                             type="checkbox"
                                             id={name}
                                             value={name}
-                                            onChange={(e) => onCheckedItem(e.target.checked, name)}
+                                            onChange={onCheckedItem}
                                         />
                                         <span>{name}</span>
                                     </label>
@@ -119,20 +140,23 @@ const Write = () => {
                             />
                         </td>
                     </tr>
-                    {/*<tr>*/}
-                    {/*    <td>호텔 설명 작성</td>*/}
-                    {/*    <td>*/}
-                    {/*        <CKEditor*/}
-                    {/*            editor={ClassicEditor}*/}
-                    {/*            data={inputs.content}*/}
-                    {/*            onChange={(event, editor) => {*/}
-                    {/*                const data = editor.getData();*/}
-                    {/*                setInputs({ ...inputs, content: data });*/}
-                    {/*            }}*/}
-                    {/*            required*/}
-                    {/*        />*/}
-                    {/*    </td>*/}
-                    {/*</tr>*/}
+                    <tr>
+                        <td>호텔 설명 작성</td>
+                        <td>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data={inputs.content}
+                                config={{
+                                    ckfinder: {
+                                        uploadUrl: 'http://localhost:8080/hotel/uploads',
+                                    }
+                                }}
+
+                                onChange={onEditorChange}
+                                required
+                            />
+                        </td>
+                    </tr>
                     <tr>
                         <td>첨부 파일</td>
                         <td>
