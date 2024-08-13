@@ -5,9 +5,9 @@ import {useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 
 let Insert = () => {
-    let params=useParams()
-    let id=parseInt(params.id);
-    let navigate= useNavigate()
+    let params = useParams()
+    let id = parseInt(params.id);
+    let navigate = useNavigate()
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
     let [inputs, setInputs] = useState({
         limitPeople: '',
@@ -18,7 +18,7 @@ let Insert = () => {
         price: '',
         surcharge: 20,
     })
-
+    let [imgList, setImgList] = useState([])
     let ViewEnum = {
         CITY: 'city',
         MOUNTAIN: 'mountain',
@@ -33,6 +33,13 @@ let Insert = () => {
             [name]: value
         })
     }
+    let onChangeImg = (e) => {
+        setImgList([
+            ...imgList,
+            ...e.target.files
+        ])
+    }
+
     let onSubmit = async () => {
         let data = {
             limitPeople: watch('limitPeople'),
@@ -42,18 +49,31 @@ let Insert = () => {
             view: inputs.view,
             price: watch('price'),
             surcharge: watch('surcharge'),
-            hotelId:id
+            hotelId: id
         }
 
-        let response = await axios.post("http://localhost:8080/room/insert", data, {});
-        if(response.status === 200){
+        const formData = new FormData()
+        imgList.map(image => {
+            formData.append('files', image)
+        })
+
+        formData.append(
+            'params',
+            new Blob([JSON.stringify(data)], {type: 'application/json'})
+        )
+        let response = await axios.post(
+            "http://localhost:8080/room/insert", formData,
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+        )
+        if (response.status === 200) {
             window.alert("객실이 추가되었습니다. ")
-            navigate("/room/management/"+id)
+
+            navigate("/room/management/" + id)
         }
     }
     return (
         <Container>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                 <Table>
                     <thead>
                     <tr>
@@ -123,11 +143,9 @@ let Insert = () => {
                         </td>
                     </tr>
                     <tr>
-                        <Form.Group controlId="formFileMultiple" className="mb-3">
-                            <td>
-                                <Form.Label>객실 사진 추가</Form.Label></td>
-                            <td><Form.Control type="file" multiple/></td>
-                        </Form.Group>
+                        <td>객실 사진</td>
+                        <td><FormControl type="file" multiple={true} onChange={onChangeImg}
+                                         accept={'image.jpg,image/png,image/jpeg'}/></td>
                     </tr>
                     <tr>
                         <td><Button type={'submit'}>추가하기</Button></td>

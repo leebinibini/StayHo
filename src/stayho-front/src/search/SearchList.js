@@ -1,20 +1,34 @@
-import {Card, CardSubtitle, CardTitle, Container} from "react-bootstrap";
+import {Card, CardSubtitle, CardTitle, Carousel, CarouselItem, Container} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import axios from "axios";
 
-let SearchList = ({hotels}) => {
+let SearchList = ({hotels, images}) => {
     let navigate = useNavigate()
     let onClick = (hotel) => {
         navigate("/hotel/showOne/" + hotel.id)
     }
-
 
     return (
         <Container>
             {hotels.map(hotel => (
                 <Card onClick={() => onClick(hotel)} key={hotel.id}>
                     <Card.Body className={'d-flex'}>
-                        <Card.Img variant="top" src=""
-                                  style={{border: 'black 1px solid', width: '20vw', height: '20vh'}}/>
+                        <Carousel>
+                            {images.map(
+                                image => image.map(
+                                    img => (img.hotelId === hotel.id ?
+                                            <CarouselItem>
+                                                <Card.Img variant="top"
+                                                          src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+                                                          style={{border: 'black 1px solid', height: '20vh'}}/>
+                                            </CarouselItem>
+                                            :
+                                            null
+                                    )
+                                )
+                            )}
+                        </Carousel>
                         <div className={'ms-3'}>
                             <Card.Title>{hotel.name}</Card.Title>
                             <Card.Text>
