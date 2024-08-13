@@ -4,9 +4,7 @@ import axios from "axios";
 
 import Description from "./Description"
 import {useParams} from "react-router-dom";
-let ListForUser = () => {
-    let params= useParams()
-    let id = parseInt(params.id)
+let ListForUser = ({id}) => {
 
     let [rooms, setRooms] = useState({roomList: []})
     let [roomD, setRoomD]= useState()

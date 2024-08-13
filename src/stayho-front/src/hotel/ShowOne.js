@@ -2,6 +2,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from 'axios';
 import {Button} from "react-bootstrap";
+import ListForUser from "../room/ListForUser";
 
 let ShowOne = () => {
     let [reviews, setReviews] = useState([]);
@@ -46,6 +47,7 @@ let ShowOne = () => {
     }, [hotelId])
     return (
         <div>
+            <ListForUser id={hotelId}/>
             <h1>Hotel Reviews</h1>
             <button onClick={goBack}>Back to Hotel List</button>
             <ul>
