@@ -16,12 +16,11 @@ public class MyBatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis/mybatis-config.xml"));
 
-        Resource[] resources
-                = new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mappers/*.xml");
+        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis/mybatis-config.xml"));
+        Resource[] resources = new PathMatchingResourcePatternResolver()
+                .getResources("classpath:mybatis/mappers/*.xml");
         sqlSessionFactoryBean.setMapperLocations(resources);
 
         return sqlSessionFactoryBean.getObject();
