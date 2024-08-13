@@ -19,7 +19,7 @@ const AverageRating = ({hotelId}) => {
         }
     };
 
-    return <p>Average Rating: {averageRating}</p>;
+    return <p>평균 평점 : {averageRating}/10</p>;
 };
 
 export default AverageRating;
