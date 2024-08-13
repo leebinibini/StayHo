@@ -6,6 +6,7 @@ import com.nc13.StayHo.domain.review.dto.ReviewUpdateDTO;
 import com.nc13.StayHo.domain.review.entity.Review;
 import com.nc13.StayHo.domain.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class ReviewController {
         return resultMap;
     }
 
-    @GetMapping("/averageRating/{hotelId}")
+    @GetMapping("averageRating/{hotelId}")
     public ResponseEntity<HashMap<String, Object>> getAverageRating(@PathVariable int hotelId) {
         HashMap<String, Object> resultMap = new HashMap<>();
         double averageRating = reviewService.averageRating(hotelId);
@@ -51,7 +52,7 @@ public class ReviewController {
         return ResponseEntity.ok(resultMap);
     }
 
-    @GetMapping("/searchByComment")
+    @GetMapping("searchByComment")
     public HashMap<String, Object> searchByComment(@RequestParam int hotelId, @RequestParam String keyword) {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<Review> reviewList = reviewService.searchReviewsByComment(hotelId, keyword);
@@ -67,24 +68,33 @@ public class ReviewController {
         return resultMap;
     }
 
-    @PostMapping("update/{reviewId}")
-    public HashMap<String, Object> update(@PathVariable int reviewId, @RequestBody ReviewUpdateDTO reviewUpdateDTO) {
-        Review review = reviewService.selectOne(reviewId);
-
-        reviewUpdateDTO.setId(reviewId);
-        reviewUpdateDTO.setComment(review.getComment());
-        reviewUpdateDTO.setRating(review.getRating());
-
+    @GetMapping("get/{reviewId}")
+    public ResponseEntity<HashMap<String, Object>> getReview(@PathVariable int reviewId) {
         HashMap<String, Object> resultMap = new HashMap<>();
-
         try {
-            reviewService.update(reviewUpdateDTO);
-            resultMap.put("result", "success");
+            Review review = reviewService.selectOne(reviewId);
+            resultMap.put("review", review);
+            return ResponseEntity.ok(resultMap);
         } catch (Exception e) {
             e.printStackTrace();
             resultMap.put("result", "fail");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
         }
-        return resultMap;
+    }
+
+    @PutMapping("update/{reviewId}")
+    public ResponseEntity<HashMap<String, Object>> updateReview(@PathVariable int reviewId, @RequestBody ReviewUpdateDTO reviewUpdateDTO) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        try {
+            reviewUpdateDTO.setId(reviewId);
+            reviewService.update(reviewUpdateDTO);
+            resultMap.put("result", "success");
+            return ResponseEntity.ok(resultMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "fail");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
+        }
     }
 
     @GetMapping("delete/{reviewId}")
@@ -101,7 +111,8 @@ public class ReviewController {
                         review.getRating(),
                         review.getCreatedAt(),
                         review.getUpdatedAt(),
-                        review.getMemberId()))
+                        review.getMemberId(),
+                        review.getMemberName()))
                 .collect(Collectors.toList());
 
         resultMap.put("reviewList", reviewDTOList);

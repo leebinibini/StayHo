@@ -14,6 +14,7 @@ public class Review {
     private Date createdAt;
     private Date updatedAt;
     private int memberId;
+    private String memberName;
 
     public void updateComment(String comment) {
         this.comment = comment;

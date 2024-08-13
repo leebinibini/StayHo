@@ -14,5 +14,5 @@ public class ReviewSelectDTO {
     private Date createdAt;
     private Date updatedAt;
     private int memberId;
-
+    private String memberName;
 }

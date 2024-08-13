@@ -14,11 +14,12 @@
     </select>
 
     <select id="selectListByHotel" parameterType="int" resultType="Review">
-        SELECT r.*, res.member_id AS memberId
+        SELECT r.*, res.member_id AS memberId, m.name AS memberName
         FROM review r
         INNER JOIN reservation res ON r.reservation_id = res.id
         INNER JOIN room rm ON res.room_id = rm.id
         INNER JOIN hotel h ON rm.hotel_id = h.id
+        INNER JOIN member m ON res.member_id = m.id
         WHERE h.id = #{hotelId};
     </select>
 
@@ -40,11 +41,13 @@
     </select>
 
     <select id="searchReviewsByComment" parameterType="map" resultType="Review">
-        SELECT * FROM review r
+        SELECT r.*, res.member_id AS memberId, m.name AS memberName
+        FROM review r
         INNER JOIN reservation res ON r.reservation_id = res.id
         INNER JOIN room rm ON res.room_id = rm.id
         INNER JOIN hotel h ON rm.hotel_id = h.id
-        WHERE hotel_id = #{hotelId}
+        INNER JOIN member m ON res.member_id = m.id
+        WHERE h.id = #{hotelId}
         AND comment LIKE CONCAT('%', #{keyword}, '%');
     </select>
 
