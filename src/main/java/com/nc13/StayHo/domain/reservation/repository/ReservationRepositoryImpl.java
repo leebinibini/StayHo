@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ReservationRepositoryImpl implements ReservationRepository{
+public class ReservationRepositoryImpl implements ReservationRepository {
 
     private final SqlSession SESSION;
 

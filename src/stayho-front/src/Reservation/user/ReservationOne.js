@@ -6,8 +6,8 @@ import axios from "axios";
 import dayjs from "dayjs";
 import Modal from "react-modal";
 
-let ReservationOne = () =>{
-    let [data,setData] = useState({})
+let ReservationOne = () => {
+    let [data, setData] = useState({})
     let params = useParams()
     let id = parseInt(params.id)
     let navigate = useNavigate()
@@ -23,23 +23,30 @@ let ReservationOne = () =>{
 
     let goBack = () => navigate('/reservation/showAll')
 
-    g
+    let onDelete = async (e) => {
+        let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
+            withCredentials: true
+        })
+        if (response.status === 200) {
+            navigate('/reservation/showAll')
+        }
+    }
 
     let onApproval = async (e) => {
         data.status = true
-        let response = await axios.post('http://localhost:8080/reservation/updateApproval',data, {
+        let response = await axios.post('http://localhost:8080/reservation/updateApproval', data, {
             withCredentials: true
         })
-        if(response.status === 200){
+        if (response.status === 200) {
             closeModalApproval()
         }
     }
 
     let customStyles = {
-        overlay:{
+        overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
-        content:{
+        content: {
             width: "300px",
             height: "125px",
             margin: "auto",
@@ -52,26 +59,25 @@ let ReservationOne = () =>{
 
     useEffect(() => {
         let selectOne = async () => {
-            try{
-                let resp = await axios.get("http://localhost:8080/reservation/one/" + id,{
+            try {
+                let resp = await axios.get("http://localhost:8080/reservation/one/" + id, {
                     withCredentials: true
                 })
-                if(resp.status === 200){
+                if (resp.status === 200) {
                     setData(resp.data)
                 }
-            }catch (e){
+            } catch (e) {
                 console.log(e)
             }
         }
         selectOne()
-    },[])
+    }, [])
 
     return (
         <Container className={"mt-3"}>
             <Button onClick={goBack}>뒤로가기</Button>
-            {data.confirmed ? data.status ?
-                <Button className={"m-lg-1"} onClick={openModalDelete}>취소하기</Button> :
-                <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ""}
+            {data.confirmed ? <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ""}
+            <Button className={"m-lg-1"} onClick={openModalDelete}>예약 취소하기</Button>
 
             <Table striped className={"table-dark mt-1"}>
                 <thead>
@@ -96,19 +102,21 @@ let ReservationOne = () =>{
                     <td colSpan={2}>체크아웃: {dayjs(data.checkOut).format('YYYY-MM-DD HH:mm:ss')}</td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>사장: {data.confirmed ? "완료":"대기"}</td>
+                    <td colSpan={2}>사장: {data.confirmed ? "완료" : "대기"}</td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>사용자: {data.status ? "완료":"대기"}</td>
+                    <td colSpan={2}>사용자: {data.status ? "완료" : "대기"}</td>
                 </tr>
                 </tbody>
             </Table>
-            <Modal isOpen={isOpenDelete} onRequestClose={closeModalDelete} style={customStyles} appElement={document.getElementById('root')}>
+            <Modal isOpen={isOpenDelete} onRequestClose={closeModalDelete} style={customStyles}
+                   appElement={document.getElementById('root')}>
                 <h5>정말로 취소하시겠습니까?</h5>
                 <Button onClick={onDelete} className={"m-lg-1"}>예</Button>
                 <Button onClick={closeModalDelete}>아니요</Button>
             </Modal>
-            <Modal isOpen={isOpenApproval} onRequestClose={closeModalApproval} style={customStyles} appElement={document.getElementById('root')}>
+            <Modal isOpen={isOpenApproval} onRequestClose={closeModalApproval} style={customStyles}
+                   appElement={document.getElementById('root')}>
                 <h5>정말로 결재하시겠습니까?</h5>
                 <Button className={"m-lg-1"} onClick={onApproval}>예</Button>
                 <Button onClick={closeModalApproval}>아니요</Button>

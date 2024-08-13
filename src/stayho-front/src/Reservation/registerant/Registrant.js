@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 
 let Registrant = () => {
 
-    let [data, setData] = useState({resve:[]})
+    let [data, setData] = useState({resve: []})
     let navigate = useNavigate()
 
     let index = 1; // 번호
@@ -49,7 +49,9 @@ let Registrant = () => {
                 </tr>
                 </thead>
                 <tbody className={"text-center"}>
-                {data.resve.length === 0 ? <tr><td colSpan={6}>현재 등록한 호텔이 없습니다.</td></tr> : ''}
+                {data.resve.length === 0 ? <tr>
+                    <td colSpan={6}>현재 등록한 호텔이 없습니다.</td>
+                </tr> : ''}
                 {data.resve.map(resve => (
                     <tr key={resve.id} onClick={() => movoToSingle(resve.id)}>
                         <td>{index++}</td>

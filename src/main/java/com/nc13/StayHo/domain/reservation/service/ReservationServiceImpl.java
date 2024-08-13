@@ -3,14 +3,14 @@ package com.nc13.StayHo.domain.reservation.service;
 import com.nc13.StayHo.domain.reservation.domain.ReservationDTO;
 import com.nc13.StayHo.domain.reservation.repository.ReservationRepositoryImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ReservationServiceImpl implements ReservationService{
+public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepositoryImpl REPOSITORY;
 
@@ -41,6 +41,18 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public void insert(ReservationDTO reservationDTO) {
+        Calendar calendar = Calendar.getInstance();
+
+        // 체크인 시간 09:00 설정
+        calendar.setTime(reservationDTO.getCheckIn());
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        reservationDTO.setCheckIn(calendar.getTime());
+
+        // 체크아웃 시간 13:00 설정
+        calendar.setTime(reservationDTO.getCheckOut());
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        reservationDTO.setCheckOut(calendar.getTime());
+
         REPOSITORY.insert(reservationDTO);
     }
 
