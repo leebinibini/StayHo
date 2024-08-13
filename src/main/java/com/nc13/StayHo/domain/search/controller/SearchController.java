@@ -45,7 +45,6 @@ public class SearchController {
             images.add(imgList);
         }
         resultMap.put("images", images);
-        System.out.println(resultMap);
         return ResponseEntity.ok(resultMap);
     }
 }

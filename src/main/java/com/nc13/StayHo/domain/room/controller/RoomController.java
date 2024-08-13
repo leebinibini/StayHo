@@ -15,9 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,12 +49,12 @@ public class RoomController {
         PRICE_SERVICE.insert(priceDTO);
 
         if (!files.isEmpty()) {
-            imageProcess(files, roomDTO.getId());
+            insertImageProcess(files, roomDTO.getId());
         }
         return ResponseEntity.ok().build();
     }
 
-    public void imageProcess(List<MultipartFile> files, int roomId) {
+    public void insertImageProcess(List<MultipartFile> files, int roomId) {
         File pathDir = new File(ROOM_PATH);
         if (!pathDir.exists()) {
             new File(ROOM_PATH).mkdirs();
@@ -98,6 +95,7 @@ public class RoomController {
             roomImageList.add(new RoomImgDTO("room", "default.png", id));
         }
         resultMap.put("image", roomImageList);
+        resultMap.put("room", ROOM_SERVICE.select(id));
         return ResponseEntity.ok(resultMap);
     }
 
@@ -124,7 +122,7 @@ public class RoomController {
         PRICE_SERVICE.update(priceDTO);
 
         if (files!=null) {
-            imageProcess(files, roomDTO.getId());
+            insertImageProcess(files, roomDTO.getId());
         }
         if (delImgList!=null) {
             for (Integer id : delImgList) {

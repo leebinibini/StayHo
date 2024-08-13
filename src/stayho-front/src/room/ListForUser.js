@@ -10,7 +10,7 @@ let ListForUser = () => {
     let [rooms, setRooms] = useState({roomList: []})
     let[roomD, setRoomD]= useState()
     let [description, setDescription] = useState({})
-    let [image, setImage]= useState([])
+    let [images, setImages]= useState([])
     let [modalOpen, setModalOpen] = useState(false)
 
 
@@ -28,7 +28,7 @@ let ListForUser = () => {
         let response = await axios.get("http://localhost:8080/room/description/" + room.id, {})
         if (response.status === 200) {
             setDescription(response.data.description)
-            setImage(response.data.image)
+            setImages(response.data.image)
             setRoomD(room)
         }
 
@@ -58,7 +58,7 @@ let ListForUser = () => {
                 ))}
                 </tbody>
             </Table>
-            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD} image={image}/>
+            <Description description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD} image={images}/>
         </Container>
     )
 }
