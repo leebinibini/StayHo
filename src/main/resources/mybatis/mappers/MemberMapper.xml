@@ -10,8 +10,8 @@
     </select>
 
     <insert id="register" parameterType="memberDTO">
-        INSERT INTO member(email, password, name, tel)
-        VALUE (#{email}, #{password}, #{name}, #{tel})
+        INSERT INTO member(email, password, name, tel, role)
+        VALUE (#{email}, #{password}, #{name}, #{tel}, #{role})
     </insert>
 
     <update id="update" parameterType="memberDTO">

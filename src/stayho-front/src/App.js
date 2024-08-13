@@ -46,13 +46,11 @@ function App() {
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
                     <Route path="/registrant/reRegister" element={<ReRegister/>}/>
-                    <Route path="/registrant/reAuth" element={<ReAuth/>}/>
                     <Route path="/registrant/reUpdate" element={<ReUpdate/>}/>
                     <Route path="/registrant/reSecede" element={<ReSecede/>}/>
                     <Route path="/registrant/reMyPage" element={<ReMyPage/>}/>
                     <Route path="/admin/adMyPage" element={<AdMyPage/>}/>
                     <Route path="/admin/menu" element={<Menu/>}/>
-                    <Route path="/admin/adAuth" element={<AdAuth/>}/>
                     <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
                     <Route path={"/reservation/registrant"} element={<Registrant/>}/>
                     <Route path={"/reservation/admin"} element={<Admin/>}/>
