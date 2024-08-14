@@ -32,6 +32,7 @@ import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
 import MemberUpdate from "./member/MemberUpdate";
 import AdUpdate from "./admin/AdUpdate";
+import ShowOne from "./hotel/ShowOne";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
                     <Route path="/" element={<ShowList/>}/>
                     <Route path="/hotel/write" element={<Write/>}/>
+                    <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
                     <Route path="/registrant/reRegister" element={<ReRegister/>}/>

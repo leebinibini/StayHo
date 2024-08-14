@@ -25,7 +25,7 @@ let ListForUser = () => {
     useEffect(() => {
 
         let onLoad = async () => {
-            let response = await axios.get("http://localhost:8080/room/selectList", {params: condition}, {withCredentials: true})
+            let response = await axios.post("http://localhost:8080/room/selectList", condition, {withCredentials: true})
             if (response.status === 200) {
                 setRooms(response.data)
             }

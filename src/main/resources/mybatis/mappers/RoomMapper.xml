@@ -19,6 +19,8 @@
     </select>
     <select id="selectByHotelForSearch" parameterType="searchConditionDTO" resultType="synthesisDTO">
         select * from room
+        INNER JOIN price
+        ON room.id= price.room_id
         where  hotel_id=1 and id not  in(
             select room_id from search_view
             where #{checkinDate} &lt; check_out
