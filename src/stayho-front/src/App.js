@@ -37,6 +37,7 @@ function App() {
     return (
         <div className="App">
             <header className="App">
+                <SearchForm/>
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
                     <Route path="/member/register" element={<Register/>}/>
