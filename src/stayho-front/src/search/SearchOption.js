@@ -90,7 +90,7 @@ let SearchOption = ({origin, hotels, setHotels}) => {
             <div>
                 <div className={'d-flex mb-2'}><strong>편의시설</strong></div>
                 {facilities.map(facility => (
-                    <div className={'d-flex'} key={facility.name}>
+                    <div className={'d-flex'}>
                         <span className={'me-3'}>{facility.name}</span>
                         <FormCheck type='checkbox' value={facility.value}
                                    onClick={(event) => onChecked(event.target.checked, event.target.value)}/>

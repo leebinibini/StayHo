@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class LocationService {
@@ -21,12 +19,5 @@ public class LocationService {
     }
     public void delete(int id){
         SESSION.delete(NAMESPACE+".delete", id);
-    }
-    public List<String> selectSido(){
-        return SESSION.selectList(NAMESPACE+".selectSido");
-    }
-    public List<String> selectSigungu(String sido){
-        return SESSION.selectList(NAMESPACE+".selectSigungu", sido);
-
     }
 }
