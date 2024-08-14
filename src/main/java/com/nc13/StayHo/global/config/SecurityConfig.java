@@ -32,6 +32,7 @@ public class SecurityConfig {
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/search", "/room/**", "/location/**","/image", "/hotel/**", "/hotelDescription/**").permitAll()
                                 .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")
+                                .requestMatchers("/search", "/location/**", "/room/**", "/image").permitAll()
                                 .requestMatchers("/admin/adMyPage").hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 )
