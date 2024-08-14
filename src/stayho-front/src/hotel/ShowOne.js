@@ -1,11 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Container, Table, Form } from "react-bootstrap";
 
 const ShowOne = () => {
-    const [data, setData] = useState({});
+    const [data1, setData1] = useState({});
+    const [data2, setData2] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -36,9 +37,13 @@ const ShowOne = () => {
     useEffect(() => {
         let selectOne = async () => {
             try {
-                let resp = await axios.get('http://localhost:8080/hotel/showOne/' + id);
-                if (resp.status === 200) {
-                    setData(resp.data);
+                let resp1 = await axios.get('http://localhost:8080/hotel/showOne/' + id);
+                if (resp1.status === 200) {
+                    setData1(resp1.data);
+                }
+                let resp2 = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id);
+                if (resp2.status === 200) {
+                    setData2(resp2.data);
                 }
             } catch (e) {
                 console.error(e);
@@ -53,7 +58,9 @@ const ShowOne = () => {
     if (loading) return <div>로딩 중...</div>;
     if (error) return <div>{error}</div>;
 
-    const facilities = JSON.parse(data.facilities || "{}");
+    console.log(data2)
+    const facilities = JSON.parse(data2.facilities || "{}");
+    console.log(facilities)
 
     return (
         <Container>
@@ -67,21 +74,36 @@ const ShowOne = () => {
                 </thead>
                 <tbody>
                 <tr>
-                    <td colSpan={2}>제목: {data.name}</td>
+                    <td colSpan={2}>제목: {data1.name}</td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>글번호: {data.id}</td>
+                    <td colSpan={2}>글번호: {data1.id}</td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>작성자: {data.providerName}</td>
+                    <td colSpan={2}>작성자: {data1.providerName}</td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>내용: <div dangerouslySetInnerHTML={{ __html: data.content }} /></td>
+                    <td colSpan={2}>내용: <div dangerouslySetInnerHTML={{ __html: data1.content }} /></td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>편의시설: {Object.keys(facilities).map(key => (
-                        <span key={key}>{key} </span>
-                    ))}</td>
+                    <td colSpan={2}>
+                        <Form.Group>
+                            <Form.Label>편의시설:</Form.Label>
+                            <div>
+                                {Object.entries(data2).map(([key, value]) => (
+                                    key !== 'hotelId' && (
+                                        <Form.Check
+                                            key={key}
+                                            type="checkbox"
+                                            label={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
+                                            checked={value === true}
+                                            readOnly
+                                        />
+                                    )
+                                ))}
+                            </div>
+                        </Form.Group>
+                    </td>
                 </tr>
                 <tr>
                     <td>

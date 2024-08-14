@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RoomDescriptionMapper">
+<insert id="insert" parameterType="roomDescriptionDTO">
+    INSERT INTO room_description
+    (room_id, bath, bed, view)
+    VALUES(#{roomId}, #{bath},#{bed}, #{view})
+</insert>
+    <select id="selectByRoom" parameterType="int" resultType="roomDescriptionDTO">
+        SELECT * FROM room_description
+        WHERE room_id= #{id}
+    </select>
+    <update id="update" parameterType="roomDescriptionDTO">
+        UPDATE room_description SET
+        bath=#{bath}, bed=#{bed}, view=#{view}
+        WHERE room_id= #{roomId}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM room_description
+        WHERE room_id=#{id}
+    </delete>
+</mapper>

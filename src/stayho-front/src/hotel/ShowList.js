@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from "react"
 import {Button, Container, Table, Card} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.css'
+import Auth from "../member/Auth";
+
 
 let ShowList = () => {
     let [data, setData] = useState({hotelList: []})
+    let location = useLocation()
+    let state = location.state
+    console.log(state)
+
     let navigate = useNavigate()
 
     let moveToSingle = (id) => {
@@ -15,9 +22,35 @@ let ShowList = () => {
         navigate('/hotel/write')
     }
 
-    let logOut = () => {
-        navigate('/')
+    let onLogOut = async () => {
+
+        let response = await axios.post('http://localhost:8080/member/logout', {
+            withCredentials: true
+        })
+        if (response.status === 200) {
+            navigate('/')
+        }
     }
+    let onAuth = () => {
+        navigate("/member/auth")
+    }
+
+    let onRegister = () => {
+        navigate("/member/register")
+    }
+
+    let onMyPage = () => {
+        //console.log(memberInfo)
+        if (state !== null) {
+            let memberInfo = state.memberInfo
+            navigate('/member/myPage', {state: {memberInfo: memberInfo}})
+        }
+    }
+
+    let onHotelWrite = () => {
+        navigate('/registrant/reAuth')
+    }
+
 
     useEffect(() => {
         let selectList = async () => {
@@ -40,17 +73,27 @@ let ShowList = () => {
     }, [])
 
 
-    return(
+    return (
         <>
             <Container onSubmit={onWrite}>
                 <Table>
                     <thead>
                     <tr>
+                        {state ?
+                            (<td colSpan={3} className={'text-end'}>
+                                    <Button onClick={onMyPage}>마이페이지</Button>
+                                    <Button onClick={onLogOut}>로그아웃</Button>
+                                </td>
+                            ) : (
+                                <td colSpan={3} className={'text-end'}>
+                                    <td className={'text-xl-center'}>로그인이 되지 않은 리스트</td>
+                                    <Button onClick={onAuth}>로그인</Button>
+                                    <Button onClick={onRegister}>회원가입</Button>
+                                    <Button onClick={onHotelWrite}>숙박시설 등록하러 가기</Button>
+                                </td>
+                            )}
                         <td colSpan={3} className={'text-end'}>
                             <Button onClick={onWrite}>호텔 등록하기</Button>
-                            <Button onClick={logOut}>
-                                로그아웃
-                            </Button>
                         </td>
                     </tr>
                     </thead>
@@ -66,8 +109,12 @@ let ShowList = () => {
 let WithHeaderExample = ({hotel, moveToSingle}) => {
     return (
         <Card>
-            <Card.Header>무슨 호텔~~</Card.Header>
-            <Card.Img variant="top" src="" alt="사진첨부해야"/>
+            <Card.Header>{hotel.name}</Card.Header>
+            <Card.Img
+                variant="top"
+                src={hotel.imageUrl ? hotel.imageUrl : "default-image-url"} // 호텔의 이미지 URL이 없을 경우 기본 이미지를 표시합니다.
+                alt={hotel.name}
+            />
             <Card.Body>
                 <Card.Title>{hotel.name}</Card.Title>
                 <Card.Text>

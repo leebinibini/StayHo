@@ -59,11 +59,10 @@ const Write = () => {
                 tel: inputs.tel,
                 content: inputs.content,
                 facilities: inputs.facilities,
-                files: inputs.file
             })], { type: "application/json" }));
 
             if (inputs.file) {
-                formData.append('files', inputs.file);
+                formData.append('files', inputs.content);
             }
 
             const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData);
@@ -146,6 +145,7 @@ const Write = () => {
                             <CKEditor
                                 editor={ClassicEditor}
                                 data={inputs.content}
+                                name={"content"}
                                 config={{
                                     ckfinder: {
                                         uploadUrl: 'http://localhost:8080/hotel/uploads',
@@ -154,17 +154,6 @@ const Write = () => {
 
                                 onChange={onEditorChange}
                                 required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>첨부 파일</td>
-                        <td>
-                            <input
-                                type="file"
-                                className="form-control"
-                                name="file"
-                                onChange={onFileChange}
                             />
                         </td>
                     </tr>

@@ -41,6 +41,7 @@ public class HotelController {
         return HOTEL_SERVICE.selectOne(id);
     }
 
+
     @PostMapping("write")
     public HashMap<String, Object> write(
             @RequestPart("hotelDTO") HotelDTO hotelDTO) {
@@ -68,6 +69,7 @@ public class HotelController {
 
             // HotelDTO 저장 로직
             HOTEL_SERVICE.insert(hotelDTO);
+            System.out.println(hotelDTO);
             resultMap.put("result", "success");
             resultMap.put("resultId", hotelDTO.getId());
 
@@ -97,8 +99,9 @@ public class HotelController {
 
     @PostMapping("uploads")
     public Map<String, Object> uploads(MultipartHttpServletRequest request) {
+
         System.out.println("uploads/");
-        System.out.println(request);
+        System.out.println("request: " + request);
         Map<String, Object> resultMap = new HashMap<>();
         MultipartFile file = request.getFile("upload");
         System.out.println(file);
@@ -108,12 +111,17 @@ public class HotelController {
             return resultMap;
         }
 
+        System.out.println("file존재함");
         String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
         String extension = fileName.substring(fileName.lastIndexOf("."));
         String uploadName = UUID.randomUUID() + extension;
+        System.out.println(uploadName);
 
         String realPath = request.getServletContext().getRealPath("/hotel/uploads/");
+        System.out.println(realPath);
         Path realDir = Paths.get(realPath);
+        System.out.println(realDir);
         if (!Files.exists(realDir)) {
             try {
                 Files.createDirectories(realDir);
@@ -141,8 +149,12 @@ public class HotelController {
                 .path(uploadName)
                 .toUriString();
 
+        System.out.println(uploadPath);
+
         resultMap.put("uploaded", true);
+        System.out.println("uploaded");
         resultMap.put("url", uploadPath);
+        System.out.println(resultMap);
         return resultMap;
     }
 }
