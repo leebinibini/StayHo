@@ -20,9 +20,7 @@ let Admin = () => {
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
-                .get("http://localhost:8080/reservation/adminAll", {
-                    withCredentials: true
-                })
+                .get("http://localhost:8080/reservation/adminAll")
                 .catch((e) => {
                     console.log(e)
                 })
@@ -34,9 +32,7 @@ let Admin = () => {
     }, [])
 
     let onDelete = async (id) => {
-        let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
-            withCredentials: true
-        })
+        let response = await axios.get('http://localhost:8080/reservation/delete/' + id)
         if (response.status === 200) {
             setData((prevData) => ({
                 resve: prevData.resve.filter((item) => item.id !== id)
