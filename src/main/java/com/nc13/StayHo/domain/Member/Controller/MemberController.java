@@ -56,12 +56,16 @@ public class MemberController {
     }
 
     @PostMapping("/member/register")
-    public ResponseEntity<Void> register(MemberDTO memberDTO) {
+    public ResponseEntity<Map<String,Object>> register(MemberDTO memberDTO) {
+        HashMap<String,Object> resultMap = new HashMap<>();
         if (memberService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
             memberService.register(memberDTO);
+            resultMap.put("member", memberDTO);
+            return ResponseEntity.ok(resultMap);
         }
-        return ResponseEntity.ok().build();
+        resultMap.put("message", "이미 가입된 이메일입니다.");
+        return ResponseEntity.badRequest().body(resultMap);
     }
 
     @PostMapping("/member/update")
@@ -99,15 +103,18 @@ public class MemberController {
         return resultMap;
     }
 
-    @PostMapping("/registrant/register")
-    public ResponseEntity<Void> register(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+    @PostMapping("/registrant/reRegister")
+    public ResponseEntity<Map<String,Object>> reRegister(MemberDTO memberDTO) {
+        HashMap<String,Object> resultMap = new HashMap<>();
         if (memberService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
             memberDTO.setRole(Role.ROLE_REGISTRANT);
-            System.out.println(memberDTO);
             memberService.register(memberDTO);
+            resultMap.put("member", memberDTO);
+            return ResponseEntity.ok(resultMap);
         }
-        return ResponseEntity.ok().build();
+        resultMap.put("message", "이미 가입된 이메일입니다.");
+        return ResponseEntity.badRequest().body(resultMap);
     }
 
     @PostMapping("/registrant/update")

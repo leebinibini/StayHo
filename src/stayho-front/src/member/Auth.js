@@ -40,7 +40,8 @@ let Auth = () => {
                     id: response.data.id,
                     email: response.data.email,
                     name: response.data.name,
-                    role: response.data.role
+                    role: response.data.role,
+                    tel: response.data.tel
                 }
                 navigate('/admin/menu', {state: {adminInfo: adminInfo}})
             } else if (response.status === 200 &&
@@ -50,6 +51,7 @@ let Auth = () => {
                     email: response.data.email,
                     password: response.data.password,
                     name: response.data.name,
+                    tel: response.data.tel,
                     role: response.data.role
                 }
                 navigate('/', {state: {memberInfo: memberInfo}})

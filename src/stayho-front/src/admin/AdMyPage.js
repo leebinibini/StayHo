@@ -18,7 +18,7 @@ let AdMyPage = () => {
     }
 
     let onUpdate = () => {
-        navigate('admin/update', {state: {adminInfo: adminInfo}})
+        navigate('/admin/adUpdate', {state: {adminInfo: adminInfo}})
     }
 
     return (
@@ -41,9 +41,6 @@ let AdMyPage = () => {
                 </tr>
                 <tr>
                     <td> 이름: {adminInfo.name}</td>
-                </tr>
-                <tr>
-                    <td> 비밀번호: {adminInfo.password}</td>
                 </tr>
                 <tr>
                     <td> 전화번호: {adminInfo.tel}</td>

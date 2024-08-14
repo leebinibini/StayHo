@@ -9,7 +9,7 @@
         WHERE email = #{email}
     </select>
 
-    <insert id="register" parameterType="memberDTO">
+    <insert id="register" parameterType="memberDTO" useGeneratedKeys="true" keyColumn="id">
         INSERT INTO member(email, password, name, tel, role)
         VALUE (#{email}, #{password}, #{name}, #{tel}, #{role})
     </insert>
