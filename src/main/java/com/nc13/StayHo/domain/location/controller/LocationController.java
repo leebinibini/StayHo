@@ -14,19 +14,19 @@ public class LocationController {
         this.LOCATION_SERVICE= locationService;
     }
 
-    @PostMapping("/hotel/insert")
+    @PostMapping("/location/insert")
     public ResponseEntity<Void> insert(@RequestBody LocationDTO locationDTO){
         LOCATION_SERVICE.insert(locationDTO);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/hotel/update")
+    @PostMapping("/location/update")
     public ResponseEntity<Void> update(@RequestBody LocationDTO locationDTO){
         LOCATION_SERVICE.update(locationDTO);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/hotel/delete/{id}")
+    @GetMapping("/location/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id){
         LOCATION_SERVICE.delete(id);
         return ResponseEntity.ok().build();
