@@ -29,11 +29,13 @@ public class LocationController {
         return ResponseEntity.ok().build();
     }
 
+
     @GetMapping("/location/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id){
         LOCATION_SERVICE.delete(id);
         return ResponseEntity.ok().build();
     }
+
 
     @GetMapping("/location/sido")
     public ResponseEntity<Map<String, Object>> selectSido(){

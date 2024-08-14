@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Table, Form } from "react-bootstrap";
+import { Button, Container, Row, Col, Card, Badge } from "react-bootstrap";
 
 const ShowOne = () => {
     const [data1, setData1] = useState({});
@@ -55,71 +55,43 @@ const ShowOne = () => {
         selectOne();
     }, [id]);
 
-    if (loading) return <div>로딩 중...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) return <div className="text-center my-5"><span className="spinner-border"></span> 로딩 중...</div>;
+    if (error) return <div className="text-danger text-center my-5">{error}</div>;
 
-    console.log(data2)
     const facilities = JSON.parse(data2.facilities || "{}");
-    console.log(facilities)
 
     return (
-        <Container>
-            <Table>
-                <thead>
-                <tr>
-                    <td>
-                        <article>StayHo~</article>
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td colSpan={2}>제목: {data1.name}</td>
-                </tr>
-                <tr>
-                    <td colSpan={2}>글번호: {data1.id}</td>
-                </tr>
-                <tr>
-                    <td colSpan={2}>작성자: {data1.providerName}</td>
-                </tr>
-                <tr>
-                    <td colSpan={2}>내용: <div dangerouslySetInnerHTML={{ __html: data1.content }} /></td>
-                </tr>
-                <tr>
-                    <td colSpan={2}>
-                        <Form.Group>
-                            <Form.Label>편의시설:</Form.Label>
-                            <div>
+        <Container className="my-5">
+            <Row className="justify-content-center">
+                <Col md={8}>
+                    <Card className="shadow-lg p-4 mb-5 bg-white rounded">
+                        <Card.Body>
+                            <h2 className="text-primary">{data1.name}</h2>
+                            <Badge bg="secondary" className="mb-3">글번호: {data1.id}</Badge>
+                            <p className="text-muted">작성자: {data1.providerName}</p>
+                            <hr />
+                            <div dangerouslySetInnerHTML={{ __html: data1.content }} className="mb-4" />
+                            <hr />
+                            <h4>편의시설</h4>
+                            <Row className="mb-4">
                                 {Object.entries(data2).map(([key, value]) => (
-                                    key !== 'hotelId' && (
-                                        <Form.Check
-                                            key={key}
-                                            type="checkbox"
-                                            label={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
-                                            checked={value === true}
-                                            readOnly
-                                        />
+                                    key !== 'hotelId' && value && (
+                                        <Col md={4} key={key} className="mb-3">
+                                            <Badge bg="info" className="p-2 w-100 text-uppercase">{key.replace(/([A-Z])/g, ' $1')}</Badge>
+                                        </Col>
                                     )
                                 ))}
+                            </Row>
+                            <hr />
+                            <div className="text-center">
+                                <Button variant="primary" onClick={onUpdate} className="mx-2 px-4">수정하기</Button>
+                                <Button variant="danger" onClick={onDelete} className="mx-2 px-4">삭제하기</Button>
+                                <Button variant="secondary" onClick={goToHotelList} className="mx-2 px-4">호텔 목록으로 가기</Button>
                             </div>
-                        </Form.Group>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <Button onClick={onUpdate}>수정하기</Button>
-                    </td>
-                    <td>
-                        <Button onClick={onDelete}>삭제하기</Button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colSpan={3} className={'text-end'}>
-                        <Button onClick={goToHotelList}>호텔 목록으로 가기</Button>
-                    </td>
-                </tr>
-                </tbody>
-            </Table>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         </Container>
     );
 };

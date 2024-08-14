@@ -38,6 +38,7 @@ public class HotelController {
 
     @GetMapping("showOne/{id}")
     public HotelDTO selectOne(@PathVariable int id) {
+        System.out.println("hotel showOne success");
         return HOTEL_SERVICE.selectOne(id);
     }
 
@@ -81,7 +82,7 @@ public class HotelController {
         return resultMap;
     }
 
-    @PostMapping("update")
+    @PostMapping("updateHotel")
     public HashMap<String, Object> update(@RequestPart("hotelDTO") HotelDTO hotelDTO) {
         System.out.println("hotelDTO");
         HashMap<String, Object> resultMap = new HashMap<>();
