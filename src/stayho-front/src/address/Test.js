@@ -11,20 +11,20 @@ let Test = () => {
         setModalState(true)
     }
     let onInsert = async () => {
-        let response = await axios.post("http://localhost:8080/hotel/insert", addressData, {})
+        let response = await axios.post("http://localhost:8080/location/insert", addressData, {})
         if (response.status === 200) {
             window.alert("위치가 추가되었습니다.")
             // window.location.href="/"
         }
     }
     let onUpdate = async () => {
-        let response = await axios.post("http://localhost:8080/hotel/update", addressData, {})
+        let response = await axios.post("http://localhost:8080/location/update", addressData, {})
         if (response.status === 200) {
             window.alert("수정되었습니다.")
         }
     }
     let onDelete = async () => {
-        let response = await axios.get("http://localhost:8080/hotel/delete/" + id)
+        let response = await axios.get("http://localhost:8080/location/delete/" + id)
         if (response.status === 200){
             window.alert("삭제되었습니다.")
         }

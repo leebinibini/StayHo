@@ -5,7 +5,7 @@ import {Button, Container, FormControl, Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css'
 
 let Register = () => {
-
+    let [errorMessage, setErrorMessage] = useState('')
     let [inputs, setInputs] = useState({
         email: '',
         password: '',
@@ -27,14 +27,15 @@ let Register = () => {
 
     let navigate = useNavigate()
 
-    /*let parsingPhoneNumber = (num: string) => {
-        return (
-            num
-                .replace(/[^0-9]/g, '')
-                .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
-                .replace(/(-{1,2})$/g, '')
-        )
-    }*/
+    let checkPhoneNumber = (event) => {
+        let phoneNumber = event.target.value
+        // '-' 입력 시
+        let regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
+        // 숫자만 입력시
+        let regExp2 = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+        // 형식에 맞는 경우 true 리턴
+        return regExp.test(phoneNumber) || regExp2.test(phoneNumber);
+    }
 
     let passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/
     let onSubmit = async (e) => {
@@ -48,7 +49,7 @@ let Register = () => {
         } else if (!isValid) {
             alert("필요한 정보가 누락 되었습니다.")
             return
-        } else if (parsingPhoneNumber) {
+        } else if (!checkPhoneNumber({target: {value: inputs.tel}})) {
             alert("전화번호를 바르게 기입해주세요.")
             return
         }*/
@@ -59,21 +60,30 @@ let Register = () => {
         formData.append('role', 'ROLE_USER')
         formData.append('tel', inputs.tel)
 
-        let response = await axios({
-            url: 'http://localhost:8080/member/register',
-            method: "POST",
-            data: formData,
-            withCredentials: true
-        })
+        try {
+            let response = await axios({
+                url: 'http://localhost:8080/member/register',
+                method: "POST",
+                data: formData,
+                withCredentials: true
+            })
 
-
-        let memberInfo = {
-            emil: response.data.emil,
-            password: response.data.password,
-            name: response.data.name,
-            tel: response.data.tel
+            if (response.status === 200) {
+                let memberInfo = {
+                    email: response.data.member.email,
+                    password: response.data.member.password,
+                    name: response.data.member.name,
+                    tel: response.data.member.tel
+                }
+                navigate('/', {state: {memberInfo: memberInfo}})
+            }
+        } catch (error) {
+            if (error.response) {
+                setErrorMessage(error.response.data.message)
+            } else {
+                setErrorMessage('이미 가입된 이메일입니다.')
+            }
         }
-        navigate('/', {state: {memberInfo: memberInfo}})
     }
     return (
         <form onSubmit={onSubmit}>
@@ -130,6 +140,7 @@ let Register = () => {
                         </td>
                     </tr>
                     </tbody>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 </Table>
             </Container>
         </form>

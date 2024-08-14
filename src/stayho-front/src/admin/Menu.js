@@ -8,7 +8,7 @@ let Menu = () => {
     let adminInfo = location.state.adminInfo
 
     let onMyPage = () => {
-        navigate("/admin/myPage", {state: {adminInfo: adminInfo}})
+        navigate("/admin/adMyPage", {state: {adminInfo: adminInfo}})
     }
 
 

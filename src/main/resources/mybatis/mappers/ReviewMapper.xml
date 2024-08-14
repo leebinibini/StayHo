@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ReviewMapper">
-    <insert id="insert" parameterType="ReviewRegisterDTO">
+    <insert id="insert" parameterType="ReviewRegisterDTO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO review(comment, reservation_id, rating, created_at, updated_at)
         VALUES(#{comment}, #{reservationId}, #{rating}, NOW(), NOW())
     </insert>

@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
-let Description = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
+let RoomDescription = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
     let customStyle = {
         content: {
             top: '50%',
@@ -54,4 +54,4 @@ let Description = ({description, modalOpen, setModalOpen, room, images, reservat
     )
 }
 
-export default Description
+export default RoomDescription

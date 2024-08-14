@@ -29,7 +29,7 @@ let ReSecede = () => {
 
     let navigate = useNavigate()
     let moveToNext = () => {
-        navigate('/hotel/showList')
+        navigate('/')
     }
 
     let onSecede = async (e) => {
