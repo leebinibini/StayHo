@@ -32,6 +32,9 @@ import Menu from "./admin/Menu";
 import MemberUpdate from "./member/MemberUpdate";
 import ReAuth from "./registrant/ReAuth";
 import AdUpdate from "./admin/AdUpdate";
+import MemberAdmin from "./admin/MemberAdmin";
+import RegistrantAdmin from "./admin/RegistrantAdmin";
+import MemUpdate from "./admin/MemUpdate";
 
 
 function App() {
@@ -67,6 +70,9 @@ function App() {
                     <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
+                    <Route path={"/admin/memberAdmin"} element={<MemberAdmin/>}/>
+                    <Route path={"/admin/registrantAdmin"} element={<RegistrantAdmin/>}/>
+                    <Route path={"/admin/memUpdate"} element={<MemUpdate/>}/>
                 </Routes>
             </header>
         </div>

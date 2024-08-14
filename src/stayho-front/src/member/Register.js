@@ -108,6 +108,7 @@ let Register = () => {
                             <FormControl type={'password'} name={'password'} value={inputs.password}
                                          onChange={onChange} placeholder="password(영문, 숫자, 특수문자 조합/8~15자)"
                                          maxLength="15"/>
+
                         </td>
                     </tr>
                     <tr>
@@ -144,7 +145,6 @@ let Register = () => {
                 </Table>
             </Container>
         </form>
-
     )
 }
 export default Register

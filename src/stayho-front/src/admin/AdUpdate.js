@@ -25,15 +25,36 @@ let AdUpdate = () => {
             [name]: value
         })
     }
+    let isValid = inputs.email !== ''
+        && inputs.name !== '' && inputs.tel !== ''
 
     let navigate = useNavigate()
     let moveToNext = () => {
         navigate('/admin/adMyPage', {state: {adminInfo: inputs}})
     }
+    let checkPhoneNumber = (event) => {
+        let phoneNumber = event.target.value
+        // '-' 입력 시
+        let regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
+        // 숫자만 입력시
+        let regExp2 = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+        // 형식에 맞는 경우 true 리턴
+        return regExp.test(phoneNumber) || regExp2.test(phoneNumber);
+    }
+    let passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/
 
     let onSubmit = async (e) => {
-        console.log(inputs)
         e.preventDefault()
+        if (!inputs.password.match(passwordRegEx)) {
+            alert("비밀번호 형식을 확인해 주세요");
+            return;
+        } else if (!isValid) {
+            alert("필요한 정보가 누락되었습니다.");
+            return;
+        }else if (!checkPhoneNumber({ target: { value: inputs.tel}})) {
+            alert("전화번호를 바르게 기입해 주세요.");
+            return;
+        }
         let resp = await axios.post('http://localhost:8080/admin/update', inputs, {
             withCredentials: true
         })
@@ -49,7 +70,7 @@ let AdUpdate = () => {
                 <Table striped border hover>
                     <thead>
                     <tr>
-                        <td colSpan={2}>회원 정보 수정하기</td>
+                        <td colSpan={2}>관리자 정보 수정하기</td>
                     </tr>
                     </thead>
                     <tbody>

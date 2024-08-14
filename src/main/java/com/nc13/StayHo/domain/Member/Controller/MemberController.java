@@ -4,14 +4,17 @@ package com.nc13.StayHo.domain.Member.Controller;
 import com.nc13.StayHo.domain.Member.Model.MemberDTO;
 import com.nc13.StayHo.domain.Member.Model.Role;
 import com.nc13.StayHo.domain.Member.Service.MemberService;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,8 +59,8 @@ public class MemberController {
     }
 
     @PostMapping("/member/register")
-    public ResponseEntity<Map<String,Object>> register(MemberDTO memberDTO) {
-        HashMap<String,Object> resultMap = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> register(MemberDTO memberDTO) {
+        HashMap<String, Object> resultMap = new HashMap<>();
         if (memberService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
             memberService.register(memberDTO);
@@ -66,6 +69,23 @@ public class MemberController {
         }
         resultMap.put("message", "이미 가입된 이메일입니다.");
         return ResponseEntity.badRequest().body(resultMap);
+    }
+
+
+    @GetMapping("/member/memberList/{role}")
+    public ResponseEntity<HashMap<String, Object>> memberList(@PathVariable String role) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        try {
+            List<MemberDTO> members = memberService.selectAll(role);
+            resultMap.put("memberList", members);
+            return ResponseEntity.ok(resultMap);
+        } catch (Exception e) {
+            HashMap<String, Object> errorMap = new HashMap<>();
+            e.printStackTrace();
+            errorMap.put("error", "서버 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMap);
+        }
+
     }
 
     @PostMapping("/member/update")
@@ -86,7 +106,6 @@ public class MemberController {
         MemberDTO original = memberService.selectByEmail(inputs.getEmail());
         if (encoder.matches(password, original.getPassword())) {
             memberService.delete(inputs.getId());
-
         }
         return ResponseEntity.ok().build();
     }
@@ -103,9 +122,19 @@ public class MemberController {
         return resultMap;
     }
 
+    @GetMapping("/admin/withdraw/{memberId}")
+    public ResponseEntity<Void> adminWithdraw(@PathVariable int memberId) {
+        System.out.println(memberId);
+
+        memberService.delete(memberId);
+        System.out.println(memberId);
+        return ResponseEntity.ok().build();
+    }
+
+
     @PostMapping("/registrant/reRegister")
-    public ResponseEntity<Map<String,Object>> reRegister(MemberDTO memberDTO) {
-        HashMap<String,Object> resultMap = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> reRegister(MemberDTO memberDTO) {
+        HashMap<String, Object> resultMap = new HashMap<>();
         if (memberService.validateEmail(memberDTO.getEmail())) {
             memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
             memberDTO.setRole(Role.ROLE_REGISTRANT);
@@ -113,6 +142,7 @@ public class MemberController {
             resultMap.put("member", memberDTO);
             return ResponseEntity.ok(resultMap);
         }
+        System.out.println(resultMap);
         resultMap.put("message", "이미 가입된 이메일입니다.");
         return ResponseEntity.badRequest().body(resultMap);
     }
@@ -126,7 +156,7 @@ public class MemberController {
 
         memberService.update(memberDTO);
         resultMap.put("id", memberDTO.getId());
-        System.out.println(memberDTO);
+
         return resultMap;
     }
 
@@ -140,4 +170,6 @@ public class MemberController {
         }
         return ResponseEntity.ok().build();
     }
+
+
 }

@@ -17,6 +17,11 @@ let AdMyPage = () => {
         }
     }
 
+    let onMenu = () => {
+        navigate("/admin/menu", {state: {adminInfo:adminInfo}})
+    }
+    
+
     let onUpdate = () => {
         navigate('/admin/adUpdate', {state: {adminInfo: adminInfo}})
     }
@@ -29,6 +34,7 @@ let AdMyPage = () => {
                     <td colSpan={3} className={'text-end'}>
                         <Button onClick={onLogOut}>로그아웃</Button>
                         <Button onClick={onUpdate}>내 정보 수정하기</Button>
+                        <Button onClick={onMenu}>관리자 메뉴</Button>
                     </td>
                 </tr>
                 </thead>

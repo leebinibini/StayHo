@@ -17,23 +17,6 @@ public class LocationController {
         this.LOCATION_SERVICE= locationService;
     }
 
-    @PostMapping("/hotel/insert")
-    public ResponseEntity<Void> insert(@RequestBody LocationDTO locationDTO){
-        LOCATION_SERVICE.insert(locationDTO);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/hotel/update")
-    public ResponseEntity<Void> update(@RequestBody LocationDTO locationDTO){
-        LOCATION_SERVICE.update(locationDTO);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/hotel/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id){
-        LOCATION_SERVICE.delete(id);
-        return ResponseEntity.ok().build();
-    }
     @GetMapping("/location/sido")
     public ResponseEntity<Map<String, Object>> selectSido(){
         Map<String, Object> resultMap= new HashMap<>();
@@ -46,4 +29,21 @@ public class LocationController {
         resultMap.put("sigungu", LOCATION_SERVICE.selectSigungu(sido));
         return ResponseEntity.ok(resultMap);
     }
+//    @PostMapping("/hotel/insert")
+//    public ResponseEntity<Void> insert(@RequestBody LocationDTO locationDTO){
+//        LOCATION_SERVICE.insert(locationDTO);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @PostMapping("/hotel/update")
+//    public ResponseEntity<Void> update(@RequestBody LocationDTO locationDTO){
+//        LOCATION_SERVICE.update(locationDTO);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @GetMapping("/hotel/delete/{id}")
+//    public ResponseEntity<Void> delete(@PathVariable int id){
+//        LOCATION_SERVICE.delete(id);
+//        return ResponseEntity.ok().build();
+//    }
 }
