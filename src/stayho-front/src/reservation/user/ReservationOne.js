@@ -38,9 +38,7 @@ let ReservationOne = () => {
 
     let onApproval = async (e) => {
         data.status = true
-        let response = await axios.post('http://localhost:8080/reservation/updateApproval', data, {
-            withCredentials: true
-        })
+        let response = await axios.post('http://localhost:8080/reservation/updateApproval', data)
         if (response.status === 200) {
             closeModalApproval()
         }
@@ -64,9 +62,7 @@ let ReservationOne = () => {
     useEffect(() => {
         let selectOne = async () => {
             try {
-                let resp = await axios.get("http://localhost:8080/reservation/one/" + id, {
-                    withCredentials: true
-                })
+                let resp = await axios.get("http://localhost:8080/reservation/one/" + id)
                 if (resp.status === 200) {
                     setData(resp.data)
                 }
@@ -105,7 +101,7 @@ let ReservationOne = () => {
                 <tr>
                     <td>
                         객실: &nbsp;
-                        <Button size={"sm"}>객실 정보</Button>
+                        <Button size={"sm"} onClick={onOpenRooms}>객실 정보</Button>
                     </td>
                 </tr>
                 <tr>
