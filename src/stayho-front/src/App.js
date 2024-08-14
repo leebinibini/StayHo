@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import ReservationAll from "./Reservation/user/ReservationAll";
-import ReservationOne from "./Reservation/user/ReservationOne";
-import ReservationInsert from "./Reservation/user/ReservationInsert";
+import ReservationAll from "./reservation/user/ReservationAll";
+import ReservationOne from "./reservation/user/ReservationOne";
+import ReservationInsert from "./reservation/user/ReservationInsert";
 import RoomInsert from "./room/RoomInsert";
 import ListForUser from "./room/ListForUser";
 import RoomUpdate from "./room/RoomUpdate";
@@ -14,8 +14,8 @@ import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
-import Registrant from "./Reservation/registerant/Registrant";
-import Admin from "./Reservation/admin/Admin";
+import Registrant from "./reservation/registerant/Registrant";
+import Admin from "./reservation/admin/Admin";
 import ShowAll from "./review/ShowAll";
 import Auth from "./member/Auth";
 import Register from "./member/Register";
@@ -31,6 +31,7 @@ import Write from "./hotel/Write";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
 import AdAuth from "./admin/AdAuth";
+import Update from "./member/Update";
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
                     <Route path="/member/register" element={<Register/>}/>
-                    <Route path="/member/update" element={<RoomUpdate/>}/>
+                    <Route path="/member/update" element={<Update/>}/>
                     <Route path="/" element={<ShowList/>}/>
                     <Route path="/hotel/write" element={<Write/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>

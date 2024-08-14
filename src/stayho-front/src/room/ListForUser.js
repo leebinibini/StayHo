@@ -4,18 +4,28 @@ import axios from "axios";
 
 import RoomDescription from "./RoomDescription"
 import {useLocation, useParams} from "react-router-dom";
+
 let ListForUser = () => {
 
     let [rooms, setRooms] = useState({roomList: []})
-    let [roomD, setRoomD]= useState()
+    let [roomD, setRoomD] = useState()
     let [description, setDescription] = useState({})
-    let [images, setImages]= useState([])
+    let [images, setImages] = useState([])
     let [modalOpen, setModalOpen] = useState(false)
-let params= useParams()
-    let id= parseInt(params.id)
+    let params = useParams()
+    let id = parseInt(params.id)
+    let condition = {
+        sido: '',
+        sigungu: '',
+        people: 2,
+        rooms: 1,
+        checkinDate: new Date(),
+        checkoutDate: new Date(),
+    }
     useEffect(() => {
+
         let onLoad = async () => {
-            let response = await axios.get("http://localhost:8080/room/selectList/" + id, {})
+            let response = await axios.get("http://localhost:8080/room/selectList", {params: condition}, {withCredentials: true})
             if (response.status === 200) {
                 setRooms(response.data)
             }
@@ -51,13 +61,14 @@ let params= useParams()
                     <tr onClick={() => onClick(room.id)} key={room.id}>
                         <td> {room.type}</td>
                         <td> {room.limitPeople}명</td>
-                        <td> {room.price}원 </td>
+                        <td> {room.price}원</td>
                     </tr>
 
                 ))}
                 </tbody>
             </Table>
-            <RoomDescription description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD} images={images} reservation={false}/>
+            <RoomDescription description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}
+                             images={images} reservation={false}/>
         </Container>
     )
 }
