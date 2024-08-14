@@ -70,7 +70,6 @@ let SearchForm = () => {
         e.preventDefault()
         let response = await axios.post("http://localhost:8080/search", inputs, {})
         if (response.status === 200) {
-            console.log(response)
             navigate("/search", {state: {list:response.data.list, images: response.data.images}})
         }
     }

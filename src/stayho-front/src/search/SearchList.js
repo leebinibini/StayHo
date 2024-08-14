@@ -12,7 +12,7 @@ let SearchList = ({hotels, images}) => {
     return (
         <Container>
             {hotels.map(hotel => (
-                <Card onClick={() => onClick(hotel)} key={hotel.roomId}>
+                <Card onClick={() => onClick(hotel)} key={hotel.id}>
                     <Card.Body className={'d-flex'}>
                         <Carousel>
                             {images.map(
