@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import Modal from "react-modal";
-import Description from "../../room/Description";
+import RoomDescription from "../../room/RoomDescription";
 
 let ReservationOne = () => {
     let [data, setData] = useState({})
@@ -136,7 +136,7 @@ let ReservationOne = () => {
                 <Button className={"m-lg-1"} onClick={onApproval}>예</Button>
                 <Button onClick={closeModalApproval}>아니요</Button>
             </Modal>
-            <Description modalOpen={isOpenRoom} setModalOpen={setIsOpenRoom} description={description} room={room}  images={images} reservation={true}/>
+            <RoomDescription modalOpen={isOpenRoom} setModalOpen={setIsOpenRoom} description={description} room={room} images={images} reservation={true}/>
         </Container>
     )
 }

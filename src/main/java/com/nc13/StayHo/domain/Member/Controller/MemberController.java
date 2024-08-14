@@ -1,6 +1,5 @@
 package com.nc13.StayHo.domain.Member.Controller;
 
-
 import com.nc13.StayHo.domain.Member.Model.MemberDTO;
 import com.nc13.StayHo.domain.Member.Model.Role;
 import com.nc13.StayHo.domain.Member.Service.MemberService;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
