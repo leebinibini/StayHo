@@ -31,10 +31,7 @@ import Write from "./hotel/Write";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
 import MemberUpdate from "./member/MemberUpdate";
-import ReAuth from "./registrant/ReAuth";
 import AdUpdate from "./admin/AdUpdate";
-import AdAuth from "./admin/AdAuth";
-import Update from "./member/Update";
 
 
 function App() {
