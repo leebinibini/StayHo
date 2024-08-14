@@ -31,6 +31,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")
+                                .requestMatchers("/search", "/location/**", "/room/**", "/image").permitAll()
                                 .requestMatchers("/admin/adMyPage").hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 )
