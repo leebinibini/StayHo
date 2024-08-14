@@ -17,4 +17,13 @@
         DELETE FROM location
         WHERE hotel_id= #{id}
     </delete>
+    <select id="selectSido" resultType="String">
+        SELECT sido FROM location
+        WHERE LENGTH(sido)>2
+        GROUP BY sido
+    </select>
+    <select id="selectSigungu" resultType="String" parameterType="String">
+        SELECT sigungu FROM location
+        WHERE sido=#{sido}
+    </select>
 </mapper>

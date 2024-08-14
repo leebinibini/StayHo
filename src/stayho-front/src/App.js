@@ -27,7 +27,7 @@ import ReAuth from "./registrant/ReAuth";
 import ReUpdate from "./registrant/ReUpdate";
 import ReSecede from "./registrant/ReSecede";
 import ReMyPage from "./registrant/ReMyPage";
-import Write from "./hotel/Write";
+import Write from "./hotel/write";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
 import MemberUpdate from "./member/MemberUpdate";
