@@ -27,19 +27,19 @@ let Register = () => {
 
     let navigate = useNavigate()
 
-    let parsingPhoneNumber = (num: string) => {
+    /*let parsingPhoneNumber = (num: string) => {
         return (
             num
                 .replace(/[^0-9]/g, '')
                 .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
                 .replace(/(-{1,2})$/g, '')
         )
-    }
+    }*/
 
     let passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/
     let onSubmit = async (e) => {
         e.preventDefault()
-        if (!(inputs.password.match(passwordRegEx))) {
+        /*if (!(inputs.password.match(passwordRegEx))) {
             alert("비밀번호 형식을 확인해주세요")
             return
         } else if (!isSame) {
@@ -51,7 +51,7 @@ let Register = () => {
         } else if (parsingPhoneNumber) {
             alert("전화번호를 바르게 기입해주세요.")
             return
-        }
+        }*/
         let formData = new FormData()
         formData.append('email', inputs.email)
         formData.append('name', inputs.name)
