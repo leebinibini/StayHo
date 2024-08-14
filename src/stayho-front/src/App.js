@@ -27,10 +27,12 @@ import ReAuth from "./registrant/ReAuth";
 import ReUpdate from "./registrant/ReUpdate";
 import ReSecede from "./registrant/ReSecede";
 import ReMyPage from "./registrant/ReMyPage";
-import Write from "./hotel/Write";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
 import AdAuth from "./admin/AdAuth";
+import ShowOne from "./hotel/ShowOne";
+import UpdateHotel from "./hotel/UpdateHotel";
+import WriteHotel from "./hotel/WriteHotel";
 
 
 function App() {
@@ -43,7 +45,6 @@ function App() {
                     <Route path="/member/register" element={<Register/>}/>
                     <Route path="/member/update" element={<Update/>}/>
                     <Route path="/" element={<ShowList/>}/>
-                    <Route path="/hotel/write" element={<Write/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
                     <Route path="/registrant/reRegister" element={<ReRegister/>}/>
@@ -66,6 +67,10 @@ function App() {
                     <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
+                    <Route path="/hotel/showList" element={<ShowList/>}/>
+                    <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
+                    <Route path="/hotel/write" element={<WriteHotel/>}/>
+                    <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
                 </Routes>
             </header>
         </div>
