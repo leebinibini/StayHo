@@ -5,7 +5,7 @@ import {Button, Container, FormControl, Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css'
 
 let ReRegister = () => {
-
+    let [errorMessage, setErrorMessage] = useState('')
     let [inputs, setInputs] = useState({
         email: '',
         password: '',
@@ -28,6 +28,16 @@ let ReRegister = () => {
 
     let navigate = useNavigate()
 
+    let checkPhoneNumber = (event) => {
+        let phoneNumber = event.target.value
+        // '-' 입력 시
+        let regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
+        // 숫자만 입력시
+        let regExp2 = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+        // 형식에 맞는 경우 true 리턴
+        return regExp.test(phoneNumber) || regExp2.test(phoneNumber);
+    }
+
     let onSubmit = async (e) => {
         e.preventDefault()
         if (!isSame) {
@@ -36,30 +46,41 @@ let ReRegister = () => {
         } else if (!isValid) {
             alert("필요한 정보가 누락 되었습니다.")
             return
+        } else if (!checkPhoneNumber({target: {value: inputs.tel}})) {
+            alert("전화번호를 바르게 기입해주세요.")
+            return
         }
-        let formData = new FormData()
-        formData.append('email', inputs.email)
-        formData.append('name', inputs.name)
-        formData.append('password', inputs.password)
-        formData.append('role', 'ROLE_REGISTRANT')
-        formData.append('tel', inputs.tel)
+        try {
+            let formData = new FormData()
+            formData.append('email', inputs.email)
+            formData.append('name', inputs.name)
+            formData.append('password', inputs.password)
+            formData.append('role', 'ROLE_REGISTRANT')
+            formData.append('tel', inputs.tel)
 
-        let response = await axios({
-            url: 'http://localhost:8080/registrant/register',
-            method: "POST",
-            data: formData,
-            withCredentials: true
-        })
+            let response = await axios({
+                url: 'http://localhost:8080/registrant/reRegister',
+                method: "POST",
+                data: formData,
+                withCredentials: true
+            })
 
 
-        let registrantInfo = {
-            emil: response.data.emil,
-            password: response.data.password,
-            name: response.data.name,
-            role: response.data.role,
-            tel: response.data.tel
+            let registrantInfo = {
+                email: response.data.member.email,
+                password: response.data.member.password,
+                name: response.data.member.name,
+                role: response.data.member.role,
+                tel: response.data.member.tel
+            }
+            navigate('/registrant/reAuth', {state: {registrantInfo: registrantInfo}})
+        } catch (error) {
+            if (error.response) {
+                setErrorMessage(error.response.data.message)
+            } else {
+                setErrorMessage('이미 가입된 이메일입니다.')
+            }
         }
-        navigate('/registrant/reAuth', {state: {registrantInfo: registrantInfo}})
     }
     return (
         <form onSubmit={onSubmit}>
@@ -104,7 +125,7 @@ let ReRegister = () => {
                     <tr>
                         <td>전화번호</td>
                         <td colSpan={2}>
-                            <FormControl type="text" name={'tel'} value={inputs.tel}
+                            <FormControl type="text" name={'tel'} value={inputs.tel} maxLength={11}
                                          onChange={onChange} placeholder="tel"/>
                         </td>
                     </tr>
@@ -114,6 +135,7 @@ let ReRegister = () => {
                         </td>
                     </tr>
                     </tbody>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 </Table>
             </Container>
         </form>
