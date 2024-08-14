@@ -15,15 +15,15 @@ import javax.sql.DataSource;
 public class MyBatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource);
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setConfigLocation(new ClassPathResource("mybatis/mybatis-config.xml"));
 
-        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis/mybatis-config.xml"));
-        Resource[] resources = new PathMatchingResourcePatternResolver()
-                .getResources("classpath:mybatis/mappers/*.xml");
-        sqlSessionFactoryBean.setMapperLocations(resources);
+        Resource[] resources =
+                new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mappers/*.xml");
+        factoryBean.setMapperLocations(resources);
 
-        return sqlSessionFactoryBean.getObject();
+        return factoryBean.getObject();
     }
 
     @Bean
