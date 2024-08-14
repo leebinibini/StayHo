@@ -18,9 +18,7 @@ let ReservationAll = () => {
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
-                .get("http://localhost:8080/reservation/all/" + user_id, {
-                    withCredentials: true
-                })
+                .get("http://localhost:8080/reservation/all/" + user_id)
                 .catch((e) => {
                     console.log(e)
                 })

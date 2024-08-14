@@ -10,8 +10,8 @@ let ReservationInsert = () => {
     let location = useLocation();
     let navigate = useNavigate();
 
-    let roomId = location.state.roomId
-    let price = location.state.price;
+    let roomId = 1
+    let price = 19000
 
     let [inputs, setInputs] = useState({
         checkIn: null,

@@ -15,7 +15,7 @@ import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
 import Registrant from "./reservation/registerant/Registrant";
-import Admin from "./reservation/admin/Admin";
+import ReservationAdmin from "./reservation/admin/Admin";
 import ShowAll from "./review/ShowAll";
 import Auth from "./member/Auth";
 import Register from "./member/Register";
@@ -56,7 +56,7 @@ function App() {
                     <Route path="/admin/adAuth" element={<AdAuth/>}/>
                     <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
                     <Route path={"/reservation/registrant"} element={<Registrant/>}/>
-                    <Route path={"/reservation/admin"} element={<Admin/>}/>
+                    <Route path={"/reservation/admin"} element={<ReservationAdmin/>}/>
                     <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                     <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
