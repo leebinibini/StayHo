@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/registrant")
+@RequestMapping("/registrant/")
 public class RegistrantController {
     @Autowired
     private BCryptPasswordEncoder encoder;

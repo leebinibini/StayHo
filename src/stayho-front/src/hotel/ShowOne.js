@@ -47,7 +47,6 @@ let ShowOne = () => {
     }, [hotelId])
     return (
         <div>
-            <ListForUser id={hotelId}/>
             <h1>Hotel Reviews</h1>
             <button onClick={goBack}>Back to Hotel List</button>
             <ul>

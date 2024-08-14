@@ -4,9 +4,9 @@ import {Route, Routes} from "react-router-dom";
 import ReservationAll from "./Reservation/user/ReservationAll";
 import ReservationOne from "./Reservation/user/ReservationOne";
 import ReservationInsert from "./Reservation/user/ReservationInsert";
-import Insert from "./room/Insert";
+import RoomInsert from "./room/RoomInsert";
 import ListForUser from "./room/ListForUser";
-import Update from "./room/Update";
+import RoomUpdate from "./room/RoomUpdate";
 import ListForProvider from "./room/ListForProvider";
 import Test from "./address/Test";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -41,7 +41,7 @@ function App() {
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
                     <Route path="/member/register" element={<Register/>}/>
-                    <Route path="/member/update" element={<Update/>}/>
+                    <Route path="/member/update" element={<RoomUpdate/>}/>
                     <Route path="/" element={<ShowList/>}/>
                     <Route path="/hotel/write" element={<Write/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
@@ -60,8 +60,8 @@ function App() {
                     <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                     <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
-                    <Route path={"/room/update/:id"} element={<Update/>}/>
-                    <Route path={"/room/insert/:id"} element={<Insert/>}/>
+                    <Route path={"/room/update/:id"} element={<RoomUpdate/>}/>
+                    <Route path={"/room/insert/:id"} element={<RoomInsert/>}/>
                     <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
                     <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>

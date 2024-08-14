@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 
 
-let Update = () => {
+let RoomUpdate = () => {
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
     let [inputs, setInputs] = useState({})
     let params = useParams()
@@ -193,4 +193,4 @@ let Update = () => {
         </Container>
     )
 }
-export default Update
+export default RoomUpdate

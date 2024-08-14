@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 
-let Insert = () => {
+let RoomInsert = () => {
     let params = useParams()
     let id = parseInt(params.id);
     let navigate = useNavigate()
@@ -156,4 +156,4 @@ let Insert = () => {
         </Container>
     )
 }
-export default Insert
+export default RoomInsert
