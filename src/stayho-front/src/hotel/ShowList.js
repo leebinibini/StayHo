@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Container, Table, Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
+import {Button, Container, Table, Row, Col,Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css'
@@ -7,24 +7,23 @@ import Auth from "../member/Auth";
 
 
 let ShowList = () => {
-    let [data, setData] = useState([])
+    let [data, setData] = useState({ hotelList: [] });
     let [imgData, setImgData] = useState([])
-    let location = useLocation()
-    let state = location.state
-    console.log(state)
+    let location = useLocation();
+    let state = location.state;
+    console.log(state);
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
     let moveToSingle = (id) => {
         navigate(`/hotel/showOne/` + id);
     };
 
-    let onWrite = async (e) => {
-        navigate('/hotel/write')
-    }
+    let onWrite = async () => {
+        navigate('/hotel/write');
+    };
 
     let onLogOut = async () => {
-
         let response = await axios.post('http://localhost:8080/member/logout', {
             withCredentials: true
         })
@@ -32,6 +31,7 @@ let ShowList = () => {
             navigate('/')
         }
     }
+
     let onAuth = () => {
         navigate("/member/auth")
     }
@@ -41,7 +41,6 @@ let ShowList = () => {
     }
 
     let onMyPage = () => {
-        //console.log(memberInfo)
         if (state !== null) {
             let memberInfo = state.memberInfo
             navigate('/member/myPage', {state: {memberInfo: memberInfo}})
@@ -55,83 +54,76 @@ let ShowList = () => {
 
     useEffect(() => {
         let selectList = async () => {
-
-            // axios를 사용하여 url로 부터 응답을 받아오고, 만약 에러 발생시 콘솔 창에 출력한다.
             let resp = await axios
                 .get("http://localhost:8080/hotel/showList")
                 .catch((e) => {
                     console.error(e)
                 })
 
-            // 정상적으로 통신되었을 때, 받은 응답 내 데이터를 setData해준다.
             if (resp.status === 200) {
                 setData(resp.data.hotelList)
                 setImgData(resp.data.imgList)
             }
-        }
-
-        // 설정한 selectList 함수 실행, [] 은 초기 렌더링시 한번만 실행
-        selectList()
-    }, [])
-
+        };
+        selectList();
+    }, []);
 
     return (
-        <>
-            <Container onSubmit={onWrite}>
-                <Table>
-                    <thead>
-                    <tr>
-                        {state ?
-                            (<td colSpan={3} className={'text-end'}>
-                                    <Button onClick={onMyPage}>마이페이지</Button>
-                                    <Button onClick={onLogOut}>로그아웃</Button>
-                                </td>
-                            ) : (
-                                <td colSpan={3} className={'text-end'}>
-                                    <td className={'text-xl-center'}>로그인이 되지 않은 리스트</td>
-                                    <Button onClick={onAuth}>로그인</Button>
-                                    <Button onClick={onRegister}>회원가입</Button>
-                                    <Button onClick={onHotelWrite}>숙박시설 등록하러 가기</Button>
-                                </td>
-                            )}
-                        <td colSpan={3} className={'text-end'}>
-                            <Button onClick={onWrite}>호텔 등록하기</Button>
-                        </td>
-                    </tr>
-                    </thead>
-                </Table>
-                {data.map(h => (
-                    <WithHeaderExample hotel={h} key={h.id} moveToSingle={moveToSingle} images={imgData}/>
+        <Container className="mt-4">
+            <Row className="mb-4">
+                <Col className="text-end">
+                    {state ? (
+                        <>
+                            <Button variant="outline-primary" className="mx-2" onClick={onMyPage}>마이페이지</Button>
+                            <Button variant="outline-danger" className="mx-2" onClick={onLogOut}>로그아웃</Button>
+                        </>
+                    ) : (
+                        <>
+                            <div className="text-xl-center mb-2">로그인이 되지 않은 리스트</div>
+                            <Button variant="outline-primary" className="mx-2" onClick={onAuth}>로그인</Button>
+                            <Button variant="outline-success" className="mx-2" onClick={onRegister}>회원가입</Button>
+                            <Button variant="outline-warning" className="mx-2" onClick={onHotelWrite}>숙박시설 등록하기</Button>
+                        </>
+                    )}
+                    <Button variant="outline-warning" className="mx-2" onClick={onWrite}>호텔 등록하기</Button>
+                </Col>
+            </Row>
+            <Row>
+                {data.hotelList.map(h => (
+                    <Col md={4} className="mb-4" key={h.id}>
+                        <HotelCard hotel={h} moveToSingle={moveToSingle} />
+                    </Col>
                 ))}
-            </Container>
-        </>
-    )
+            </Row>
+        </Container>
+    );
 }
 
 let WithHeaderExample = ({hotel, moveToSingle, images}) => {
     return (
-        <Card>
-            <Card.Header>{hotel.name}</Card.Header>
+        <Card className="shadow-sm h-100">
             <Carousel>
-            {images.map(
-                image => image.map(
-                    img => (img.hotelId === hotel.id ?
-                            <CarouselItem>
-                                <CardImg variant={"top"}
-                                         src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}/>
-                            </CarouselItem>
-                            :
-                            null
+                {images.map(
+                    image => image.map(
+                        img => (img.hotelId === hotel.id ?
+                                <CarouselItem>
+                                    <CardImg variant={"top"}
+                                             src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+                                             style={{ height: '200px', objectFit: 'cover' }}
+                                    />
+                                </CarouselItem>
+                                :
+                                null
+                        )
                     )
-                )
-            )}
+                )}
             </Carousel>
-            <Card.Body>
+            <Card.Body className="d-flex flex-column">
                 <Card.Title>{hotel.name}</Card.Title>
                 <Card.Text>
                     {hotel.tel}
                 </Card.Text>
-                <Button variant="primary" onClick={() => moveToSingle(hotel.id)}>호텔 상세보기</Button>
+                <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
             </Card.Body>
         </Card>
     );

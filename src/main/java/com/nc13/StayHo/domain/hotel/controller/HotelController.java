@@ -64,15 +64,13 @@ public class HotelController {
     public HashMap<String, Object> write(
             @RequestPart("hotelDTO") HotelDTO hotelDTO,
             @RequestPart(value = "files", required = false) List<MultipartFile> files,
-            @RequestPart("address")LocationDTO locationDTO) {
+            @RequestPart("address") LocationDTO locationDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        System.out.println("address: "+ locationDTO);
         try {
             hotelDTO.setMemberId(1);  // 로그인 정보와 연결되면 이 부분을 수정
 
             // HotelDTO 저장 로직
             HOTEL_SERVICE.insert(hotelDTO);
-            System.out.println(hotelDTO);
 
             locationDTO.setHotelId(hotelDTO.getId());
             LOCATION_SERVICE.insert(locationDTO);
@@ -89,7 +87,6 @@ public class HotelController {
 
         return resultMap;
     }
-
     public void insertImageProcess(List<MultipartFile> files, int hotelId) {
         File pathDir = new File(HOTEL_PATH);
         if (!pathDir.exists()) {
@@ -113,7 +110,7 @@ public class HotelController {
 
     }
 
-    @PostMapping("update")
+    @PostMapping("updateHotel")
     public HashMap<String, Object> update(@RequestPart("hotelDTO") HotelDTO hotelDTO) {
         System.out.println("hotelDTO");
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -127,64 +124,5 @@ public class HotelController {
     public ResponseEntity<Void> delete(@PathVariable int id) {
         HOTEL_SERVICE.delete(id);
         return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("uploads")
-    public Map<String, Object> uploads(MultipartHttpServletRequest request) {
-
-        Map<String, Object> resultMap = new HashMap<>();
-        MultipartFile file = request.getFile("upload");
-        System.out.println(file);
-        if (file == null || file.isEmpty()) {
-            resultMap.put("uploaded", false);
-            resultMap.put("error", "No file uploaded");
-            return resultMap;
-        }
-
-        System.out.println("file존재함");
-        String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
-        String extension = fileName.substring(fileName.lastIndexOf("."));
-        String uploadName = UUID.randomUUID() + extension;
-        System.out.println(uploadName);
-
-        String realPath = request.getServletContext().getRealPath("/hotel/uploads/");
-        System.out.println(realPath);
-        Path realDir = Paths.get(realPath);
-        System.out.println(realDir);
-        if (!Files.exists(realDir)) {
-            try {
-                Files.createDirectories(realDir);
-                System.out.println("success");
-            } catch (IOException e) {
-                e.printStackTrace();
-                resultMap.put("uploaded", false);
-                resultMap.put("error", "Could not create upload directory");
-                return resultMap;
-            }
-        }
-
-        File uploadFile = new File(realPath, uploadName);
-        try {
-            file.transferTo(uploadFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            resultMap.put("uploaded", false);
-            resultMap.put("error", "File transfer failed");
-            return resultMap;
-        }
-
-        String uploadPath = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/hotel/uploads/")
-                .path(uploadName)
-                .toUriString();
-
-        System.out.println(uploadPath);
-
-        resultMap.put("uploaded", true);
-        System.out.println("uploaded");
-        resultMap.put("url", uploadPath);
-        System.out.println(resultMap);
-        return resultMap;
     }
 }
