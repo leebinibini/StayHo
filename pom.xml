@@ -26,9 +26,6 @@
 		<tag/>
 		<url/>
 	</scm>
-
-
-
 	<properties>
 		<java.version>22</java.version>
 	</properties>

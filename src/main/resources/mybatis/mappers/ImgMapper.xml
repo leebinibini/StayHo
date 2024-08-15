@@ -12,9 +12,18 @@
         SELECT * FROM img
         WHERE room_id= #{id}
     </select>
+    <insert id="insertHotel" parameterType="hotelImgDTO">
+        INSERT INTO img
+        (filepath, filename, hotel_id)
+        VALUES(#{filepath}, #{filename},#{hotelId})
+    </insert>
     <select id="selectHotel" parameterType="int" resultType="hotelImgDTO">
         SELECT * FROM img
         WHERE hotel_id= #{id}
+    </select>
+    <select id="selectAllHotel" parameterType="int" resultType="hotelImgDTO">
+        SELECT * FROM img
+        WHERE NOT hotel_id  IS NULL;
     </select>
     <delete id="delete" parameterType="int">
         DELETE FROM img

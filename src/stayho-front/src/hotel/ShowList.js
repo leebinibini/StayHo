@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Container, Table, Card} from "react-bootstrap";
+import {Button, Container, Table, Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css'
@@ -7,7 +7,8 @@ import Auth from "../member/Auth";
 
 
 let ShowList = () => {
-    let [data, setData] = useState({hotelList: []})
+    let [data, setData] = useState([])
+    let [imgData, setImgData] = useState([])
     let location = useLocation()
     let state = location.state
     console.log(state)
@@ -64,7 +65,8 @@ let ShowList = () => {
 
             // 정상적으로 통신되었을 때, 받은 응답 내 데이터를 setData해준다.
             if (resp.status === 200) {
-                setData(resp.data)
+                setData(resp.data.hotelList)
+                setImgData(resp.data.imgList)
             }
         }
 
@@ -98,23 +100,32 @@ let ShowList = () => {
                     </tr>
                     </thead>
                 </Table>
-                {data.hotelList.map(h => (
-                    <WithHeaderExample hotel={h} key={h.id} moveToSingle={moveToSingle}/>
+                {data.map(h => (
+                    <WithHeaderExample hotel={h} key={h.id} moveToSingle={moveToSingle} images={imgData}/>
                 ))}
             </Container>
         </>
     )
 }
 
-let WithHeaderExample = ({hotel, moveToSingle}) => {
+let WithHeaderExample = ({hotel, moveToSingle, images}) => {
     return (
         <Card>
             <Card.Header>{hotel.name}</Card.Header>
-            <Card.Img
-                variant="top"
-                src={hotel.imageUrl ? hotel.imageUrl : "default-image-url"} // 호텔의 이미지 URL이 없을 경우 기본 이미지를 표시합니다.
-                alt={hotel.name}
-            />
+            <Carousel>
+            {images.map(
+                image => image.map(
+                    img => (img.hotelId === hotel.id ?
+                            <CarouselItem>
+                                <CardImg variant={"top"}
+                                         src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}/>
+                            </CarouselItem>
+                            :
+                            null
+                    )
+                )
+            )}
+            </Carousel>
             <Card.Body>
                 <Card.Title>{hotel.name}</Card.Title>
                 <Card.Text>

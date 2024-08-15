@@ -5,7 +5,7 @@
 <mapper namespace="mapper.LocationMapper">
     <insert id="insert" parameterType="locationDTO">
         INSERT INTO location
-        (hotel_id, address, sido, sigungu, zonecode buildingName)
+        (hotel_id, address, sido, sigungu, zonecode, buildingName)
         VALUES (#{hotelId}, #{address}, #{sido}, #{sigungu}, #{zonecode}, #{buildingName})
     </insert>
     <update id="update" parameterType="locationDTO">

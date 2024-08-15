@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from "react";
-import { Button, Container, FormControl, Table } from "react-bootstrap";
+import React, {useCallback, useState} from "react";
+import {Button, Container, FormControl, Table} from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import {useNavigate} from "react-router-dom";
+import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import InsertAddress from "../address/InsertAddress";
 
 const Write = () => {
     const [inputs, setInputs] = useState({
@@ -11,7 +12,6 @@ const Write = () => {
         tel: '',
         content: '',
         facilities: {},
-        file: null
     });
     const navigate = useNavigate();
 
@@ -19,11 +19,11 @@ const Write = () => {
 
     const onCheckedItem = useCallback((e) => {
         if (e && e.target) {
-            const { checked, value } = e.target;
+            const {checked, value} = e.target;
             setInputs(prev => ({
                 ...prev,
                 facilities: checked
-                    ? { ...prev.facilities, [value]: 'true' }
+                    ? {...prev.facilities, [value]: 'true'}
                     : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== value))
             }));
         } else {
@@ -32,22 +32,24 @@ const Write = () => {
     }, []);
 
     const onChange = (e) => {
-        const { name, value } = e.target;
-        setInputs((prev) => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setInputs((prev) => ({...prev, [name]: value}));
     };
 
+    const [imgList, setImgList] = useState([])
     const onFileChange = (e) => {
-        setInputs((prev) => ({ ...prev, file: e.target.files[0] }));
+        setImgList([
+            ...imgList,
+            ...e.target.files
+        ])
     };
 
-    const onEditorChange = (event, editor) => {
-        if (editor) {
-            const data = editor.getData();
-            setInputs((prev) => ({ ...prev, content: data }));
-        } else {
-            console.error("Editor is undefined");
-        }
-    };
+    // 주소 관련
+    let [modalState, setModalState] = useState(false)
+    let [addressData, setAddressData] = useState({})
+    let onPopup = () => {
+        setModalState(true)
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -59,13 +61,16 @@ const Write = () => {
                 tel: inputs.tel,
                 content: inputs.content,
                 facilities: inputs.facilities,
-            })], { type: "application/json" }));
+            })], {type: "application/json"}));
 
-            if (inputs.file) {
-                formData.append('files', inputs.content);
-            }
-
-            const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData);
+            imgList.map(image => {
+                formData.append('files', image)
+            })
+            formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
+            const hotelResponse = await axios.post(
+                'http://localhost:8080/hotel/write', formData,
+                {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+            );
 
             const hotelId = hotelResponse.data.resultId;
 
@@ -93,7 +98,7 @@ const Write = () => {
                 <Table striped hover bordered>
                     <thead>
                     <tr>
-                        <td colSpan={2} className="text-center">호텔 등록하기</td>
+                        <th colSpan={2} className="text-center">호텔 등록하기</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -107,6 +112,19 @@ const Write = () => {
                                 onChange={onChange}
                                 required
                             />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            주소
+                        </td>
+                        <td>
+                            {addressData.address}
+                            <Button onClick={onPopup} className={'ms-1'}>
+                                주소찾기
+                                <InsertAddress setModalState={setModalState} modalState={modalState}
+                                               setAddressData={setAddressData}/>
+                            </Button>
                         </td>
                     </tr>
                     <tr>
@@ -142,20 +160,15 @@ const Write = () => {
                     <tr>
                         <td>호텔 설명 작성</td>
                         <td>
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data={inputs.content}
-                                name={"content"}
-                                config={{
-                                    ckfinder: {
-                                        uploadUrl: 'http://localhost:8080/hotel/uploads',
-                                    }
-                                }}
+                            <FormControl as={"textarea"} aria-label={"호텔 설명"} style={{minHeight: '15rem'}}
+                                         name={'content'} value={inputs.content} onChange={onChange}/>
 
-                                onChange={onEditorChange}
-                                required
-                            />
                         </td>
+                    </tr>
+                    <tr>
+                        <td>호텔 사진</td>
+                        <td><FormControl type="file" multiple={true} onChange={onFileChange}
+                                         accept={'image.jpg,image/png,image/jpeg'}/></td>
                     </tr>
                     <tr>
                         <td colSpan={2} className="text-center">

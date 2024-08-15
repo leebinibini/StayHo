@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
 import ReservationAll from "./reservation/user/ReservationAll";
@@ -33,19 +32,20 @@ import Menu from "./admin/Menu";
 import MemberUpdate from "./member/MemberUpdate";
 import AdUpdate from "./admin/AdUpdate";
 import ShowOne from "./hotel/ShowOne";
+import UpdateHotel from "./hotel/UpdateHotel";
 
 
 function App() {
     return (
-        <div className="App">
-            <header className="App">
+        <div>
                 <SearchForm/>
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
                     <Route path="/member/register" element={<Register/>}/>
                     <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
                     <Route path="/" element={<ShowList/>}/>
-                    <Route path="/hotel/write" element={<Write/>}/>
+                    <Route path="/hotel/wrte" element={<Write/>}/>
+                    <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
                     <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
@@ -71,7 +71,6 @@ function App() {
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
                 </Routes>
-            </header>
         </div>
     );
 }

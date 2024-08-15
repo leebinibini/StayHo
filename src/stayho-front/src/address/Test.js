@@ -34,7 +34,7 @@ let Test = () => {
         <div>
             <Button onClick={onPopup}>
                 주소찾기
-                <InsertAddress setModalState={setModalState} modalState={modalState} hotelId={id}
+                <InsertAddress setModalState={setModalState} modalState={modalState}
                                setAddressData={setAddressData}/>
             </Button>
             <div>{addressData.address}</div>

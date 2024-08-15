@@ -2,6 +2,10 @@ package com.nc13.StayHo.domain.hotel.controller;
 
 import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import com.nc13.StayHo.domain.hotel.service.HotelService;
+import com.nc13.StayHo.domain.img.dto.HotelImgDTO;
+import com.nc13.StayHo.domain.img.service.ImgService;
+import com.nc13.StayHo.domain.location.dto.LocationDTO;
+import com.nc13.StayHo.domain.location.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,25 +18,39 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/hotel/")
 public class HotelController {
-    private HotelService HOTEL_SERVICE;
+    private final HotelService HOTEL_SERVICE;
+    private final LocationService LOCATION_SERVICE;
+    private final ImgService IMG_SERVICE;
+    private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static\\image\\";
+    private final String HOTEL_PATH = "hotel";
 
     @Autowired
-    public HotelController(HotelService hotelService) {
+    public HotelController(HotelService hotelService, LocationService locationService,ImgService imgService) {
         HOTEL_SERVICE = hotelService;
+        this.LOCATION_SERVICE= locationService;
+        this.IMG_SERVICE = imgService;
     }
 
     @GetMapping("showList")
     public HashMap<String, Object> selectList() {
         HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("hotelList", HOTEL_SERVICE.selectAll());
+        List<HotelDTO> hotelList= HOTEL_SERVICE.selectAll();
+        resultMap.put("hotelList", hotelList);
+        List<List<HotelImgDTO>> list= new ArrayList<>();
+        for (HotelDTO hotel: hotelList){
+            List<HotelImgDTO> imgList= IMG_SERVICE.selectHotel(hotel.getId());
+            if (imgList.isEmpty()){
+                imgList.add(new HotelImgDTO("hotel", "default.png", hotel.getId()));
+            }
+            list.add(imgList);
+        }
+        resultMap.put("imgList", list);
         return resultMap;
     }
 
@@ -44,32 +62,23 @@ public class HotelController {
 
     @PostMapping("write")
     public HashMap<String, Object> write(
-            @RequestPart("hotelDTO") HotelDTO hotelDTO) {
-
+            @RequestPart("hotelDTO") HotelDTO hotelDTO,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files,
+            @RequestPart("address")LocationDTO locationDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
+        System.out.println("address: "+ locationDTO);
         try {
             hotelDTO.setMemberId(1);  // 로그인 정보와 연결되면 이 부분을 수정
-            String path = "/Users/jisue/Desktop/bit/studyBIT/StayHo_NC13 복사본 2/src/main/resources/static/images/hotel";
-
-            // 파일 저장 디렉토리 생성
-            File pathDir = new File(path);
-            if (!pathDir.exists()) {
-                pathDir.mkdirs();
-            }
-
-            // 파일 저장 로직
-  /*          for (MultipartFile file : files) {
-                if (!file.isEmpty()) {
-                    String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-                    String uploadName = UUID.randomUUID().toString() + extension;
-                    File f = new File(path, uploadName);
-                    file.transferTo(f);
-                }
-            }*/
 
             // HotelDTO 저장 로직
             HOTEL_SERVICE.insert(hotelDTO);
             System.out.println(hotelDTO);
+
+            locationDTO.setHotelId(hotelDTO.getId());
+            LOCATION_SERVICE.insert(locationDTO);
+            if (files != null) {
+                insertImageProcess(files, hotelDTO.getId());
+            }
             resultMap.put("result", "success");
             resultMap.put("resultId", hotelDTO.getId());
 
@@ -79,6 +88,29 @@ public class HotelController {
         }
 
         return resultMap;
+    }
+
+    public void insertImageProcess(List<MultipartFile> files, int hotelId) {
+        File pathDir = new File(HOTEL_PATH);
+        if (!pathDir.exists()) {
+            new File(HOTEL_PATH).mkdirs();
+        }
+
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            String extension = fileName.substring(fileName.lastIndexOf("."));
+            String uploadName = UUID.randomUUID() + extension;
+            String path = STATIC_PATH + HOTEL_PATH;
+            HotelImgDTO hotelImgDTO = new HotelImgDTO(HOTEL_PATH, uploadName, hotelId);
+            File target = new File(path, uploadName);
+            try {
+                file.transferTo(target);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            IMG_SERVICE.insertHotel(hotelImgDTO);
+        }
+
     }
 
     @PostMapping("update")
@@ -100,8 +132,6 @@ public class HotelController {
     @PostMapping("uploads")
     public Map<String, Object> uploads(MultipartHttpServletRequest request) {
 
-        System.out.println("uploads/");
-        System.out.println("request: " + request);
         Map<String, Object> resultMap = new HashMap<>();
         MultipartFile file = request.getFile("upload");
         System.out.println(file);
