@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react"
-import {Button, Container, Table, Row, Col,Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
+import {Button, Container,  Row, Col,Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css'
-import Auth from "../member/Auth";
 
 
 let ShowList = () => {
-    let [data, setData] = useState({ hotelList: [] });
+    let [data, setData] = useState([]);
     let [imgData, setImgData] = useState([])
     let location = useLocation();
     let state = location.state;
@@ -89,9 +88,9 @@ let ShowList = () => {
                 </Col>
             </Row>
             <Row>
-                {data.hotelList.map(h => (
+                {data.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <HotelCard hotel={h} moveToSingle={moveToSingle} />
+                        <WithHeaderExample hotel={h} moveToSingle={moveToSingle} images={imgData} />
                     </Col>
                 ))}
             </Row>

@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { Button, Container, Form, Row, Col, Card } from "react-bootstrap";
+import {Button, Container, Table, FormControl} from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import InsertAddress from "../address/InsertAddress";
 
 const WriteHotel = () => {
     const [inputs, setInputs] = useState({

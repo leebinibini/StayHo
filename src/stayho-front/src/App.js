@@ -28,7 +28,6 @@ import ReSecede from "./registrant/ReSecede";
 import ReMyPage from "./registrant/ReMyPage";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
-import AdAuth from "./admin/AdAuth";
 import ShowOne from "./hotel/ShowOne";
 import UpdateHotel from "./hotel/UpdateHotel";
 import WriteHotel from "./hotel/WriteHotel";
