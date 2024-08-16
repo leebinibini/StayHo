@@ -47,7 +47,11 @@ let ShowList = () => {
     };
 
     let onReservation = () => {
-        navigate('/reservation/showAll', {state: {memberInfo: memberInfo}});
+        if(memberInfo.role === "ROLE_USER"){
+            navigate('/reservation/showAll', {state: {memberInfo: memberInfo}});
+        } else if(memberInfo.role === "ROLE_REGISTRANT"){
+            navigate('/reservation/registrant', {state: {memberInfo: memberInfo}});
+        }
     }
 
     return (
