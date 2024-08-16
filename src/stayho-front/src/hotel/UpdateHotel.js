@@ -1,13 +1,14 @@
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
-import {Button, Container, Form, FormControl, Table} from "react-bootstrap";
+import {Button, Container, Form, FormControl, Image, Table} from "react-bootstrap";
 import axios from "axios";
 import InsertAddress from "../address/InsertAddress";
 
 let UpdateHotel = () => {
     let params = useParams()
     let id = parseInt(params.id)
-
+    let [imgList, setImgList] = useState([])
+    let [delImgList, setDelImgList] = useState([])
     let [inputs, setInputs] = useState({
         name: '',
         tel: '',
@@ -20,12 +21,15 @@ let UpdateHotel = () => {
     const onCheckedItem = useCallback((checked, item) => {
         setInputs(prev => ({
             ...prev,
-            facilities: checked ? {...prev.facilities, [item]: 'true'} : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== item))
+            facilities: checked ? {
+                ...prev.facilities,
+                [item]: 'true'
+            } : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== item))
         }));
     }, []);
 
     let onChange = (e) => {
-        let {name, value}= e.target
+        let {name, value} = e.target
         setInputs({
             ...inputs,
             [name]: value
@@ -43,24 +47,35 @@ let UpdateHotel = () => {
         setModalState(true)
     }
 
+    // 이미지 관련
+    let onFileChange = (e) => {
+        setImgList([
+            ...imgList,
+            ...e.target.files
+        ])
+    }
+    let onDelete = (id) => {
+        setImgList(imgList.filter((img) => img.id !== id))
+        setDelImgList([
+            ...delImgList,
+            id
+        ])
+    }
     let onSubmit = async (e) => {
         e.preventDefault()
-
+        const hotelDTO = {
+            id: id,
+            name: inputs.name,
+            tel: inputs.tel,
+            content: inputs.content
+        }
         try {
-            const hotelResponse = await axios.post('http://localhost:8080/hotel/update', {
-                name: inputs.name,
-                tel: inputs.tel,
-                content: inputs.content
-            });
+            const hotelResponse = await axios.post('http://localhost:8080/hotel/update', hotelDTO, {withCredentials: true});
 
-            const hotelId = hotelResponse.data.resultId;
-
-            console.log(hotelResponse.data.resultId);
-
-            if (hotelId) {
+            if (hotelResponse.status === 200) {
                 console.log(inputs.facilities)
                 const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/update', {
-                    hotelId: hotelId,
+                    hotelId: id,
                     swimmingPool: !!inputs.facilities.swimmingPool,
                     parking: !!inputs.facilities.parking,
                     restaurant: !!inputs.facilities.restaurant,
@@ -69,9 +84,22 @@ let UpdateHotel = () => {
                     fitnessCenter: !!inputs.facilities.fitnessCenter
 
                 });
-
+                const addressResponse = await axios.post("http://localhost:8080/location/update", addressData, {})
+                const formData = new FormData()
+                imgList.map(image => {
+                    formData.append('files', image)
+                })
+                formData.append('delImgList', new Blob([JSON.stringify(delImgList)], {type: 'application/json'}))
+                formData.append('hotelId', new Blob([JSON.stringify(id)], {type: 'application/json'}))
+                const imgResponse = await axios.post(
+                    "http://localhost:8080/image/update/hotel", formData,
+                    {
+                        headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'},
+                        withCredentials: true
+                    }
+                )
                 console.log(inputs, hotelDescriptionResponse.data);
-                navigate(`/hotel/showOne/${hotelId}`);
+                navigate(`/hotel/showOne/${id}`);
             }
         } catch (error) {
             console.error(error);
@@ -80,7 +108,7 @@ let UpdateHotel = () => {
     };
 
     let navigate = useNavigate();
-    let goBack= () => {
+    let goBack = () => {
         navigate(-1)
     }
 
@@ -90,12 +118,21 @@ let UpdateHotel = () => {
 
             if (hotelResponse.status === 200) {
                 let hotelDescriptionResponse = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id)
-                if (hotelDescriptionResponse.status === 200){
-                    let hotelAddressResponse= await axios.get("http://localhost:8080/location/"+id)
+
+                if (hotelDescriptionResponse.status === 200) {
+                    let hotelAddressResponse = await axios.get("http://localhost:8080/location/" + id)
+
+                    if (hotelAddressResponse.status === 200) {
+                        let imgResponse = await axios.get("http://localhost:8080/image/select/" + id)
+                        console.log(imgResponse)
+                        if (imgResponse.status === 200) {
+                            setImgList(imgResponse.data)
+                        }
+                    }
                     setAddressData(hotelAddressResponse.data)
-                    setInputs(hotelResponse.data)
-                    setInputs(hotelDescriptionResponse.data)
                 }
+                setInputs(hotelResponse.data)
+                setInputs(hotelDescriptionResponse.data)
             }
         }
 
@@ -152,6 +189,33 @@ let UpdateHotel = () => {
                                     </label>
                                 ))}
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>호텔 설명 작성</td>
+                        <td>
+                            <FormControl as={"textarea"} aria-label={"호텔 설명"} style={{minHeight: '15rem'}}
+                                         name={'content'} value={inputs.content} onChange={onChange}/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>호텔 사진</td>
+
+                        <td>
+                            <div className={'d-flex'}>
+                                {imgList.map(img => (
+                                    <div className={'justify-content-center'}>
+                                        <Image
+                                            src={"http://localhost:8080/image?path=" + img.filepath + "&name=" + img.filename}
+                                            style={{width: '20rem'}}/>
+                                        <Button onClick={() => onDelete(img.id)} style={{display: 'block'}}
+                                                className={'btn-danger'}>삭제</Button>
+                                    </div>
+                                ))}
+                            </div>
+                            <FormControl type="file" multiple={true} onChange={onFileChange}
+                                         accept={'image.jpg,image/png,image/jpeg'}/>
                         </td>
                     </tr>
                     <tr>

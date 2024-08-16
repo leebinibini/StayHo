@@ -105,14 +105,13 @@ public class HotelController {
 
     }
 
-    @PostMapping("updateHotel")
-    public HashMap<String, Object> update(@RequestPart("hotelDTO") HotelDTO hotelDTO) {
-        System.out.println("hotelDTO");
+    @PostMapping("update")
+    public ResponseEntity<Void> update(@RequestBody HotelDTO hotelDTO) {
+        System.out.println("hotelDTO"+hotelDTO);
         HashMap<String, Object> resultMap = new HashMap<>();
 
         HOTEL_SERVICE.update(hotelDTO);
-        resultMap.put("resultId", hotelDTO.getId());
-        return resultMap;
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("delete/{id}")

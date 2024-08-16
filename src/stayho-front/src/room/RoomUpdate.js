@@ -44,8 +44,6 @@ let RoomUpdate = () => {
     }
 
     let onSubmit = async () => {
-        console.log(typeof delImgList)
-        console.log(delImgList)
         let data = {
             id: id,
             limitPeople: watch('limitPeople'),
