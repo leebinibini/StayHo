@@ -25,6 +25,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<ReservationDTO> selectAllRegistrant(int member_id) {
+        return REPOSITORY.selectAllRegistrant(member_id);
+    }
+
+    @Override
     public ReservationDTO selectOne(int id) {
         return REPOSITORY.selectOne(id);
     }
@@ -32,6 +37,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void update(ReservationDTO reservationDTO) {
         REPOSITORY.update(reservationDTO);
+    }
+
+    @Override
+    public void confirm(ReservationDTO reservationDTO) {
+        REPOSITORY.confirm(reservationDTO);
     }
 
     @Override

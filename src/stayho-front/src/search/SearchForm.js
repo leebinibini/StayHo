@@ -2,9 +2,12 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Container, Form, FormControl, FormFloating, FormSelect, Table} from "react-bootstrap";
 import DatePicker from "react-date-picker";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 let SearchForm = () => {
+    let location= useLocation()
+    let memberInfo = (location.state && location.state.memberInfo) || null;
+    let member = !!memberInfo;
     let [sidos, setSidos] = useState([])
     let [sigungus, setSigungus] = useState([])
     let [startDate, setStartDate] = useState(new Date())
@@ -70,7 +73,7 @@ let SearchForm = () => {
         e.preventDefault()
         let response = await axios.post("http://localhost:8080/search", inputs, {})
         if (response.status === 200) {
-            navigate("/search", {state: {list:response.data.list, images: response.data.images}})
+            navigate("/search", {state: {list:response.data.list, images: response.data.images, memberInfo:memberInfo}})
         }
     }
 

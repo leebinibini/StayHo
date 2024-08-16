@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Card, Table } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Button, Container, Row, Col, Card, Table} from "react-bootstrap";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import SearchForm from "../search/SearchForm";
 
 let ShowList = () => {
-    let [data, setData] = useState({ hotelList: [] });
     let location = useLocation();
-    let state = location.state;
-    console.log(state);
+
+    let memberInfo = (location.state && location.state.memberInfo) || null;
+    let member = !!memberInfo;
+
+    console.log(memberInfo);
 
     let navigate = useNavigate();
-
-    let moveToSingle = (id) => {
-        navigate(`/hotel/showOne/` + id);
-    };
 
     let onWrite = async () => {
         navigate('/hotel/write');
@@ -38,9 +37,8 @@ let ShowList = () => {
     };
 
     let onMyPage = () => {
-        if (state !== null) {
-            let memberInfo = state.memberInfo;
-            navigate('/member/myPage', { state: { memberInfo: memberInfo } });
+        if (memberInfo !== null) {
+            navigate('/member/myPage', {state: {memberInfo: memberInfo}});
         }
     };
 
@@ -48,27 +46,17 @@ let ShowList = () => {
         navigate('/registrant/reAuth');
     };
 
-    useEffect(() => {
-        let selectList = async () => {
-            let resp = await axios
-                .get("http://localhost:8080/hotel/showList")
-                .catch((e) => {
-                    console.error(e);
-                });
-
-            if (resp.status === 200) {
-                setData(resp.data);
-            }
-        };
-        selectList();
-    }, []);
+    let onReservation = () => {
+        navigate('/reservation/showAll', {state: {memberInfo: memberInfo}});
+    }
 
     return (
         <Container className="mt-4">
             <Row className="mb-4">
                 <Col className="text-end">
-                    {state ? (
+                    {member ? (
                         <>
+                            <Button variant="outline-primary" className="mx-2" onClick={onReservation}>내예약</Button>
                             <Button variant="outline-primary" className="mx-2" onClick={onMyPage}>마이페이지</Button>
                             <Button variant="outline-danger" className="mx-2" onClick={onLogOut}>로그아웃</Button>
                         </>

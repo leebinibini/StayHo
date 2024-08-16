@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import ReservationAll from "./reservation/user/ReservationAll";
 import ReservationOne from "./reservation/user/ReservationOne";
 import ReservationInsert from "./reservation/user/ReservationInsert";
@@ -36,21 +36,24 @@ import AdUpdate from "./admin/AdUpdate";
 import Main from "./main/Main";
 import Header from "./member/Header";
 import SearchForm from "./search/SearchForm";
+import React from "react";
 
 
 function App() {
+    const location = useLocation();
+    const showSearchForm = !["/member/auth", "/member/register", "/member/memberUpdate", "/reservation/showAll", "/member/myPage"].includes(location.pathname);
+
     return (
         <div>
             <Main/>
+            {showSearchForm && <SearchForm />}
             <Routes>
-                <Route path={"/"} element={<Main/>}/>
-                <Route path="/member/auth" element={<Auth/>}/>
+                <Route path="member/auth" element={<Auth/>}/>
                 <Route path="/member/register" element={<Register/>}/>
                 <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
                 <Route path="/hotel/showList" element={<ShowList/>}/>
                 <Route path="/member/myPage" element={<MyPage/>}/>
                 <Route path="/member/secede" element={<Secede/>}/>
-                <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                 <Route path="/registrant/reAuth" element={<ReAuth/>}/>
                 <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                 <Route path="/registrant/reUpdate" element={<ReUpdate/>}/>
@@ -71,7 +74,6 @@ function App() {
                 <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                 <Route path={"/room/test/:id"} element={<Test/>}/>
                 <Route path={"/search"} element={<SearchResult/>}/>
-                <Route path="/hotel/showList" element={<ShowList/>}/>
                 <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                 <Route path="/hotel/write" element={<WriteHotel/>}/>
                 <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
