@@ -65,14 +65,14 @@ public class ImgController {
                 String extension = fileName.substring(fileName.lastIndexOf("."));
                 String uploadName = UUID.randomUUID() + extension;
                 String path = STATIC_PATH + HOTEL_PATH;
-                RoomImgDTO roomImgDTO = new RoomImgDTO(HOTEL_PATH, uploadName, hotelId);
+                HotelImgDTO hotelImgDTO = new HotelImgDTO(HOTEL_PATH, uploadName, hotelId);
                 File target = new File(path, uploadName);
                 try {
                     file.transferTo(target);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                IMG_SERVICE.insertRoom(roomImgDTO);
+                IMG_SERVICE.insertHotel(hotelImgDTO);
             }
         }
         if (delImgList != null) {

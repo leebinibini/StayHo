@@ -23,20 +23,12 @@
     <update id="update" parameterType="HotelDescriptionDTO">
         UPDATE hotel_description
         SET
-        swimming_pool= #{swimmingPool},
-        parking= #{parking},
-        restaurant= #{restaurant},
-        smoking=#{smoking},
-        laundry_facilities= #{laundryFacilities},
-        fitness_center= #{fitnessCenter}
+        swimming_pool= CASE WHEN #{swimmingPool} THEN 1 ELSE 0 END,
+        parking= CASE WHEN #{parking} THEN 1 ELSE 0 END,
+        restaurant= CASE WHEN #{restaurant} THEN 1 ELSE 0 END,
+        smoking=CASE WHEN #{smoking} THEN 1 ELSE 0 END,
+        laundry_facilities= CASE WHEN #{laundryFacilities} THEN 1 ELSE 0 END,
+        fitness_center= CASE WHEN #{fitnessCenter} THEN 1 ELSE 0 END
         WHERE hotel_id = #{hotelId}
-<!--        UPDATE hotel_description-->
-<!--        SET CASE WHEN #{swimmingPool} THEN 1 ELSE 0 END,-->
-<!--        CASE WHEN #{parking} THEN 1 ELSE 0 END,-->
-<!--        CASE WHEN #{restaurant} THEN 1 ELSE 0 END,-->
-<!--        CASE WHEN #{smoking} THEN 1 ELSE 0 END,-->
-<!--        CASE WHEN #{laundryFacilities} THEN 1 ELSE 0 END,-->
-<!--        CASE WHEN #{fitnessCenter} THEN 1 ELSE 0 END-->
-<!--        WHERE hotel_id = #{hotelId}-->
     </update>
 </mapper>
