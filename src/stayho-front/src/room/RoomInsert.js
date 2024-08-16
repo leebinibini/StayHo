@@ -42,14 +42,15 @@ let RoomInsert = () => {
         ])
     }
     useEffect(() => {
-        let onLoad= async ()=>{
-            let response= await axios.get("http://localhost:8080/hotel/"+id)
-            if(response.status===200){
-                if (response.data.memberId!== memberInfo.id){
+        let onLoad= async ()=> {
+            let response = await axios.get("http://localhost:8080/hotel/" + id)
+            if (response.status === 200) {
+                if (response.data.memberId !== memberInfo.id) {
                     navigate("/", {state: {memberInfo: memberInfo}});
                 }
             }
         }
+        onLoad()
     }, []);
     let onSubmit = async () => {
         let data = {
@@ -60,7 +61,8 @@ let RoomInsert = () => {
             view: inputs.view,
             price: watch('price'),
             surcharge: watch('surcharge'),
-            hotelId: id
+            hotelId: id,
+            content: watch('contentnp')
         }
 
         const formData = new FormData()
@@ -109,6 +111,12 @@ let RoomInsert = () => {
                                          {...register("type", {required: true, maxLength: 50})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>객실 설명</td>
+                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                                         style={{minHeight:'15rem'}}
+                            {...register("content", {required:true})}/></td>
                     </tr>
                     <tr>
                         <td>욕조 여부</td>

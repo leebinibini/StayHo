@@ -54,7 +54,8 @@ let RoomUpdate = () => {
             bed: watch('bed'),
             view: inputs.view,
             price: watch('price'),
-            surcharge: watch('surcharge')
+            surcharge: watch('surcharge'),
+            content: watch('content')
         }
 
         const formData= new FormData()
@@ -120,6 +121,12 @@ let RoomUpdate = () => {
                         </td>
                     </tr>
                     <tr>
+                        <td>객실 설명</td>
+                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                                         style={{minHeight: '15rem'}} defaultValue={inputs.type}
+                                         {...register("content", {required: true})}/></td>
+                    </tr>
+                    <tr>
                         <td>욕조 여부</td>
                         <td>
                             {inputs.bath ?
@@ -179,18 +186,22 @@ let RoomUpdate = () => {
                         </td>
                     </tr>
                     <tr>
-                            <td>객실 사진</td>
-                            <td>
-                                <div className={'d-flex'}>
-                                    {imgList.map(img=>(
-                                        <div className={'justify-content-center'}>
-                                        <Image src={"http://localhost:8080/image?path="+img.filepath+"&name="+img.filename} style={{width:'20rem'}}/>
-                                            <Button onClick={()=>onDelete(img.id)} style={{display:'block'}} className={'btn-danger'}>삭제</Button>
-                                        </div>
-                                    ))}
-                                </div>
-                                <Form.Control type="file" multiple={true} onChange={onChangeImg} accept={'image.jpg,image/png,image/jpeg'}/>
-                            </td>
+                        <td>객실 사진</td>
+                        <td>
+                            <div className={'d-flex'}>
+                                {imgList.map(img => (
+                                    <div className={'justify-content-center'}>
+                                        <Image
+                                            src={"http://localhost:8080/image?path=" + img.filepath + "&name=" + img.filename}
+                                            style={{width: '20rem'}}/>
+                                        <Button onClick={() => onDelete(img.id)} style={{display: 'block'}}
+                                                className={'btn-danger'}>삭제</Button>
+                                    </div>
+                                ))}
+                            </div>
+                            <Form.Control type="file" multiple={true} onChange={onChangeImg}
+                                          accept={'image.jpg,image/png,image/jpeg'}/>
+                        </td>
                     </tr>
                     <tr>
                         <td><Button type={'submit'}>수정하기</Button></td>
