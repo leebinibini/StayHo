@@ -2,7 +2,7 @@ import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSe
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 
 let RoomUpdate = () => {
@@ -10,6 +10,8 @@ let RoomUpdate = () => {
     let [inputs, setInputs] = useState({})
     let params = useParams()
     let id = parseInt(params.id)
+    let location= useLocation()
+    let memberInfo= location.state.memberInfo
     let [imgList, setImgList] = useState([])
     let [delImgList, setDelImgList]= useState([])
     let ViewEnum = {
@@ -66,7 +68,7 @@ let RoomUpdate = () => {
         formData.append('delImgList', new Blob([JSON.stringify(delImgList)], {type: 'application/json'}))
         let response = await axios.post(
             "http://localhost:8080/room/update", formData,
-            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials:true}
         )
         if (response.status === 200) {
             window.alert("수정되었습니다.")
@@ -75,6 +77,12 @@ let RoomUpdate = () => {
     }
     useEffect(() => {
         let onLoad = async () => {
+            let resp= await axios.get("http://localhost:8080/hotel/"+id)
+            if(resp.status===200){
+                if (resp.data.memberId!== memberInfo.id){
+                    navigate("/", {state: {memberInfo: memberInfo}});
+                }
+            }
             let response = await axios.get("http://localhost:8080/room/select/" + id, {});
             if (response.status === 200) {
                 setInputs(response.data.room)

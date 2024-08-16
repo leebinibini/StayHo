@@ -1,13 +1,15 @@
 import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSelect} from "react-bootstrap";
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 let RoomInsert = () => {
     let params = useParams()
     let id = parseInt(params.id);
     let navigate = useNavigate()
+    let location= useLocation()
+    let memberInfo=location.state.memberInfo
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
     let [inputs, setInputs] = useState({
         limitPeople: '',
@@ -39,7 +41,16 @@ let RoomInsert = () => {
             ...e.target.files
         ])
     }
-
+    useEffect(() => {
+        let onLoad= async ()=>{
+            let response= await axios.get("http://localhost:8080/hotel/"+id)
+            if(response.status===200){
+                if (response.data.memberId!== memberInfo.id){
+                    navigate("/", {state: {memberInfo: memberInfo}});
+                }
+            }
+        }
+    }, []);
     let onSubmit = async () => {
         let data = {
             limitPeople: watch('limitPeople'),
@@ -63,7 +74,7 @@ let RoomInsert = () => {
         )
         let response = await axios.post(
             "http://localhost:8080/room/insert", formData,
-            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials: true}
         )
         if (response.status === 200) {
             window.alert("객실이 추가되었습니다. ")

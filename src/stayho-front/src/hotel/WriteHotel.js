@@ -67,7 +67,7 @@ const WriteHotel = () => {
             formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
             const hotelResponse = await axios.post(
                 'http://localhost:8080/hotel/write', formData,
-                {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+                {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials: true}
             );
 
             const hotelId = hotelResponse.data.resultId;

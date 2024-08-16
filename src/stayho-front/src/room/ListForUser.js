@@ -36,6 +36,7 @@ let ListForUser = () => {
     let onClick = async (id) => {
         let response = await axios.get("http://localhost:8080/room/description/" + id)
         if (response.status === 200) {
+            console.log(response.data)
             setDescription(response.data.description)
             setImages(response.data.image)
             setRoomD(response.data.room)
