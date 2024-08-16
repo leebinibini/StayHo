@@ -45,7 +45,7 @@ public class RoomController {
                                        @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
-        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
+        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView(), params.getContent());
         DESCRIPTION_SERVICE.insert(descriptionDTO);
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
@@ -123,7 +123,7 @@ public class RoomController {
         roomDTO.setId(params.getId());
         ROOM_SERVICE.update(roomDTO);
 
-        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
+        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView(), params.getContent());
         DESCRIPTION_SERVICE.update(descriptionDTO);
 
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());

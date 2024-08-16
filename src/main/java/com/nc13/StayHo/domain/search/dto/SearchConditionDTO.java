@@ -10,6 +10,7 @@ public class SearchConditionDTO {
     private String sigungu;
     private int people;
     private int rooms;
+    private int HotelId;
     private Date checkinDate;
     private Date checkoutDate;
 }

@@ -21,6 +21,7 @@ let ListForUser = () => {
         rooms: 1,
         checkinDate: new Date(),
         checkoutDate: new Date(),
+        hotelId: id
     }
     useEffect(() => {
 
