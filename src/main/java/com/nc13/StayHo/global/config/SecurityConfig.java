@@ -34,6 +34,7 @@ public class SecurityConfig {
                                 .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")
                                 .requestMatchers("/search", "/location/**", "/room/**", "/image").permitAll()
                                 .requestMatchers("/admin/adMyPage").hasAnyAuthority("ROLE_ADMIN")
+                                .requestMatchers("/wishlist/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .formLogin((form) ->

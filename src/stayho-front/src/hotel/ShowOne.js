@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
-import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {useLocation, useNavigate, useParams} from "react-router-dom";
+import axios from 'axios';
 import { Button, Container, Row, Col, Card, Badge } from "react-bootstrap";
+import StarRating from './StarRating'; // 별점 컴포넌트 가져오기
 
 const ShowOne = () => {
     const [data1, setData1] = useState({});
@@ -13,20 +13,23 @@ const ShowOne = () => {
     let params = useParams();
     let id = parseInt(params.id);
 
+    let location = useLocation()
+    let memberInfo = location.state.memberInfo
+
     let navigate = useNavigate();
     let goToHotelList = () => {
-        navigate('/hotel/showList');
+        navigate('/hotel/showList', { state: { memberInfo: memberInfo }} )
     };
 
     let onUpdate = () => {
-        navigate('/hotel/update/' + id);
+        navigate('/hotel/update/' + id, { state: { memberInfo: memberInfo }});
     };
 
     let onDelete = async () => {
         try {
-            let response = await axios.get("http://localhost:8080/hotel/delete/" + id);
+            let response = await axios.get("http://localhost:8080/hotel/delete/" + id, {withCredentials: true});
             if (response.status === 200) {
-                navigate('/hotel/showList');
+                navigate('/hotel/showList', { state: { memberInfo: memberInfo }});
             }
         } catch (e) {
             console.error(e);
@@ -69,6 +72,8 @@ const ShowOne = () => {
                             <h2 className="text-primary">{data1.name}</h2>
                             <Badge bg="secondary" className="mb-3">글번호: {data1.id}</Badge>
                             <p className="text-muted">작성자: {data1.providerName}</p>
+                            <hr />
+                            <StarRating rating={data1.rating} size={32} /> {/* 큰 별점 표시 */}
                             <hr />
                             <div dangerouslySetInnerHTML={{ __html: data1.content }} className="mb-4" />
                             <hr />
