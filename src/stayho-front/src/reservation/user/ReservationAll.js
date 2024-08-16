@@ -8,11 +8,12 @@ import {useLocation, useNavigate} from "react-router-dom";
 
 let ReservationAll = () => {
     let location = useLocation();
+    let memberInfo = location.state.memberInfo
 
     let [data, setData] = useState({resve:[]})
     let navigate = useNavigate()
 
-    let index = 1; // 번호
+    let index = 1; // 인덱싱 번호
 
     let user_id = location.state.memberInfo.id; // 사용자 id 정보 받기
 
@@ -31,7 +32,7 @@ let ReservationAll = () => {
     }, [])
 
     let movoToSingle = (id) => {
-        navigate('/reservation/showOne/' + id)
+        navigate('/reservation/showOne/' + id, {state: {memberInfo: memberInfo}})
     }
 
     return (

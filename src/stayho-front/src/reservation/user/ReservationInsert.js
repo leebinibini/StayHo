@@ -1,43 +1,30 @@
 import {Button, Container, FormControl, Table} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {ko} from "date-fns/locale";
-import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 
 let ReservationInsert = () => {
     let location = useLocation();
     let navigate = useNavigate();
+    // let memberInfo = location.state.memberInfo;
 
-    let roomId = 1
-    let price = 19000
+    // (startDate, endDate, price, roomId)
 
     let [inputs, setInputs] = useState({
         checkIn: null,
         checkOut: null,
-        roomId: roomId,
+        roomId: 1,
         memberId: 1,
     })
 
     let [startDate, setStartDate] = useState(null);
     let [endDate, setEndDate] = useState(null);
 
-    let onDateChange = (dates) => {
-        let [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
-    };
-    let change = () =>{
-        setInputs(inputs =>({
-            ...inputs,
-            checkIn: startDate,
-            checkOut: endDate
-        }))
-    }
-
     let moveToNext = (id) => {
         navigate(`/reservation/showOne/${id}}`)
+            // ,{state: {memberInfo: memberInfo}}
     }
 
     let onSubmit = async (e) => {
@@ -52,6 +39,8 @@ let ReservationInsert = () => {
         }
     }
 
+    useEffect()
+
     return (
         <Container>
             <form onSubmit={onSubmit}>
@@ -63,27 +52,8 @@ let ReservationInsert = () => {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>
-                            <h4>예약날짜 정하기</h4>
-                            <DatePicker
-                                showIcon
-                                locale={ko}
-                                minDate={new Date()}
-                                dateFormat={'yyyy-MM-dd'}
-                                onChange={onDateChange}
-                                startDate={startDate}
-                                endDate={endDate}
-                                selectsRange
-                                inline
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>방 가격: {price}</td>
-                    </tr>
-                    <tr>
                         <td colSpan={2} className={'text-center'}>
-                            <Button onClick={change} type={"submit"}>
+                            <Button type={"submit"}>
                                 예약하기
                             </Button>
                         </td>

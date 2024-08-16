@@ -1,5 +1,5 @@
 import {Button, Container, Table} from "react-bootstrap";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -12,6 +12,8 @@ let ReservationOne = () => {
     let params = useParams()
     let id = parseInt(params.id)
     let navigate = useNavigate()
+    let location = useLocation();
+    let memberInfo = location.state.memberInfo
 
     let [isOpenDelete, setIsOpenDelete] = useState(false);
     let [isOpenApproval, setIsOpenApproval] = useState(false);
@@ -27,12 +29,12 @@ let ReservationOne = () => {
     let closeModalDelete = () => setIsOpenDelete(false);
     let closeModalApproval = () => setIsOpenApproval(false);
 
-    let goBack = () => navigate('/reservation/showAll')
+    let goBack = () => navigate('/reservation/showAll', {state:{memberInfo:memberInfo}})
 
     let onDelete = async (e) => {
         let response = await axios.get('http://localhost:8080/reservation/delete/' + id)
         if (response.status === 200) {
-            navigate('/reservation/showAll')
+            navigate('/reservation/showAll',{state:{memberInfo:memberInfo}})
         }
     }
 

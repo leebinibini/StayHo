@@ -55,12 +55,12 @@ public class ReservationServiceImpl implements ReservationService {
 
         // 체크인 시간 09:00 설정
         calendar.setTime(reservationDTO.getCheckIn());
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
         reservationDTO.setCheckIn(calendar.getTime());
 
         // 체크아웃 시간 13:00 설정
         calendar.setTime(reservationDTO.getCheckOut());
-        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
         reservationDTO.setCheckOut(calendar.getTime());
 
         REPOSITORY.insert(reservationDTO);

@@ -31,7 +31,6 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/reservation/**").permitAll()
                                 .requestMatchers("/reservation/registrant/*").permitAll()
-                                .requestMatchers("/search", "/room/**", "/location/**","/image", "/hotel/**", "/hotelDescription/**").permitAll()
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/search", "/room/**", "/location/**","/image", "/hotel/**", "/hotelDescription/**").permitAll()
                                 .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")

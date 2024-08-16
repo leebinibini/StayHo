@@ -38,7 +38,6 @@ import Header from "./member/Header";
 import SearchForm from "./search/SearchForm";
 import React from "react";
 
-
 function App() {
     const location = useLocation();
     const showSearchForm = !["/member/auth", "/member/register", "/member/memberUpdate", "/reservation/showAll", "/member/myPage"].includes(location.pathname);
@@ -46,9 +45,9 @@ function App() {
     return (
         <div>
             <Main/>
-            {showSearchForm && <SearchForm />}
+            {showSearchForm && <SearchForm/>}
             <Routes>
-                <Route path="member/auth" element={<Auth/>}/>
+                <Route path="/member/auth" element={<Auth/>}/>
                 <Route path="/member/register" element={<Register/>}/>
                 <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
                 <Route path="/hotel/showList" element={<ShowList/>}/>
