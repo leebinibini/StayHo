@@ -17,6 +17,10 @@
         DELETE FROM location
         WHERE hotel_id= #{id}
     </delete>
+    <select id="select" parameterType="int" resultType="locationDTO">
+        SELECT * FROM location
+        WHERE hotel_id=#{id}
+    </select>
     <select id="selectSido" resultType="String">
         SELECT sido FROM location
         WHERE LENGTH(sido)>2

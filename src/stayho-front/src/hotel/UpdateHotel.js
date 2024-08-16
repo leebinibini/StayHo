@@ -2,6 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
 import {Button, Container, Form, FormControl, Table} from "react-bootstrap";
 import axios from "axios";
+import InsertAddress from "../address/InsertAddress";
 
 let UpdateHotel = () => {
     let params = useParams()
@@ -33,6 +34,13 @@ let UpdateHotel = () => {
 
     let moveToNext = (id) => {
         navigate(`/hotel/ShowOne/${id}`)
+    }
+
+    // 주소 관련
+    let [modalState, setModalState] = useState(false)
+    let [addressData, setAddressData] = useState({})
+    let onPopup = () => {
+        setModalState(true)
     }
 
     let onSubmit = async (e) => {
@@ -82,9 +90,12 @@ let UpdateHotel = () => {
 
             if (hotelResponse.status === 200) {
                 let hotelDescriptionResponse = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id)
-
-                setInputs(hotelResponse.data)
-                setInputs(hotelDescriptionResponse.data)
+                if (hotelDescriptionResponse.status === 200){
+                    let hotelAddressResponse= await axios.get("http://localhost:8080/location/"+id)
+                    setAddressData(hotelAddressResponse.data)
+                    setInputs(hotelResponse.data)
+                    setInputs(hotelDescriptionResponse.data)
+                }
             }
         }
 
@@ -113,22 +124,35 @@ let UpdateHotel = () => {
                         </td>
                     </tr>
                     <tr>
-                    <td>시설정보</td>
-                    <td>
-                        <div className='list'>
-                            {categoryList.map(name => (
-                                <label className="checkboxLabel" key={name}>
-                                    <input
-                                        type="checkbox"
-                                        id={name}
-                                        value={name}
-                                        onChange={(e) => onCheckedItem(e.target.checked, name)}
-                                    />
-                                    <span>{name}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </td>
+                        <td>
+                            주소
+                        </td>
+                        <td>
+                            {addressData.address}
+                            <Button onClick={onPopup} className={'ms-1'}>
+                                주소찾기
+                                <InsertAddress setModalState={setModalState} modalState={modalState}
+                                               setAddressData={setAddressData}/>
+                            </Button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>시설정보</td>
+                        <td>
+                            <div className='list'>
+                                {categoryList.map(name => (
+                                    <label className="checkboxLabel" key={name}>
+                                        <input
+                                            type="checkbox"
+                                            id={name}
+                                            value={name}
+                                            onChange={(e) => onCheckedItem(e.target.checked, name)}
+                                        />
+                                        <span>{name}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>전화번호</td>
@@ -151,11 +175,11 @@ let UpdateHotel = () => {
                             <Button onClick={goBack}>뒤로 가기</Button>
                         </td>
                     </tr>
-                </tbody>
-            </Table>
-        </form>
-</Container>
-)
+                    </tbody>
+                </Table>
+            </form>
+        </Container>
+    )
 }
 
 
