@@ -6,6 +6,7 @@ import axios from "axios";
 let RegistrantAdmin = () => {
     let location = useLocation()
     let adminInfo = location.state.adminInfo
+
     let navigate = useNavigate();
     let [registrants, setRegistrants] = useState({memberList: []})
     let [loading, setLoading] = useState(true);
@@ -68,7 +69,11 @@ let RegistrantAdmin = () => {
                 setError(err); // 오류 처리
             }
         }
-    };
+    }
+    let onUpdate = (registrantInfo) => {
+        console.log(registrantInfo)
+        navigate("/admin/regiUpdate", {state:{adminInfo:adminInfo, registrantInfo: registrantInfo}})
+    }
 
     return (
         <div className="container mt-4">
@@ -84,12 +89,13 @@ let RegistrantAdmin = () => {
                     <th>이름</th>
                     <th>이메일</th>
                     <th>전화번호</th>
-                    <th>실행</th>
+                    <th>탈퇴하기</th>
+                    <th>수정하기</th>
                 </tr>
                 </thead>
                 <tbody>
-                {Array.isArray(currentRegistrants) && currentRegistrants.length > 0 ? (
-                    currentRegistrants.map(r => (
+                {Array.isArray(registrants.memberList) && registrants.memberList.length > 0 ? (
+                    registrants.memberList.map(r => (
                         <tr key={r.id}>
                             <td>{r.id}</td>
                             <td>{r.name}</td>
@@ -103,13 +109,19 @@ let RegistrantAdmin = () => {
                                     탈퇴시키기
                                 </button>
                             </td>
+                            <td>
+                                <button className="btn btn-primary"
+                                        onClick={() => onUpdate(r)}>
+                                    수정하기
+                                </button>
+                            </td>
                         </tr>
                     ))
-                ) : (
+                    ) : (
                     <tr>
-                        <td colSpan="5">회원이 없습니다.</td>
+                    <td colSpan="5">회원이 없습니다.</td>
                     </tr>
-                )}
+                    )}
                 </tbody>
             </table>
             <nav className="d-flex justify-content-center">

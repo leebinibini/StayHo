@@ -59,7 +59,7 @@ let ReRegister = () => {
 
         try {
             let response = await axios({
-                url: 'http://localhost:8080/registrant/reregister',
+                url: 'http://localhost:8080/registrant/reRegister',
                 method: "POST",
                 data: formData,
                 withCredentials: true

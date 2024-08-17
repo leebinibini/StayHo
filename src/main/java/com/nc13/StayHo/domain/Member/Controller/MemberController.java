@@ -90,6 +90,8 @@ public class MemberController {
     @PostMapping("/member/update")
     public HashMap<String, Object> update(@RequestBody MemberDTO memberDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
+        System.out.println("update: "+memberDTO);
+
         String password = memberDTO.getPassword();
 
         memberDTO.setPassword(encoder.encode(password));

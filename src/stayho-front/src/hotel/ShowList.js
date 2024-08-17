@@ -8,7 +8,6 @@ let ShowList = () => {
     let [data, setData] = useState({ hotelList: [] });
     let location = useLocation();
     let state = location.state;
-    console.log(state);
 
     let navigate = useNavigate();
 

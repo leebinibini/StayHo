@@ -2,14 +2,13 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 import {Button, Container, FormControl, Table} from "react-bootstrap";
+import registrantAdmin from "./RegistrantAdmin";
 
 let MemUpdate = () => {
     let location = useLocation()
-  /*  let memberInfo = location.state.memberInfo
-    let adminInfo =    location.state.adminInfo*/
-    let { adminInfo, memberInfo } = location.state || {}
-
-
+    let memberInfo = location.state.memberInfo
+    let adminInfo = location.state.adminInfo
+    console.log(memberInfo.role)
     let [inputs, setInputs] = useState({
         id: memberInfo.id,
         email: memberInfo.email,
@@ -26,8 +25,6 @@ let MemUpdate = () => {
             [name]: value
         })
     }
-
-
     let isValid = inputs.email !== ''
         && inputs.name !== '' && inputs.tel !== ''
 
@@ -54,13 +51,12 @@ let MemUpdate = () => {
         } else if (!isValid) {
             alert("필요한 정보가 누락되었습니다.");
             return;
-        }else if (!checkPhoneNumber({ target: { value: inputs.tel}})) {
+        } else if (!checkPhoneNumber({target: {value: inputs.tel}})) {
             alert("전화번호를 바르게 기입해 주세요.");
             return;
         }
-
-        let resp = await axios.post('http://localhost:8080/admin/update', inputs, {
-            state: {memberInfo: inputs},
+        console.log(inputs)
+        let resp = await axios.post('http://localhost:8080/member/update', inputs, {
             withCredentials: true
         });
 
@@ -68,6 +64,7 @@ let MemUpdate = () => {
             moveToNext();
         }
         console.log(adminInfo)
+
     }
 
     return (

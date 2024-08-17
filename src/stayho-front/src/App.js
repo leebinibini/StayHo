@@ -29,7 +29,6 @@ import ReSecede from "./registrant/ReSecede";
 import ReMyPage from "./registrant/ReMyPage";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
-import AdAuth from "./admin/AdAuth";
 import ShowOne from "./hotel/ShowOne";
 import UpdateHotel from "./hotel/UpdateHotel";
 import WriteHotel from "./hotel/WriteHotel";
@@ -38,6 +37,7 @@ import AdUpdate from "./admin/AdUpdate";
 import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
 import MemUpdate from "./admin/MemUpdate";
+import RegiUpdate from "./admin/RegiUpdate";
 
 
 function App() {
@@ -79,6 +79,7 @@ function App() {
                     <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                     <Route path="/hotel/write" element={<WriteHotel/>}/>
                     <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
+                    <Route path="/admin/regiUpdate" element={<RegiUpdate/>}/>
                 </Routes>
             </header>
         </div>

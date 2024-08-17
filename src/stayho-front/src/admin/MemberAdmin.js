@@ -75,6 +75,7 @@ let MemberAdmin = () => {
 
 
     let onUpdate = (memberInfo) => {
+        console.log(memberInfo)
         navigate("/admin/memUpdate", {state:{adminInfo:adminInfo, memberInfo: memberInfo}})
     }
 
@@ -115,7 +116,7 @@ let MemberAdmin = () => {
                             </td>
                             <td>
                                 <button className="btn btn-primary"
-                                        onClick={() => onUpdate(m.id)}>
+                                        onClick={() => onUpdate(m)}>
                                     수정하기
                                 </button>
                             </td>
