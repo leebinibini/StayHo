@@ -1,6 +1,5 @@
 package com.nc13.StayHo.domain.review.controller;
 
-import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import com.nc13.StayHo.domain.hotel.service.HotelService;
 import com.nc13.StayHo.domain.img.dto.ReviewImgDTO;
 import com.nc13.StayHo.domain.img.service.ImgService;
@@ -34,7 +33,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final ImgService imgService;
-    private final String imgPath = "src/main/resources/static/image/";
+    private final String imgPath = "/Users/hyunpark/Desktop/NC13/StayHo_NC13/src/main/resources/static/image/";
     private final String reviewPath = "review";
     private final ReservationService reservationService;
     private final HotelService hotelService;
@@ -43,19 +42,14 @@ public class ReviewController {
     @PostMapping("insert/{reservationId}")
     public ResponseEntity<Void> write(@PathVariable int reservationId,
                                       @RequestPart("reviewData") ReviewRegisterDTO reviewRegisterDTO,
-                                      @RequestPart(value = "img", required = false) List<MultipartFile> files) {
+                                      @RequestPart("img") List<MultipartFile> files) {
 
         reviewRegisterDTO.setReservationId(reservationId);
         reviewService.insert(reviewRegisterDTO);
         insertImg(reviewRegisterDTO.getId(), files);
 
         ReservationDTO reservationDTO = reservationService.selectOne(reservationId);
-        SynthesisDTO room = roomService.select(reservationDTO.getRoomId());
-        int hotelId = room.getHotelId();
-        double rating = reviewService.averageRating(room.getHotelId());
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("hotelId", hotelId);
-        result.put("rating", rating);
+        HashMap<String, Object> result = getStringObjectHashMap(reservationDTO);
         hotelService.updateRating(result);
 
         return ResponseEntity.ok().build();
@@ -104,19 +98,15 @@ public class ReviewController {
     @GetMapping("showOne/{reviewId}")
     public ResponseEntity<HashMap<String, Object>> showOne(@PathVariable int reviewId) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        try {
-            Review review = reviewService.selectOne(reviewId);
-            resultMap.put("review", review);
 
-            List<ReviewImgDTO> images = imgService.selectReviewImg(reviewId);
-            resultMap.put("images", images);
+        Review review = reviewService.selectOne(reviewId);
+        resultMap.put("review", review);
 
-            return ResponseEntity.ok(resultMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", "fail");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
-        }
+        List<ReviewImgDTO> images = imgService.selectReviewImg(reviewId);
+        resultMap.put("images", images);
+
+        return ResponseEntity.ok(resultMap);
+
     }
 
     @PutMapping("update/{reviewId}")
@@ -126,24 +116,24 @@ public class ReviewController {
             @RequestPart(value = "img", required = false) List<MultipartFile> files) {
 
         HashMap<String, Object> resultMap = new HashMap<>();
-        try {
-            reviewUpdateDTO.setId(reviewId);
-            reviewService.update(reviewUpdateDTO);
 
-            insertImg(reviewId, files);
+        reviewUpdateDTO.setId(reviewId);
+        reviewService.update(reviewUpdateDTO);
 
-            resultMap.put("result", "success");
-            return ResponseEntity.ok(resultMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", "fail");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
-        }
+        imgService.deleteReviewImgByReviewId(reviewId);
+        insertImg(reviewId, files);
+        ReservationDTO reservationDTO = reservationService.selectOne(reviewService.selectOne(reviewId).getReservationId());
+        HashMap<String, Object> result = getStringObjectHashMap(reservationDTO);
+        hotelService.updateRating(result);
+        resultMap.put("result", "success");
+        return ResponseEntity.ok(resultMap);
+
     }
 
-    @GetMapping("delete/{reviewId}")
+    @DeleteMapping("delete/{reviewId}")
     public ResponseEntity<Void> delete(@PathVariable int reviewId) {
         reviewService.delete(reviewId);
+        imgService.deleteReviewImgByReviewId(reviewId);
         return ResponseEntity.ok().build();
     }
 
@@ -195,5 +185,15 @@ public class ReviewController {
                 imgService.insertReviewImg(reviewImgDTO);
             }
         }
+    }
+
+    private HashMap<String, Object> getStringObjectHashMap(ReservationDTO reservationDTO) {
+        SynthesisDTO room = roomService.select(reservationDTO.getRoomId());
+        int hotelId = room.getHotelId();
+        double rating = reviewService.averageRating(room.getHotelId());
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("hotelId", hotelId);
+        result.put("rating", rating);
+        return result;
     }
 }

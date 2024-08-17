@@ -46,4 +46,8 @@ public class ImgService {
     public List<ReviewImgDTO> selectReviewImg(int reviewId) {
         return SESSION.selectList(NAMESPACE + ".selectReview", reviewId);
     }
+
+    public void deleteReviewImgByReviewId(int reviewId) {
+        SESSION.delete(NAMESPACE + ".deleteReview", reviewId);
+    }
 }

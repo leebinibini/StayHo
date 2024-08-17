@@ -7,6 +7,7 @@ const InsertReview = ({ reservationId }) => {
     const [rating, setRating] = useState(1);
     const [comment, setComment] = useState('');
     const [img, setImg] = useState(null);
+    const [imgPreview, setImgPreview] = useState(null);
 
     const handleShow = () => setShowForm(true);
     const handleClose = () => setShowForm(false);
@@ -29,6 +30,7 @@ const InsertReview = ({ reservationId }) => {
                 setRating(1);
                 setComment('');
                 setImg(null);
+                setImgPreview(null);
                 handleClose();
             }
         } catch (error) {
@@ -38,7 +40,17 @@ const InsertReview = ({ reservationId }) => {
     };
 
     const handleImgChange = (e) => {
-        setImg(e.target.files[0]);
+        const file = e.target.files[0];
+        setImg(file);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImgPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setImgPreview(null);
+        }
     };
 
     return (
@@ -87,6 +99,16 @@ const InsertReview = ({ reservationId }) => {
                                 onChange={handleImgChange}
                                 accept="image/*"
                             />
+                            {imgPreview && (
+                                <div className="mt-3">
+                                    <Form.Label>미리 보기</Form.Label>
+                                    <img
+                                        src={imgPreview}
+                                        alt="Preview"
+                                        style={{maxWidth: '100%', height: 'auto'}}
+                                    />
+                                </div>
+                            )}
                         </Form.Group>
 
                         <Button variant="secondary" onClick={handleClose}>
