@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Card, Badge } from "react-bootstrap";
-import StarRating from './StarRating';
 
 const ShowOne = () => {
-    const [data1, setData1] = useState({ id: null, name: '', rating: 0 });
+    const [data1, setData1] = useState({});
     const [data2, setData2] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const params = useParams();
-    const id = parseInt(params.id);
+    let params = useParams();
+    let id = parseInt(params.id);
 
-    const location = useLocation();
-    const memberInfo = location.state?.memberInfo || { id: 'Unknown' };
-
-    const navigate = useNavigate();
-
-    const goToHotelList = () => {
-        navigate('/hotel/showList', { state: { memberInfo: memberInfo }});
+    let navigate = useNavigate();
+    let goToHotelList = () => {
+        navigate('/hotel/showList');
     };
 
-    const onUpdate = () => {
-        navigate(`/hotel/update/${id}`, { state: { memberInfo: memberInfo }});
+    let onUpdate = () => {
+        navigate('/hotel/update/' + id);
     };
 
-    const onDelete = async () => {
+    let onDelete = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/hotel/delete/${id}`, { withCredentials: true });
+            let response = await axios.get("http://localhost:8080/hotel/delete/" + id);
             if (response.status === 200) {
-                navigate('/hotel/showList', { state: { memberInfo: memberInfo }});
+                navigate('/hotel/showList');
             }
         } catch (e) {
             console.error(e);
@@ -39,13 +35,13 @@ const ShowOne = () => {
     };
 
     useEffect(() => {
-        const selectOne = async () => {
+        let selectOne = async () => {
             try {
-                const resp1 = await axios.get(`http://localhost:8080/hotel/showOne/${id}`);
+                let resp1 = await axios.get('http://localhost:8080/hotel/showOne/' + id);
                 if (resp1.status === 200) {
                     setData1(resp1.data);
                 }
-                const resp2 = await axios.get(`http://localhost:8080/hotelDescription/showOne/${id}`);
+                let resp2 = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id);
                 if (resp2.status === 200) {
                     setData2(resp2.data);
                 }
@@ -59,7 +55,6 @@ const ShowOne = () => {
         selectOne();
     }, [id]);
 
-    if (data1 === null) return alert("존재하지 않는 게시물입니다!")
     if (loading) return <div className="text-center my-5"><span className="spinner-border"></span> 로딩 중...</div>;
     if (error) return <div className="text-danger text-center my-5">{error}</div>;
 
@@ -73,13 +68,13 @@ const ShowOne = () => {
                         <Card.Body>
                             <h2 className="text-primary">{data1.name}</h2>
                             <Badge bg="secondary" className="mb-3">글번호: {data1.id}</Badge>
-                            <p className="text-muted">작성자: {memberInfo.id}</p>
+                            <p className="text-muted">제공자: </p>
                             <hr />
-                            <StarRating rating={data1.rating} size={32} />
+                            <div>사진: </div>
                             <hr />
                             <h4>편의시설</h4>
                             <Row className="mb-4">
-                                {Object.entries(facilities).map(([key, value]) => (
+                                {Object.entries(data2).map(([key, value]) => (
                                     key !== 'hotelId' && value && (
                                         <Col md={4} key={key} className="mb-3">
                                             <Badge bg="info" className="p-2 w-100 text-uppercase">{key.replace(/([A-Z])/g, ' $1')}</Badge>
