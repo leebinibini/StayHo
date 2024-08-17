@@ -21,16 +21,16 @@ let SearchForm = () => {
         checkoutDate: new Date()
     })
     let navigate = useNavigate()
-    // useEffect(() => {
-    //     setEndDate(new Date(endDate.setDate(startDate.getDate()+1)))
-    //     let onLoad = async () => {
-    //         let response = await axios.get("http://localhost:8080/location/sido")
-    //         if (response.status === 200) {
-    //             setSidos(response.data.sido)
-    //         }
-    //     }
-    //     onLoad()
-    // }, []);
+    useEffect(() => {
+        setEndDate(new Date(endDate.setDate(startDate.getDate() + 1)))
+        let onLoad = async () => {
+            let response = await axios.get("http://localhost:8080/location/sido")
+            if (response.status === 200) {
+                setSidos(response.data.sido)
+            }
+        }
+        onLoad()
+    }, []);
 
     let onSido = async (e) => {
         let sido = e.target.value;
@@ -59,7 +59,7 @@ let SearchForm = () => {
                 ...inputs,
                 checkinDate: date
             })
-            setEndDate(new Date(endDate.setDate(date.getDate()+1)))
+            setEndDate(new Date(endDate.setDate(date.getDate() + 1)))
         } else {
             setEndDate(date)
             setInputs({
@@ -73,7 +73,7 @@ let SearchForm = () => {
         e.preventDefault()
         let response = await axios.post("http://localhost:8080/search", inputs, {})
         if (response.status === 200) {
-            navigate("/search", {state: {list:response.data.list, images: response.data.images, memberInfo:memberInfo}})
+            navigate("/search", {state: {list: response.data.list, images: response.data.images}})
         }
     }
 
@@ -85,6 +85,7 @@ let SearchForm = () => {
                     <tr>
                         <td>
                             <FormSelect onChange={onSido} name='sido'>
+                                <option value={""}>지역</option>
                                 {sidos.map(sido => (
                                     <option value={sido} key={sido}>{sido}</option>
                                 ))}

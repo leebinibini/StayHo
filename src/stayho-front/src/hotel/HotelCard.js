@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Carousel } from "react-bootstrap";
+import {Button, Card, CardImg, Carousel, CarouselItem} from "react-bootstrap";
 import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
@@ -78,26 +78,19 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
                 />
             </div>
             <Carousel interval={null} style={{ pointerEvents: 'none' }}>
-                {hotel.images && hotel.images.length > 0 ? (
-                    hotel.images.map((image, index) => (
-                        <Carousel.Item key={index}>
-                            <img
-                                className="d-block w-100"
-                                src={image}
-                                alt={`${hotel.name} 이미지 ${index + 1}`}
-                                style={{ height: '200px', objectFit: 'cover', pointerEvents: 'auto' }}
-                            />
-                        </Carousel.Item>
-                    ))
-                ) : (
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="http://localhost:8080/image/hotel/default.png"
-                            alt="기본 이미지"
-                            style={{ height: '200px', objectFit: 'cover', pointerEvents: 'auto' }}
-                        />
-                    </Carousel.Item>
+                {hotelImgDTO.map(
+                    image => image.map(
+                        img => (img.hotelId === hotel.id ?
+                                <CarouselItem>
+                                    <CardImg variant={"top"}
+                                             src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+                                             style={{height: '200px', objectFit: 'cover'}}
+                                    />
+                                </CarouselItem>
+                                :
+                                null
+                        )
+                    )
                 )}
             </Carousel>
             <Card.Body className="d-flex flex-column">

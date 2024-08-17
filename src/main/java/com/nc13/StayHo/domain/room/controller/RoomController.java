@@ -45,7 +45,7 @@ public class RoomController {
                                        @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         RoomDTO roomDTO = new RoomDTO(params.getLimitPeople(), params.getType(), params.getHotelId());
         ROOM_SERVICE.insert(roomDTO);
-        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
+        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView(), params.getContent());
         DESCRIPTION_SERVICE.insert(descriptionDTO);
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
@@ -80,17 +80,15 @@ public class RoomController {
     }
 
     @GetMapping("selectList/{id}")
-    public ResponseEntity<Map<String, Object>> selectList(@PathVariable int id) {
-        Map<String, Object> resultMap = new HashMap<>();
-        List<SynthesisDTO> list = ROOM_SERVICE.selectByHotel(id);
-        resultMap.put("roomList", list);
+    public ResponseEntity<Map<String, Object>>selectList(@PathVariable int id){
+        Map<String, Object> resultMap= new HashMap<>();
+        resultMap.put("roomList", ROOM_SERVICE.selectByHotel(id));
         return ResponseEntity.ok(resultMap);
     }
-
-    @GetMapping("selectList")
-    public ResponseEntity<Map<String, Object>> selectList(@RequestParam(value = "condition") SearchConditionDTO conditionDTO){
+    @PostMapping("selectList")
+    public ResponseEntity<Map<String, Object>> selectList(@RequestBody SearchConditionDTO condition){
         Map<String, Object> resultMap= new HashMap<>();
-        System.out.println(conditionDTO);
+        resultMap.put("roomList", ROOM_SERVICE.selectByHotelForSearch(condition));
         return ResponseEntity.ok(resultMap);
     }
 
@@ -124,7 +122,7 @@ public class RoomController {
         roomDTO.setId(params.getId());
         ROOM_SERVICE.update(roomDTO);
 
-        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView());
+        RoomDescriptionDTO descriptionDTO = new RoomDescriptionDTO(roomDTO.getId(), params.isBath(), params.getBed(), params.getView(), params.getContent());
         DESCRIPTION_SERVICE.update(descriptionDTO);
 
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());

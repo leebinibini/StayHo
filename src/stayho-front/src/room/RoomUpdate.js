@@ -2,7 +2,7 @@ import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSe
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 
 let RoomUpdate = () => {
@@ -10,8 +10,10 @@ let RoomUpdate = () => {
     let [inputs, setInputs] = useState({})
     let params = useParams()
     let id = parseInt(params.id)
+    let location = useLocation()
+    let memberInfo = location.state.memberInfo
     let [imgList, setImgList] = useState([])
-    let [delImgList, setDelImgList]= useState([])
+    let [delImgList, setDelImgList] = useState([])
     let ViewEnum = {
         CITY: 'city',
         MOUNTAIN: 'mountain',
@@ -19,7 +21,7 @@ let RoomUpdate = () => {
     };
     Object.freeze(ViewEnum);
 
-    let navigate= useNavigate()
+    let navigate = useNavigate()
     let onChange = (e) => {
         let {name, value} = e.target
         setInputs({
@@ -33,8 +35,8 @@ let RoomUpdate = () => {
             ...e.target.files
         ])
     }
-    let onDelete=(id)=>{
-        setImgList(imgList.filter((img)=> img.id!==id))
+    let onDelete = (id) => {
+        setImgList(imgList.filter((img) => img.id !== id))
         setDelImgList([
             ...delImgList,
             id
@@ -42,8 +44,6 @@ let RoomUpdate = () => {
     }
 
     let onSubmit = async () => {
-        console.log(typeof delImgList)
-        console.log(delImgList)
         let data = {
             id: id,
             limitPeople: watch('limitPeople'),
@@ -52,11 +52,12 @@ let RoomUpdate = () => {
             bed: watch('bed'),
             view: inputs.view,
             price: watch('price'),
-            surcharge: watch('surcharge')
+            surcharge: watch('surcharge'),
+            content: watch('content')
         }
 
-        const formData= new FormData()
-        imgList.map(image=>{
+        const formData = new FormData()
+        imgList.map(image => {
             formData.append('files', image)
         })
         formData.append(
@@ -66,15 +67,21 @@ let RoomUpdate = () => {
         formData.append('delImgList', new Blob([JSON.stringify(delImgList)], {type: 'application/json'}))
         let response = await axios.post(
             "http://localhost:8080/room/update", formData,
-            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials: true}
         )
         if (response.status === 200) {
             window.alert("수정되었습니다.")
-            navigate(-1)
+            navigate(-1, {state: {memberInfo: memberInfo}})
         }
     }
     useEffect(() => {
         let onLoad = async () => {
+            let resp = await axios.get("http://localhost:8080/hotel/" + id)
+            if (resp.status === 200) {
+                if (resp.data.memberId !== memberInfo.id) {
+                    navigate("/", {state: {memberInfo: memberInfo}});
+                }
+            }
             let response = await axios.get("http://localhost:8080/room/select/" + id, {});
             if (response.status === 200) {
                 setInputs(response.data.room)
@@ -96,8 +103,8 @@ let RoomUpdate = () => {
                     <tr>
                         <td>최대 숙박 인원</td>
                         <td>
-                            <FormControl type={'number'} name={'limitPeople'}
-                                         onChange={onChange} vaule={inputs.limitPeople}
+                            <FormControl type={'number'} name={'limitPeople'} onChange={onChange}
+                                         vaule={inputs.limitPeople}
                                          aria-describedby='limitPeopleExplain' defaultValue={inputs.limitPeople}
                                          {...register("limitPeople", {required: true, min: 1})}/>
                             <FormText id="limitPeopleExplain" muted>최소 인원은 1명입니다.</FormText>
@@ -110,6 +117,12 @@ let RoomUpdate = () => {
                                          {...register("type", {required: true, maxLength: 50})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>객실 설명</td>
+                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                                         style={{minHeight: '15rem'}} defaultValue={inputs.type}
+                                         {...register("content", {required: true})}/></td>
                     </tr>
                     <tr>
                         <td>욕조 여부</td>
@@ -133,8 +146,6 @@ let RoomUpdate = () => {
                                                onChange={onChange} checked/>
                                 </div>
                             }
-
-
                         </td>
                     </tr>
                     <tr>
@@ -171,18 +182,22 @@ let RoomUpdate = () => {
                         </td>
                     </tr>
                     <tr>
-                            <td>객실 사진</td>
-                            <td>
-                                <div className={'d-flex'}>
-                                    {imgList.map(img=>(
-                                        <div className={'justify-content-center'}>
-                                        <Image src={"http://localhost:8080/image?path="+img.filepath+"&name="+img.filename} style={{width:'20rem'}}/>
-                                            <Button onClick={()=>onDelete(img.id)} style={{display:'block'}} className={'btn-danger'}>삭제</Button>
-                                        </div>
-                                    ))}
-                                </div>
-                                <Form.Control type="file" multiple={true} onChange={onChangeImg} accept={'image.jpg,image/png,image/jpeg'}/>
-                            </td>
+                        <td>객실 사진</td>
+                        <td>
+                            <div className={'d-flex'}>
+                                {imgList.map(img => (
+                                    <div className={'justify-content-center'}>
+                                        <Image
+                                            src={"http://localhost:8080/image?path=" + img.filepath + "&name=" + img.filename}
+                                            style={{width: '20rem'}}/>
+                                        <Button onClick={() => onDelete(img.id)} style={{display: 'block'}}
+                                                className={'btn-danger'}>삭제</Button>
+                                    </div>
+                                ))}
+                            </div>
+                            <Form.Control type="file" multiple={true} onChange={onChangeImg}
+                                          accept={'image.jpg,image/png,image/jpeg'}/>
+                        </td>
                     </tr>
                     <tr>
                         <td><Button type={'submit'}>수정하기</Button></td>

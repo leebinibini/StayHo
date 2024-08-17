@@ -7,15 +7,15 @@ public class RoomDescriptionDTO {
     private int roomId;
     private boolean bath;
     private int bed;
-//    private Enum<ViewEnum> view;
     private String view;
-
+    private String content;
 
     public RoomDescriptionDTO(){}
-    public RoomDescriptionDTO(int roomId, boolean bath, int bed, String view){
+    public RoomDescriptionDTO(int roomId, boolean bath, int bed, String view, String content){
         this.roomId=roomId;
         this.bath=bath;
         this.bed= bed;
         this.view= view;
+        this.content= content;
     }
 }
