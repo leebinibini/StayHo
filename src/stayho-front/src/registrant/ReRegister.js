@@ -50,30 +50,33 @@ let ReRegister = () => {
             alert("전화번호를 바르게 기입해주세요.")
             return
         }
-        try {
-            let formData = new FormData()
-            formData.append('email', inputs.email)
-            formData.append('name', inputs.name)
-            formData.append('password', inputs.password)
-            formData.append('role', 'ROLE_REGISTRANT')
-            formData.append('tel', inputs.tel)
+        let formData = new FormData()
+        formData.append('email', inputs.email)
+        formData.append('name', inputs.name)
+        formData.append('password', inputs.password)
+        formData.append('role', 'ROLE_REGISTRANT')
+        formData.append('tel', inputs.tel)
 
+        try {
             let response = await axios({
-                url: 'http://localhost:8080/registrant/reRegister',
+                url: 'http://localhost:8080/registrant/reregister',
                 method: "POST",
                 data: formData,
                 withCredentials: true
             })
 
+            if (response.status === 200) {
+                let registrantInfo = {
+                    email: response.data.member.email,
+                    password: response.data.member.password,
+                    name: response.data.member.name,
+                    role: response.data.member.role,
+                    tel: response.data.member.tel
+                }
+                console.log(registrantInfo)
 
-            let registrantInfo = {
-                email: response.data.member.email,
-                password: response.data.member.password,
-                name: response.data.member.name,
-                role: response.data.member.role,
-                tel: response.data.member.tel
+                navigate('/registrant/reAuth',{state: {registrantInfo: registrantInfo}})
             }
-            navigate('/registrant/reAuth', {state: {registrantInfo: registrantInfo}})
         } catch (error) {
             if (error.response) {
                 setErrorMessage(error.response.data.message)
@@ -81,6 +84,7 @@ let ReRegister = () => {
                 setErrorMessage('이미 가입된 이메일입니다.')
             }
         }
+
     }
     return (
         <form onSubmit={onSubmit}>

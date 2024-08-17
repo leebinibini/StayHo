@@ -35,6 +35,10 @@ import UpdateHotel from "./hotel/UpdateHotel";
 import WriteHotel from "./hotel/WriteHotel";
 import MemberUpdate from "./member/MemberUpdate";
 import AdUpdate from "./admin/AdUpdate";
+import MemberAdmin from "./admin/MemberAdmin";
+import RegistrantAdmin from "./admin/RegistrantAdmin";
+import MemUpdate from "./admin/MemUpdate";
+
 import Main from "./main/Main";
 import React from "react";
 
@@ -50,7 +54,7 @@ function App() {
                 <Route path="/member/auth" element={<Auth/>}/>
                 <Route path="/member/register" element={<Register/>}/>
                 <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
-                <Route path="/hotel/showList" element={<ShowList/>}/>
+                <Route path="/" element={<ShowList/>}/>
                 <Route path="/member/myPage" element={<MyPage/>}/>
                 <Route path="/member/secede" element={<Secede/>}/>
                 <Route path="/registrant/reAuth" element={<ReAuth/>}/>
@@ -63,7 +67,7 @@ function App() {
                 <Route path="/admin/menu" element={<Menu/>}/>
                 <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
                 <Route path={"/reservation/registrant"} element={<Registrant/>}/>
-                <Route path={"/reservation/admin"} element={<ReservationAdmin/>}/>
+                <Route path={"/reservation/admin"} element={<Admin/>}/>
                 <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                 <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                 <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
@@ -73,6 +77,10 @@ function App() {
                 <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                 <Route path={"/room/test/:id"} element={<Test/>}/>
                 <Route path={"/search"} element={<SearchResult/>}/>
+                <Route path={"/admin/memberAdmin"} element={<MemberAdmin/>}/>
+                <Route path={"/admin/registrantAdmin"} element={<RegistrantAdmin/>}/>
+                <Route path={"/admin/memUpdate"} element={<MemUpdate/>}/>
+                <Route path="/hotel/showList" element={<ShowList/>}/>
                 <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                 <Route path="/hotel/write" element={<WriteHotel/>}/>
                 <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
