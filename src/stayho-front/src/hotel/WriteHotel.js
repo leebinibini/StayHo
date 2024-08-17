@@ -25,14 +25,7 @@ const WriteHotel = () => {
     }
     const navigate = useNavigate();
 
-    const categoryList = [
-        'Swimming Pool',
-        'Parking',
-        'Restaurant',
-        'Smoking Area',
-        'Laundry Facilities',
-        'Fitness Center'
-    ];
+    const categoryList = ['swimmingPool', 'parking', 'restaurant', 'smoking', 'laundryFacilities', 'fitnessCenter']
 
     const onCheckedItem = useCallback((e) => {
         if (e && e.target) {
@@ -84,12 +77,12 @@ const WriteHotel = () => {
             if (hotelId) {
                 let response2 = await axios.post('http://localhost:8080/hotelDescription/write', {
                     hotelId,
-                    swimmingPool: !!inputs.facilities["Swimming Pool"],
-                    parking: !!inputs.facilities["Parking"],
-                    restaurant: !!inputs.facilities["Restaurant"],
-                    smoking: !!inputs.facilities["Smoking Area"],
-                    laundryFacilities: !!inputs.facilities["Laundry Facilities"],
-                    fitnessCenter: !!inputs.facilities["Fitness Center"]
+                    swimmingPool: !!inputs.facilities["swimmingPool"],
+                    parking: !!inputs.facilities["parking"],
+                    restaurant: !!inputs.facilities["restaurant"],
+                    smoking: !!inputs.facilities["smoking"],
+                    laundryFacilities: !!inputs.facilities["laundryFacilities"],
+                    fitnessCenter: !!inputs.facilities["fitnessCenter"]
                 });
 
 
