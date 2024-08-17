@@ -1,6 +1,7 @@
 package com.nc13.StayHo.domain.img.service;
 
 import com.nc13.StayHo.domain.img.dto.HotelImgDTO;
+import com.nc13.StayHo.domain.img.dto.ReviewImgDTO;
 import com.nc13.StayHo.domain.img.dto.RoomImgDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
@@ -28,5 +29,13 @@ public class ImgService {
     }
 
     public void insertHotel(HotelImgDTO hotelImgDTO) {SESSION.insert(NAMESPACE+".insertHotel", hotelImgDTO);
+    }
+
+    public void insertReviewImg(ReviewImgDTO reviewImgDTO) {
+        SESSION.insert(NAMESPACE + ".insertReview", reviewImgDTO);
+    }
+
+    public List<ReviewImgDTO> selectReviewImg(int reviewId) {
+        return SESSION.selectList(NAMESPACE + ".selectReview", reviewId);
     }
 }

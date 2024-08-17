@@ -11,7 +11,6 @@ public class SynthesisDTO {
     private int roomId;
     private boolean bath;
     private int bed;
-//    private Enum<ViewEnum> view;
     private String view;
     private int price;
     private int surcharge;

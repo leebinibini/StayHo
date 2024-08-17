@@ -9,6 +9,8 @@ import com.nc13.StayHo.domain.room.service.RoomService;
 import com.nc13.StayHo.domain.room.dto.SynthesisDTO;
 import com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO;
 import com.nc13.StayHo.domain.roomDescription.service.RoomDescriptionService;
+import com.nc13.StayHo.domain.search.dto.SearchConditionDTO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -85,6 +87,12 @@ public class RoomController {
         return ResponseEntity.ok(resultMap);
     }
 
+    @GetMapping("selectList")
+    public ResponseEntity<Map<String, Object>> selectList(@RequestParam(value = "condition") SearchConditionDTO conditionDTO){
+        Map<String, Object> resultMap= new HashMap<>();
+        System.out.println(conditionDTO);
+        return ResponseEntity.ok(resultMap);
+    }
     @GetMapping("description/{id}")
     public ResponseEntity<Map<String, Object>> selectDescription(@PathVariable int id) {
 

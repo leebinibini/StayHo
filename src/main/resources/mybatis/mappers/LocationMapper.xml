@@ -5,7 +5,7 @@
 <mapper namespace="mapper.LocationMapper">
     <insert id="insert" parameterType="locationDTO">
         INSERT INTO location
-        (hotel_id, address, sido, sigungu, buildingName, zonecode)
+        (hotel_id, address, sido, sigungu, zonecode buildingName)
         VALUES (#{hotelId}, #{address}, #{sido}, #{sigungu}, #{zonecode}, #{buildingName})
     </insert>
     <update id="update" parameterType="locationDTO">
@@ -19,11 +19,11 @@
     </delete>
     <select id="selectSido" resultType="String">
         SELECT sido FROM location
+        WHERE LENGTH(sido)>2
         GROUP BY sido
     </select>
     <select id="selectSigungu" resultType="String" parameterType="String">
         SELECT sigungu FROM location
         WHERE sido=#{sido}
     </select>
-
 </mapper>

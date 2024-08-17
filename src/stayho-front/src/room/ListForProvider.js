@@ -72,7 +72,7 @@ let ListForProvider = () => {
                         <td></td>
                     </tr>
                     {rooms.roomList.map(room => (
-                        <tr>
+                        <tr key={room.id}>
                             <td><FormCheck name="deleteRooms" type='checkbox'
                                            onClick={(event) => onChecked(event.target.checked, room.id)}/></td>
                             <td> {room.type}</td>

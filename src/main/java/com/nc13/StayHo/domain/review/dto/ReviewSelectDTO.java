@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +16,5 @@ public class ReviewSelectDTO {
     private Date updatedAt;
     private int memberId;
     private String memberName;
+    private List<String> imgUrls;
 }
