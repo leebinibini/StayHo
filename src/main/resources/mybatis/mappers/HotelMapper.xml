@@ -33,4 +33,9 @@
         DELETE FROM hotel
         WHERE hotel.id = #{id}
     </delete>
+    <update id="updateRating" parameterType="HashMap">
+        UPDATE hotel
+        SET rating = #{rating}
+        WHERE id = #{hotelId}
+    </update>
 </mapper>
