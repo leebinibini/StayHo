@@ -3,10 +3,8 @@ import { Button, Card, Carousel } from "react-bootstrap";
 import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import * as sweetalert2 from "sweetalert2";
 
-const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
+const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -95,7 +93,7 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="default-image-url"
+                            src="http://localhost:8080/image/hotel/default.png"
                             alt="기본 이미지"
                             style={{ height: '200px', objectFit: 'cover', pointerEvents: 'auto' }}
                         />

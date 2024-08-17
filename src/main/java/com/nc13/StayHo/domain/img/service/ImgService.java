@@ -26,4 +26,7 @@ public class ImgService {
     public void delete(int id){
         SESSION.delete(NAMESPACE+".delete", id);
     }
+
+    public void insertHotel(HotelImgDTO hotelImgDTO) {SESSION.insert(NAMESPACE+".insertHotel", hotelImgDTO);
+    }
 }

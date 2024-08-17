@@ -12,4 +12,10 @@ public class HotelDTO {
     private String content;
 
     private String providerName;
+
+    public HotelDTO(){}
+    public HotelDTO(int hotelId, int memberId){
+        this.id = hotelId;
+        this.memberId = memberId;
+    }
 }

@@ -71,11 +71,11 @@ const ShowOne = () => {
                         <Card.Body>
                             <h2 className="text-primary">{data1.name}</h2>
                             <Badge bg="secondary" className="mb-3">글번호: {data1.id}</Badge>
-                            <p className="text-muted">작성자: {data1.providerName}</p>
+                            <p className="text-muted">작성자: {memberInfo.id}</p>
                             <hr />
                             <StarRating rating={data1.rating} size={32} /> {/* 큰 별점 표시 */}
                             <hr />
-                            <div dangerouslySetInnerHTML={{ __html: data1.content }} className="mb-4" />
+                            <div/>
                             <hr />
                             <h4>편의시설</h4>
                             <Row className="mb-4">

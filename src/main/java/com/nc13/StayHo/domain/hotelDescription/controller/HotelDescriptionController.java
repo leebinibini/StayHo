@@ -48,6 +48,8 @@ public class HotelDescriptionController {
     public HashMap<String, Object> update(@RequestBody HotelDescriptionDTO hotelDescriptionDTO) {
         System.out.println(hotelDescriptionDTO);
         HashMap<String, Object> resultMap = new HashMap<>();
+
+        System.out.println(resultMap);
         HOTEL_DESCRIPTION_SERVICE.update(hotelDescriptionDTO);
 
         resultMap.put("resultId", hotelDescriptionDTO.getHotelId());

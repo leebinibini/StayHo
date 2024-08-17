@@ -20,4 +20,9 @@
         DELETE FROM img
         WHERE id= #{id}
     </delete>
+    <insert id="insertHotel" parameterType="hotelImgDTO">
+        INSERT INTO img
+        (filepath, filename, hotel_id)
+        VALUES(#{filepath}, #{filename}, #{hotelId} )
+    </insert>
 </mapper>
