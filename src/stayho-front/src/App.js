@@ -33,6 +33,9 @@ import UpdateHotel from "./hotel/UpdateHotel";
 import WriteHotel from "./hotel/WriteHotel";
 import MemberUpdate from "./member/MemberUpdate";
 import AdUpdate from "./admin/AdUpdate";
+import MemberAdmin from "./admin/MemberAdmin";
+import RegistrantAdmin from "./admin/RegistrantAdmin";
+import MemUpdate from "./admin/MemUpdate";
 
 
 function App() {
@@ -46,7 +49,6 @@ function App() {
                     <Route path="/" element={<ShowList/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
-                    <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                     <Route path="/registrant/reAuth" element={<ReAuth/>}/>
                     <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                     <Route path="/registrant/reUpdate" element={<ReUpdate/>}/>
@@ -67,6 +69,9 @@ function App() {
                     <Route path={"/room/list/:id"} element={<RoomForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
+                    <Route path={"/admin/memberAdmin"} element={<MemberAdmin/>}/>
+                    <Route path={"/admin/registrantAdmin"} element={<RegistrantAdmin/>}/>
+                    <Route path={"/admin/memUpdate"} element={<MemUpdate/>}/>
                     <Route path="/hotel/showList" element={<ShowList/>}/>
                     <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                     <Route path="/hotel/write" element={<WriteHotel/>}/>

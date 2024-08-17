@@ -10,54 +10,50 @@ let ShowList = () => {
     let [imgData, setImgData] = useState([])
     let location = useLocation();
     let state = location.state;
+    let memberInfo = state ? state.memberInfo : null;
     console.log(state);
 
     let navigate = useNavigate();
 
     let moveToSingle = (id) => {
-        navigate(`/hotel/showOne/` + id);
-    };
-
-    let onWrite = async () => {
-        navigate('/hotel/write');
+        navigate(`/hotel/showOne/` + id, { state: { memberInfo: memberInfo }});
     };
 
     let onLogOut = async () => {
         let response = await axios.post('http://localhost:8080/member/logout', {
             withCredentials: true
-        })
+        });
         if (response.status === 200) {
-            navigate('/')
+            navigate('/');
         }
-    }
+    };
 
     let onAuth = () => {
-        navigate("/member/auth")
-    }
+        navigate("/member/auth");
+    };
 
     let onRegister = () => {
-        navigate("/member/register")
-    }
+        navigate("/member/register");
+    };
 
     let onMyPage = () => {
         if (state !== null) {
-            let memberInfo = state.memberInfo
-            navigate('/member/myPage', {state: {memberInfo: memberInfo}})
+            let memberInfo = state.memberInfo;
+            navigate('/member/myPage', { state: { memberInfo: memberInfo } });
         }
-    }
+    };
 
     let onHotelWrite = () => {
-        navigate('/registrant/reAuth')
-    }
-
+        navigate('/registrant/reAuth');
+    };
 
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
                 .get("http://localhost:8080/hotel/showList")
                 .catch((e) => {
-                    console.error(e)
-                })
+                    console.error(e);
+                });
 
             if (resp.status === 200) {
                 setData(resp.data.hotelList)
@@ -90,7 +86,8 @@ let ShowList = () => {
             <Row>
                 {data.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <WithHeaderExample hotel={h} moveToSingle={moveToSingle} images={imgData} />
+                        <HotelCard hotel={h} moveToSingle={moveToSingle} images={imgData}
+                        memberInfo={memberInfo}/>
                     </Col>
                 ))}
             </Row>
@@ -98,7 +95,7 @@ let ShowList = () => {
     );
 }
 
-let WithHeaderExample = ({hotel, moveToSingle, images}) => {
+let HotelCard = ({ hotel, moveToSingle, images }) => {
     return (
         <Card className="shadow-sm h-100">
             <Carousel>

@@ -4,6 +4,7 @@ import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -34,4 +35,7 @@ public class HotelService {
         SESSION.delete(NAMESPACE + ".delete", id);
     }
 
+    public void updateRating(HashMap<String, Object> result) {
+        SESSION.update(NAMESPACE + ".updateRating", result);
+    }
 }

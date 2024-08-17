@@ -2,6 +2,7 @@ package com.nc13.StayHo.domain.hotel.controller;
 
 import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import com.nc13.StayHo.domain.hotel.service.HotelService;
+import com.nc13.StayHo.domain.hotelDescription.service.HotelDescriptionService;
 import com.nc13.StayHo.domain.img.dto.HotelImgDTO;
 import com.nc13.StayHo.domain.img.service.ImgService;
 import com.nc13.StayHo.domain.location.dto.LocationDTO;
@@ -10,9 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @RestController
@@ -20,14 +26,16 @@ import java.util.*;
 @RequestMapping("/hotel/")
 public class HotelController {
     private final HotelService HOTEL_SERVICE;
+    private final HotelDescriptionService HOTEL_DESCRIPTION_SERVICE;
     private final LocationService LOCATION_SERVICE;
     private final ImgService IMG_SERVICE;
     private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static\\image\\";
     private final String HOTEL_PATH = "hotel";
 
     @Autowired
-    public HotelController(HotelService hotelService, LocationService locationService,ImgService imgService) {
+    public HotelController(HotelService hotelService,HotelDescriptionService hotelDescriptionService, LocationService locationService,ImgService imgService) {
         HOTEL_SERVICE = hotelService;
+        this.HOTEL_DESCRIPTION_SERVICE = hotelDescriptionService;
         this.LOCATION_SERVICE= locationService;
         this.IMG_SERVICE = imgService;
     }
@@ -62,9 +70,6 @@ public class HotelController {
             @RequestPart("address") LocationDTO locationDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
-            hotelDTO.setMemberId(1);  // 로그인 정보와 연결되면 이 부분을 수정
-
-            // HotelDTO 저장 로직
             HOTEL_SERVICE.insert(hotelDTO);
 
             locationDTO.setHotelId(hotelDTO.getId());
@@ -107,7 +112,6 @@ public class HotelController {
 
     @PostMapping("update")
     public ResponseEntity<Void> update(@RequestBody HotelDTO hotelDTO) {
-        System.out.println("hotelDTO"+hotelDTO);
         HashMap<String, Object> resultMap = new HashMap<>();
 
         HOTEL_SERVICE.update(hotelDTO);
