@@ -25,7 +25,7 @@ let ListForProvider = () => {
         navigate("/room/update/" + id, {state: {memberInfo: memberInfo}})
     }
     let moveToInsert = () => {
-        navigate("/room/insert/" + hotelId, {state: {memberInfo: memberInfo}})
+        // navigate("/room/insert/" + hotelId, {state: {memberInfo: memberInfo}})
     }
 
     let onChecked = (checked, id) => {
