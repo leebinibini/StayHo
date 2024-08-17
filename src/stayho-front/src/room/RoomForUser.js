@@ -6,8 +6,8 @@ import RoomDescription from "./RoomDescription"
 import {useLocation, useParams} from "react-router-dom";
 import DatePicker from "react-date-picker";
 
-let ListForUser = () => {
-
+let RoomForUser = ({hotelId}) => {
+    console.log(hotelId)
     let [rooms, setRooms] = useState({roomList: []})
     let [roomD, setRoomD] = useState()
     let [description, setDescription] = useState({})
@@ -15,19 +15,18 @@ let ListForUser = () => {
     let [modalOpen, setModalOpen] = useState(false)
     let [startDate, setStartDate] = useState(new Date())
     let [endDate, setEndDate] = useState(new Date())
-    let params = useParams()
-    let id = parseInt(params.id)
-    let [condition, setCondition]= useState({
+    let [condition, setCondition] = useState({
         sido: '',
         sigungu: '',
         people: 2,
         rooms: 1,
         checkinDate: new Date(),
-        checkoutDate: new Date(), //endDate.setDate(startDate.getDate()+1)
-        hotelId: id
+        checkoutDate: new Date(),
+        hotelId: hotelId,
     })
 
     useEffect(() => {
+        console.log(condition)
         let onLoad = async () => {
             let response = await axios.post("http://localhost:8080/room/selectList", condition, {withCredentials: true})
             if (response.status === 200) {
@@ -36,19 +35,17 @@ let ListForUser = () => {
         }
         onLoad()
     }, [condition]);
-    
+
 
     let selectDate = (date, type) => {
         if (type === 'start') {
-            console.log(type, date)
             setStartDate(date)
             setCondition({
                 ...condition,
                 checkinDate: date
             })
-            setEndDate(new Date(endDate.setDate(date.getDate()+1)))
+            setEndDate(new Date(endDate.setDate(date.getDate() + 1)))
         } else {
-            console.log(type, date)
             setEndDate(date)
             setCondition({
                 ...condition,
@@ -66,7 +63,6 @@ let ListForUser = () => {
     let onClick = async (id) => {
         let response = await axios.get("http://localhost:8080/room/description/" + id)
         if (response.status === 200) {
-            console.log(response.data)
             setDescription(response.data.description)
             setImages(response.data.image)
             setRoomD(response.data.room)
@@ -105,10 +101,11 @@ let ListForUser = () => {
                     <td>최대 입실 인원</td>
                     <td> 금액</td>
                 </tr>
-                {rooms.roomList.map(room => (
-                    <Room room={room} onClick={onClick}  key={room.id}/>
+                {
+                    rooms.roomList.map(room => (
+                        <Room room={room} onClick={onClick} key={room.id}/>
 
-                ))}
+                    )) }
                 </tbody>
             </Table>
             <RoomDescription description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}
@@ -127,4 +124,4 @@ let Room = ({room, onClick}) => {
     )
 }
 
-export default ListForUser
+export default RoomForUser

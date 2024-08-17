@@ -4,9 +4,9 @@ import ReservationAll from "./reservation/user/ReservationAll";
 import ReservationOne from "./reservation/user/ReservationOne";
 import ReservationInsert from "./reservation/user/ReservationInsert";
 import RoomInsert from "./room/RoomInsert";
-import ListForUser from "./room/ListForUser";
+import RoomForUser from "./room/RoomForUser";
 import RoomUpdate from "./room/RoomUpdate";
-import ListForProvider from "./room/ListForProvider";
+import RoomForProvider from "./room/RoomForProvider";
 import Test from "./address/Test";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-date-picker/dist/DatePicker.css';
@@ -63,8 +63,8 @@ function App() {
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
                     <Route path={"/room/update/:id"} element={<RoomUpdate/>}/>
                     <Route path={"/room/insert/:id"} element={<RoomInsert/>}/>
-                    <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
-                    <Route path={"/room/list/:id"} element={<ListForUser/>}/>
+                    <Route path={"/room/management/:id"} element={<RoomForProvider/>}/>
+                    <Route path={"/room/list/:id"} element={<RoomForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
                     <Route path="/hotel/showList" element={<ShowList/>}/>

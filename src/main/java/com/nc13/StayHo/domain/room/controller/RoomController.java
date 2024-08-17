@@ -79,6 +79,12 @@ public class RoomController {
 
     }
 
+    @GetMapping("selectList/{id}")
+    public ResponseEntity<Map<String, Object>>selectList(@PathVariable int id){
+        Map<String, Object> resultMap= new HashMap<>();
+        resultMap.put("roomList", ROOM_SERVICE.selectByHotel(id));
+        return ResponseEntity.ok(resultMap);
+    }
     @PostMapping("selectList")
     public ResponseEntity<Map<String, Object>> selectList(@RequestBody SearchConditionDTO condition){
         Map<String, Object> resultMap= new HashMap<>();

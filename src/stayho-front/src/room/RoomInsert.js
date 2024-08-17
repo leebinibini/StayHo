@@ -8,8 +8,8 @@ let RoomInsert = () => {
     let params = useParams()
     let id = parseInt(params.id);
     let navigate = useNavigate()
-    let location= useLocation()
-    let memberInfo=location.state.memberInfo
+    let location = useLocation()
+    let memberInfo = location.state.memberInfo
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
     let [inputs, setInputs] = useState({
         limitPeople: '',
@@ -42,7 +42,7 @@ let RoomInsert = () => {
         ])
     }
     useEffect(() => {
-        let onLoad= async ()=> {
+        let onLoad = async () => {
             let response = await axios.get("http://localhost:8080/hotel/" + id)
             if (response.status === 200) {
                 if (response.data.memberId !== memberInfo.id) {
@@ -115,8 +115,8 @@ let RoomInsert = () => {
                     <tr>
                         <td>객실 설명</td>
                         <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
-                                         style={{minHeight:'15rem'}}
-                            {...register("content", {required:true})}/></td>
+                                         style={{minHeight: '15rem'}}
+                                         {...register("content", {required: true})}/></td>
                     </tr>
                     <tr>
                         <td>욕조 여부</td>

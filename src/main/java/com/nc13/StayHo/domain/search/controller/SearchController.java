@@ -28,9 +28,6 @@ public class SearchController {
     public ResponseEntity<Map<String, Object>> search(@RequestBody SearchConditionDTO searchConditionDTO) {
         if (!searchConditionDTO.getSido().isEmpty()) {
             searchConditionDTO.setSido(searchConditionDTO.getSido().substring(0, 2));
-            if (searchConditionDTO.getSido().equals("시도")) {
-                searchConditionDTO.setSido("");
-            }
         }
         Map<String, Object> resultMap = new HashMap<>();
 //        SEARCH_SERVICE.createView();

@@ -10,10 +10,10 @@ let RoomUpdate = () => {
     let [inputs, setInputs] = useState({})
     let params = useParams()
     let id = parseInt(params.id)
-    let location= useLocation()
-    let memberInfo= location.state.memberInfo
+    let location = useLocation()
+    let memberInfo = location.state.memberInfo
     let [imgList, setImgList] = useState([])
-    let [delImgList, setDelImgList]= useState([])
+    let [delImgList, setDelImgList] = useState([])
     let ViewEnum = {
         CITY: 'city',
         MOUNTAIN: 'mountain',
@@ -21,7 +21,7 @@ let RoomUpdate = () => {
     };
     Object.freeze(ViewEnum);
 
-    let navigate= useNavigate()
+    let navigate = useNavigate()
     let onChange = (e) => {
         let {name, value} = e.target
         setInputs({
@@ -35,8 +35,8 @@ let RoomUpdate = () => {
             ...e.target.files
         ])
     }
-    let onDelete=(id)=>{
-        setImgList(imgList.filter((img)=> img.id!==id))
+    let onDelete = (id) => {
+        setImgList(imgList.filter((img) => img.id !== id))
         setDelImgList([
             ...delImgList,
             id
@@ -56,8 +56,8 @@ let RoomUpdate = () => {
             content: watch('content')
         }
 
-        const formData= new FormData()
-        imgList.map(image=>{
+        const formData = new FormData()
+        imgList.map(image => {
             formData.append('files', image)
         })
         formData.append(
@@ -67,18 +67,18 @@ let RoomUpdate = () => {
         formData.append('delImgList', new Blob([JSON.stringify(delImgList)], {type: 'application/json'}))
         let response = await axios.post(
             "http://localhost:8080/room/update", formData,
-            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials:true}
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials: true}
         )
         if (response.status === 200) {
             window.alert("수정되었습니다.")
-            navigate(-1)
+            navigate(-1, {state: {memberInfo: memberInfo}})
         }
     }
     useEffect(() => {
         let onLoad = async () => {
-            let resp= await axios.get("http://localhost:8080/hotel/"+id)
-            if(resp.status===200){
-                if (resp.data.memberId!== memberInfo.id){
+            let resp = await axios.get("http://localhost:8080/hotel/" + id)
+            if (resp.status === 200) {
+                if (resp.data.memberId !== memberInfo.id) {
                     navigate("/", {state: {memberInfo: memberInfo}});
                 }
             }
@@ -103,8 +103,8 @@ let RoomUpdate = () => {
                     <tr>
                         <td>최대 숙박 인원</td>
                         <td>
-                            <FormControl type={'number'} name={'limitPeople'}
-                                         onChange={onChange} vaule={inputs.limitPeople}
+                            <FormControl type={'number'} name={'limitPeople'} onChange={onChange}
+                                         vaule={inputs.limitPeople}
                                          aria-describedby='limitPeopleExplain' defaultValue={inputs.limitPeople}
                                          {...register("limitPeople", {required: true, min: 1})}/>
                             <FormText id="limitPeopleExplain" muted>최소 인원은 1명입니다.</FormText>
@@ -146,8 +146,6 @@ let RoomUpdate = () => {
                                                onChange={onChange} checked/>
                                 </div>
                             }
-
-
                         </td>
                     </tr>
                     <tr>

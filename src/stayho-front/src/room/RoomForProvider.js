@@ -2,14 +2,13 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Container, Form, FormCheck, Table} from "react-bootstrap";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-let ListForProvider = () => {
-    let params = useParams()
-    let hotelId = parseInt(params.id);
+
+let RoomForProvider = ({hotelId}) => {
     let [rooms, setRooms] = useState({roomList: []})
     let [checkInputs, setCheckInputs] = useState([])
     let navigate = useNavigate()
-    let location= useLocation()
-    let memberInfo= location.state.memberInfo
+    let location = useLocation()
+    // let memberInfo = location.state.memberInfo
 
     useEffect(() => {
         let onLoad = async () => {
@@ -22,10 +21,12 @@ let ListForProvider = () => {
     }, []);
 
     let MoveToUpdate = (id) => {
-        navigate("/room/update/" + id, {state: {memberInfo: memberInfo}})
+        navigate("/room/update/" + id)
+            // , {state: {memberInfo: memberInfo}})
     }
     let moveToInsert = () => {
-        // navigate("/room/insert/" + hotelId, {state: {memberInfo: memberInfo}})
+        navigate("/room/insert/" + hotelId)
+            // , {state: {memberInfo: memberInfo}})
     }
 
     let onChecked = (checked, id) => {
@@ -97,4 +98,4 @@ let ListForProvider = () => {
         </Container>
     )
 }
-export default ListForProvider
+export default RoomForProvider

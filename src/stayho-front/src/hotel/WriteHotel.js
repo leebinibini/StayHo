@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import {Button, Container, Table, FormControl} from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import InsertAddress from "../address/InsertAddress";
+import Address from "../address/Address";
 
 const WriteHotel = () => {
     const [inputs, setInputs] = useState({
@@ -120,8 +120,8 @@ const WriteHotel = () => {
                             {addressData.address}
                             <Button onClick={onPopup} className={'ms-1'}>
                                 주소찾기
-                                <InsertAddress setModalState={setModalState} modalState={modalState}
-                                               setAddressData={setAddressData}/>
+                                <Address setModalState={setModalState} modalState={modalState}
+                                         setAddressData={setAddressData}/>
                             </Button>
                         </td>
                     </tr>

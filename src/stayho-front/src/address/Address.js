@@ -1,6 +1,7 @@
 import DaumPostcodeEmbed from "react-daum-postcode";
 import Modal from "react-modal";
-let InsertAddress = ({modalState, setModalState,  setAddressData}) => {
+
+let Address = ({modalState, setModalState, setAddressData}) => {
     let postStyle = {
         width: '500px',
         height: '700px',
@@ -9,7 +10,7 @@ let InsertAddress = ({modalState, setModalState,  setAddressData}) => {
 
     let onCompletePost = async (data) => {
         setModalState(false)
-        setAddressData( {
+        setAddressData({
             address: data.address,
             sido: data.sido,
             sigungu: data.sigungu,
@@ -27,4 +28,4 @@ let InsertAddress = ({modalState, setModalState,  setAddressData}) => {
         </Modal>
     )
 }
-export default InsertAddress
+export default Address
