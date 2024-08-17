@@ -25,7 +25,7 @@ const ShowOne = () => {
     const goToHotelList = () => {
         navigate('/hotel/showList', { state: { memberInfo: memberInfo }});
     };
-    let user = memberInfo.role === "ROLE_USER";
+    let registrant = memberInfo.role === "ROLE_REGISTRANT";
 
     const onUpdate = () => {
         navigate(`/hotel/update/${id}`, { state: { memberInfo: memberInfo }});
@@ -111,8 +111,8 @@ const ShowOne = () => {
                             </Row>
                             <hr/>
                             {
-                                user ?
-                                    <RoomForUser hotelId={id}/> : <RoomForProvider hotelId={id}/>
+                                registrant ?
+                                    <RoomForProvider hotelId={id}/>:<RoomForUser hotelId={id}/>
                             }
                             <div className="text-center">
                                 <Button variant="primary" onClick={onUpdate} className="mx-2 px-4">수정하기</Button>
