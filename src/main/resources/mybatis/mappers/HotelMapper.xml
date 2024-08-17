@@ -10,10 +10,10 @@
         ON hotel.id = hotel_id
     </select>
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
-        SELECT *, member.name as providerName
+        SELECT *
         FROM hotel
-        INNER JOIN member
-        ON hotel.member_id=member.id
+        INNER JOIN hotel_description
+        ON hotel.id = hotel_id
         WHERE hotel.id = #{id}
     </select>
     <insert id="insert" parameterType="HotelDTO" useGeneratedKeys="true" keyProperty="id">

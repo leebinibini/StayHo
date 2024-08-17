@@ -47,11 +47,14 @@ const WriteHotel = () => {
         }
     }, []);
 
-    const onChange = (e) => {
-        const { name, value } = e.target;
-        setInputs((prev) => ({ ...prev, [name]: value }));
-    };
-
+    let onChange = (e) => {
+        let { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
+    }
+    console.log(registrantInfo.id)
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -67,15 +70,20 @@ const WriteHotel = () => {
             imgList.map(image => {
                 formData.append('files', image)
             })
-
-            const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData);
-
+            console.log(formData)
+            const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data', charset:'UTF-8'
+                }
+            });
+            console.log("호텔응답 데이터" + hotelResponse.data)
             const hotelId = hotelResponse.data.resultId;
             console.log(inputs.facilities)
-            formData.append("hotelId", hotelId);
+            console.log(hotelId)
+
             if (hotelId) {
-                await axios.post('http://localhost:8080/hotelDescription/write', {
-                    hotelId: hotelId,
+                let response2 = await axios.post('http://localhost:8080/hotelDescription/write', {
+                    hotelId,
                     swimmingPool: !!inputs.facilities["Swimming Pool"],
                     parking: !!inputs.facilities["Parking"],
                     restaurant: !!inputs.facilities["Restaurant"],
@@ -83,6 +91,7 @@ const WriteHotel = () => {
                     laundryFacilities: !!inputs.facilities["Laundry Facilities"],
                     fitnessCenter: !!inputs.facilities["Fitness Center"]
                 });
+
 
                 navigate(`/hotel/showOne/${hotelId}`, { state: { memberInfo: registrantInfo }});
             }

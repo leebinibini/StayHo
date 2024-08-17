@@ -31,6 +31,14 @@
         WHERE rm.id = #{roomId};
     </select>
 
+    <select id="selectListByMember" parameterType="int" resultType="Review">
+        SELECT r.*, res.member_id AS memberId, m.name AS memberName
+        FROM review r
+        INNER JOIN reservation res ON r.reservation_id = res.id
+        INNER JOIN member m ON res.member_id = m.id
+        WHERE m.id = #{memberId};
+    </select>
+
     <select id="averageRating" parameterType="int" resultType="double">
         SELECT AVG(r.rating)
         FROM review r

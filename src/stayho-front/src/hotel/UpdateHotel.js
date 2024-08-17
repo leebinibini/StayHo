@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
 import {Button, Card, Col, Container, Form, FormControl, Row, Table} from "react-bootstrap";
 import axios from "axios";
@@ -9,8 +9,8 @@ let UpdateHotel = () => {
     let params = useParams()
     let id = parseInt(params.id)
 
-    // let location = useLocation()
-    // let userInfo = location.state.userInfo
+    let location = useLocation()
+    let memberInfo = location.state.memberInfo
 
     let [inputs, setInputs] = useState({
         name: '',
@@ -36,11 +36,6 @@ let UpdateHotel = () => {
         })
     }
 
-    const onEditorChange = (event, editor) => {
-        const data = editor.getData();
-        setInputs(prev => ({ ...prev, content: data }));
-    };
-
     let moveToNext = (id) => {
         navigate(`/hotel/ShowOne/${id}`)
     }
@@ -48,7 +43,7 @@ let UpdateHotel = () => {
     let onSubmit = async (e) => {
         e.preventDefault()
 
-        // if (inputs.writerId === userInfo.id) {
+        // if (inputs.memberId === userInfo.id) {
         //     let resp = await axios.post(`http://localhost:8080/board/update`, inputs, {
         //         withCredentials: true
         //     })
@@ -73,8 +68,8 @@ let UpdateHotel = () => {
                 const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/update', {
                     hotelId: hotelId,
                     swimmingPool: !!inputs.facilities["Swimming Pool"],
-                    parking: !!inputs.facilities.Parking,
-                    restaurant: !!inputs.facilities.Restaurant,
+                    parking: !!inputs.facilities.Parking["Parking"],
+                    restaurant: !!inputs.facilities.Restaurant["Restaurant"],
                     smoking: !!inputs.facilities["Smoking Area"],
                     laundryFacilities: !!inputs.facilities["Laundry Facilities"],
                     fitnessCenter: !!inputs.facilities["Fitness Center"]
@@ -169,7 +164,6 @@ let UpdateHotel = () => {
                                                 uploadUrl: 'http://localhost:8080/hotel/uploads',
                                             }
                                         }}
-                                        onChange={onEditorChange}
                                         required
                                     />
                                 </Form.Group>

@@ -51,33 +51,40 @@ public class HotelController {
 
     @GetMapping("showOne/{id}")
     public HotelDTO selectOne(@PathVariable int id) {
+        HotelDTO hotelDTO = new HotelDTO();
+        hotelDTO.setId(id);
+        System.out.println(hotelDTO);
         System.out.println("hotel showOne success");
         return HOTEL_SERVICE.selectOne(id);
     }
 
 
     @PostMapping("write")
-    public ResponseEntity<Void> write(
-            @RequestPart("hotelDTO") HotelDTO params, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+    public HashMap<String, Object> write(
+            @RequestPart(value = "hotelDTO") HotelDTO hotelDTO, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        System.out.println(hotelDTO+ "/t"+files);
+        HashMap<String, Object> resultMap = new HashMap<>();
 
-        HotelDTO hotelDTO = new HotelDTO();
-        hotelDTO.setId(params.getId());
-        hotelDTO.setName(params.getName());
-        hotelDTO.setTel(params.getTel());
-        hotelDTO.setContent(params.getContent());
-        hotelDTO.setMemberId(params.getMemberId());
+        HotelDTO h = new HotelDTO();
+        System.out.println("호텔번호: " +hotelDTO.getId());
+        h.setId(hotelDTO.getId());
+        h.setName(hotelDTO.getName());
+        h.setTel(hotelDTO.getTel());
+        h.setContent(hotelDTO.getContent());
+        h.setMemberId(hotelDTO.getMemberId());
 
-        HOTEL_SERVICE.insert(hotelDTO);
+        HOTEL_SERVICE.insert(h);
 
         if (files == null || files.isEmpty()) {
             System.out.println("No files provided.");
         } else {
-            insertImageProcess(files, hotelDTO.getId());
+            insertImageProcess(files, h.getId());
         }
 
-        return ResponseEntity.ok().build();
-    }
+        resultMap.put("resultId", h.getId());
 
+        return resultMap;
+    }
 
     @PostMapping("updateHotel")
     public HashMap<String, Object> update(@RequestPart("hotelDTO") HotelDTO hotelDTO) {

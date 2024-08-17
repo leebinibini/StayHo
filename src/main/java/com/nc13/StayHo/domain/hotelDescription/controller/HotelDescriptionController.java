@@ -35,6 +35,8 @@ public class HotelDescriptionController {
             HOTEL_DESCRIPTION_SERVICE.insert(hotelDescriptionDTO);
             resultMap.put("result", "success");
             resultMap.put("resultId", hotelDescriptionDTO.getHotelId());
+            System.out.println("resultMap = " + resultMap);
+            System.out.println("hotelDescriptionDTO = " + hotelDescriptionDTO);
 
         } catch (Exception e) {
             e.printStackTrace();
