@@ -11,7 +11,8 @@ let SearchList = ({hotels, images}) => {
 
     return (
         <Container>
-            {hotels.map(hotel => (
+            { hotels.length>0?
+                hotels.map(hotel => (
                 <Card onClick={() => onClick(hotel)} key={hotel.roomId}>
                     <Card.Body className={'d-flex'}>
                         <Carousel>
@@ -43,7 +44,7 @@ let SearchList = ({hotels, images}) => {
                         </div>
                     </Card.Body>
                 </Card>
-            ))}
+                )): <div>숙박 가능한 호텔이 없습니다.</div>}
 
         </Container>
     )

@@ -19,7 +19,9 @@
     </select>
     <select id="selectByHotelForSearch" parameterType="searchConditionDTO" resultType="synthesisDTO">
         select * from room
-        where  hotel_id=1 and id not  in(
+        INNER JOIN price
+        ON room.id= price.room_id
+        where  hotel_id=#{hotelId} and limit_people>=#{people} and id not  in(
             select room_id from search_view
             where #{checkinDate} &lt; check_out
                 or ( #{checkinDate} &lt; check_in and #{checkoutDate} > check_out )
