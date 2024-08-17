@@ -3,7 +3,7 @@ import axios from "axios";
 import {Button, Container, Form, FormCheck, Table} from "react-bootstrap";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-let RoomForProvider = ({hotelId}) => {
+let RoomForProvider = ({hotelId, memberInfo}) => {
     let [rooms, setRooms] = useState({roomList: []})
     let [checkInputs, setCheckInputs] = useState([])
     let navigate = useNavigate()
@@ -21,12 +21,10 @@ let RoomForProvider = ({hotelId}) => {
     }, []);
 
     let MoveToUpdate = (id) => {
-        navigate("/room/update/" + id)
-            // , {state: {memberInfo: memberInfo}})
+        navigate("/room/update/" + id , {state: {memberInfo: memberInfo}})
     }
     let moveToInsert = () => {
-        navigate("/room/insert/" + hotelId)
-            // , {state: {memberInfo: memberInfo}})
+        navigate("/room/insert/" + hotelId, {state: {memberInfo: memberInfo}})
     }
 
     let onChecked = (checked, id) => {

@@ -43,7 +43,7 @@ let RoomInsert = () => {
     }
     useEffect(() => {
         let onLoad = async () => {
-            let response = await axios.get("http://localhost:8080/hotel/" + id)
+            let response = await axios.get("http://localhost:8080/hotel/showOne/" + id)
             if (response.status === 200) {
                 if (response.data.memberId !== memberInfo.id) {
                     navigate("/", {state: {memberInfo: memberInfo}});
@@ -81,7 +81,7 @@ let RoomInsert = () => {
         if (response.status === 200) {
             window.alert("객실이 추가되었습니다. ")
 
-            navigate("/room/management/" + id)
+            navigate(-1, {state: {memberInfo: memberInfo}})
         }
     }
     return (

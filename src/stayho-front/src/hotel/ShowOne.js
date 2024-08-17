@@ -112,7 +112,7 @@ const ShowOne = () => {
                             <hr/>
                             {
                                 registrant ?
-                                    <RoomForProvider hotelId={id}/>:<RoomForUser hotelId={id}/>
+                                    <RoomForProvider hotelId={id} memberInfo={memberInfo}/>:<RoomForUser hotelId={id}/>
                             }
                             <div className="text-center">
                                 <Button variant="primary" onClick={onUpdate} className="mx-2 px-4">수정하기</Button>

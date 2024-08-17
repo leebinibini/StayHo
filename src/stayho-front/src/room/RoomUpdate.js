@@ -76,7 +76,7 @@ let RoomUpdate = () => {
     }
     useEffect(() => {
         let onLoad = async () => {
-            let resp = await axios.get("http://localhost:8080/hotel/" + id)
+            let resp = await axios.get("http://localhost:8080/hotel/showOne/" + id)
             if (resp.status === 200) {
                 if (resp.data.memberId !== memberInfo.id) {
                     navigate("/", {state: {memberInfo: memberInfo}});
