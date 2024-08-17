@@ -15,7 +15,7 @@ const ShowOne = () => {
 
     let navigate = useNavigate();
     let goToHotelList = () => {
-        navigate('/hotel/showList');
+        navigate(-1);
     };
 
     let onUpdate = () => {

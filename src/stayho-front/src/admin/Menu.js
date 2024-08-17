@@ -1,5 +1,5 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {Button, Container, Table} from "react-bootstrap";
+import {Button, Container, Image, Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.css'
 import React from "react";
 import axios from "axios";
@@ -26,25 +26,27 @@ let Menu = () => {
             navigate('/')
         }
     }
-
-
     return (
-
         <Container>
             <Table>
                 <thead>
                 <tr>
-                    <td colSpan={3} className={'text-end'}>
-                        <Button onClick={onLogOut}>로그아웃</Button>
-                        <Button onClick={onMyPage}>마이페이지</Button>
-                        <Button onClick={onMemberAdmin}>일반 회원 정보 관리하기 </Button>
-                        <Button onClick={onRegistrantAdmin}>등록자 회원 정보 관리하기 </Button>
+                    <td colSpan={3} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Image
+                            onClick={() => navigate("/", { state: { adminInfo: adminInfo } })}
+                            src={"http://localhost:8080/image?path=" + encodeURIComponent("logo") + "&name=" + encodeURIComponent("StayHo_Logo.png")}
+                            style={{ width: '150px', height: 'auto', marginRight: 'auto' }} // 이미지 왼쪽 정렬
+                            alt="StayHo Logo"
+                        />
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <Button onClick={onLogOut}>로그아웃</Button>
+                            <Button onClick={onMyPage}>마이페이지</Button>
+                            <Button onClick={onMemberAdmin}>일반 회원 정보 관리하기</Button>
+                            <Button onClick={onRegistrantAdmin}>등록자 회원 정보 관리하기</Button>
+                        </div>
                     </td>
                 </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
             </Table>
         </Container>
     )

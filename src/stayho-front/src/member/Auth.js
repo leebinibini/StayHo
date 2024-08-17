@@ -43,7 +43,7 @@ let Auth = () => {
                     role: response.data.role,
                     tel: response.data.tel
                 }
-                navigate('/admin/menu', {state: {adminInfo: adminInfo}})
+                navigate('/', {state: {adminInfo: adminInfo}})
             } else if (response.status === 200 &&
                 (response.data.result === 'success' || response.data.result === undefined)) {
                 let memberInfo = {
