@@ -1,6 +1,5 @@
 package com.nc13.StayHo.domain.Member.Controller;
 
-
 import com.nc13.StayHo.domain.Member.Model.MemberDTO;
 import com.nc13.StayHo.domain.Member.Model.Role;
 import com.nc13.StayHo.domain.Member.Service.MemberService;
@@ -106,6 +105,7 @@ public class MemberController {
         MemberDTO original = memberService.selectByEmail(inputs.getEmail());
         if (encoder.matches(password, original.getPassword())) {
             memberService.delete(inputs.getId());
+
         }
         return ResponseEntity.ok().build();
     }
@@ -142,7 +142,6 @@ public class MemberController {
             resultMap.put("member", memberDTO);
             return ResponseEntity.ok(resultMap);
         }
-        System.out.println(resultMap);
         resultMap.put("message", "이미 가입된 이메일입니다.");
         return ResponseEntity.badRequest().body(resultMap);
     }
@@ -156,7 +155,7 @@ public class MemberController {
 
         memberService.update(memberDTO);
         resultMap.put("id", memberDTO.getId());
-
+        System.out.println(memberDTO);
         return resultMap;
     }
 
@@ -170,6 +169,4 @@ public class MemberController {
         }
         return ResponseEntity.ok().build();
     }
-
-
 }

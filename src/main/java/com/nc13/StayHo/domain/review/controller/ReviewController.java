@@ -1,12 +1,18 @@
 package com.nc13.StayHo.domain.review.controller;
 
+import com.nc13.StayHo.domain.hotel.model.HotelDTO;
+import com.nc13.StayHo.domain.hotel.service.HotelService;
 import com.nc13.StayHo.domain.img.dto.ReviewImgDTO;
 import com.nc13.StayHo.domain.img.service.ImgService;
+import com.nc13.StayHo.domain.reservation.domain.ReservationDTO;
+import com.nc13.StayHo.domain.reservation.service.ReservationService;
 import com.nc13.StayHo.domain.review.dto.ReviewRegisterDTO;
 import com.nc13.StayHo.domain.review.dto.ReviewSelectDTO;
 import com.nc13.StayHo.domain.review.dto.ReviewUpdateDTO;
 import com.nc13.StayHo.domain.review.entity.Review;
 import com.nc13.StayHo.domain.review.service.ReviewService;
+import com.nc13.StayHo.domain.room.dto.SynthesisDTO;
+import com.nc13.StayHo.domain.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,24 +36,37 @@ public class ReviewController {
     private final ImgService imgService;
     private final String imgPath = "src/main/resources/static/image/";
     private final String reviewPath = "review";
+    private final ReservationService reservationService;
+    private final HotelService hotelService;
+    private final RoomService roomService;
 
     @PostMapping("insert/{reservationId}")
     public ResponseEntity<Void> write(@PathVariable int reservationId,
                                       @RequestPart("reviewData") ReviewRegisterDTO reviewRegisterDTO,
-                                      @RequestPart("img") List<MultipartFile> files) {
+                                      @RequestPart(value = "img", required = false) List<MultipartFile> files) {
 
         reviewRegisterDTO.setReservationId(reservationId);
         reviewService.insert(reviewRegisterDTO);
         insertImg(reviewRegisterDTO.getId(), files);
+
+        ReservationDTO reservationDTO = reservationService.selectOne(reservationId);
+        SynthesisDTO room = roomService.select(reservationDTO.getRoomId());
+        int hotelId = room.getHotelId();
+        double rating = reviewService.averageRating(room.getHotelId());
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("hotelId", hotelId);
+        result.put("rating", rating);
+        hotelService.updateRating(result);
+
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("showAllByHotel/{hotelId}")
-    public HashMap<String, Object> showAllByHotel(@PathVariable int hotelId) {
+    public ResponseEntity<HashMap<String, Object>> showAllByHotel(@PathVariable int hotelId) {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<Review> reviewList = reviewService.selectListByHotel(hotelId);
         putResultMap(reviewList, resultMap);
-        return resultMap;
+        return ResponseEntity.ok(resultMap);
     }
 
     @GetMapping("averageRating/{hotelId}")
@@ -62,7 +81,15 @@ public class ReviewController {
     public ResponseEntity<HashMap<String, Object>> searchByComment(@RequestParam int hotelId, @RequestParam String keyword) {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<Review> reviewList = reviewService.searchReviewsByComment(hotelId, keyword);
-        putResultMap(reviewList,resultMap);
+        putResultMap(reviewList, resultMap);
+        return ResponseEntity.ok(resultMap);
+    }
+
+    @GetMapping("showAllByMember/{memberId}")
+    public ResponseEntity<HashMap<String, Object>> showAllByMember(@PathVariable int memberId) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        List<Review> reviewList = reviewService.selectListByMember(memberId);
+        putResultMap(reviewList, resultMap);
         return ResponseEntity.ok(resultMap);
     }
 
@@ -91,7 +118,6 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
         }
     }
-
 
     @PutMapping("update/{reviewId}")
     public ResponseEntity<HashMap<String, Object>> updateReview(
@@ -126,10 +152,8 @@ public class ReviewController {
 
         List<ReviewSelectDTO> reviewDTOList = reviewList.stream()
                 .map(review -> {
-                    // 리뷰의 이미지 목록을 가져오기
                     List<ReviewImgDTO> reviewImages = imgService.selectReviewImg(review.getId());
 
-                    // 이미지 URL 리스트 생성
                     List<String> imgUrls = reviewImages.stream()
                             .map(img -> baseImgUrl + img.getFilename())
                             .collect(Collectors.toList());

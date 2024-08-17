@@ -145,6 +145,7 @@ let Register = () => {
                 </Table>
             </Container>
         </form>
+
     )
 }
 export default Register

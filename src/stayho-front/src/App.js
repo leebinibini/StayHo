@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import ReservationAll from "./Reservation/user/ReservationAll";
-import ReservationOne from "./Reservation/user/ReservationOne";
-import ReservationInsert from "./Reservation/user/ReservationInsert";
-import Insert from "./room/Insert";
+import ReservationAll from "./reservation/user/ReservationAll";
+import ReservationOne from "./reservation/user/ReservationOne";
+import ReservationInsert from "./reservation/user/ReservationInsert";
+import RoomInsert from "./room/RoomInsert";
 import ListForUser from "./room/ListForUser";
-import Update from "./room/Update";
+import RoomUpdate from "./room/RoomUpdate";
 import ListForProvider from "./room/ListForProvider";
 import Test from "./address/Test";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,23 +14,26 @@ import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
-import Registrant from "./Reservation/registerant/Registrant";
-import Admin from "./Reservation/admin/Admin";
-import ShowAll from "./review/ShowAll";
+import ShowAll from "./review/hotelReviewList/ShowAll";
+import Registrant from "./reservation/registerant/Registrant";
+import Admin from "./reservation/admin/Admin";
 import Auth from "./member/Auth";
 import Register from "./member/Register";
 import ShowList from "./hotel/ShowList";
 import MyPage from "./member/MyPage";
 import Secede from "./member/Secede";
 import ReRegister from "./registrant/ReRegister";
+import ReAuth from "./registrant/ReAuth";
 import ReUpdate from "./registrant/ReUpdate";
 import ReSecede from "./registrant/ReSecede";
 import ReMyPage from "./registrant/ReMyPage";
-import Write from "./hotel/Write";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
+import AdAuth from "./admin/AdAuth";
+import ShowOne from "./hotel/ShowOne";
+import UpdateHotel from "./hotel/UpdateHotel";
+import WriteHotel from "./hotel/WriteHotel";
 import MemberUpdate from "./member/MemberUpdate";
-import ReAuth from "./registrant/ReAuth";
 import AdUpdate from "./admin/AdUpdate";
 import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
@@ -47,7 +50,6 @@ function App() {
                     <Route path="/member/register" element={<Register/>}/>
                     <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
                     <Route path="/" element={<ShowList/>}/>
-                    <Route path="/hotel/write" element={<Write/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
                     <Route path="/registrant/reAuth" element={<ReAuth/>}/>
@@ -64,8 +66,8 @@ function App() {
                     <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                     <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
-                    <Route path={"/room/update/:id"} element={<Update/>}/>
-                    <Route path={"/room/insert/:id"} element={<Insert/>}/>
+                    <Route path={"/room/update/:id"} element={<RoomUpdate/>}/>
+                    <Route path={"/room/insert/:id"} element={<RoomInsert/>}/>
                     <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
                     <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
@@ -73,6 +75,10 @@ function App() {
                     <Route path={"/admin/memberAdmin"} element={<MemberAdmin/>}/>
                     <Route path={"/admin/registrantAdmin"} element={<RegistrantAdmin/>}/>
                     <Route path={"/admin/memUpdate"} element={<MemUpdate/>}/>
+                    <Route path="/hotel/showList" element={<ShowList/>}/>
+                    <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
+                    <Route path="/hotel/write" element={<WriteHotel/>}/>
+                    <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
                 </Routes>
             </header>
         </div>

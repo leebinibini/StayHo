@@ -53,4 +53,8 @@ public class ReviewService {
         Double averageRating = session.selectOne(NAMESPACE + "averageRating", hotelId);
         return averageRating != null ? averageRating : 0.0;
     }
+
+    public List<Review> selectListByMember(int memberId) {
+        return session.selectList(NAMESPACE + "selectListByMember", memberId);
+    }
 }

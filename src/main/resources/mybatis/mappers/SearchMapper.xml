@@ -31,11 +31,11 @@
         select * from search_view;
     </select>
     <select id="selectSearch" resultType="searchResultDTO" parameterType="searchConditionDTO">
-        select id, name, rating, price, room_id, swimming_pool, parking, smoking, restaurant, laundry_facilities, fitness_center
-        from search_view
-        where sido like concat('%', #{sido}, '%') and limit_people>=#{people}
+        select main.id, name, rating, price, room_id, swimming_pool, parking, smoking, restaurant, laundry_facilities, fitness_center
+        from search_view as main, ( select id, min(price) as min_price from search_view group by id ) as priceTable
+        where sido like concat('%', #{sido}, '%') and limit_people>=#{people} and main.price= priceTable.min_price and main.id=priceTable.id
             and sigungu like concat('%', #{sigungu}, '%')
-            and room_id not in(
+            and main.room_id not in(
             select room_id from search_view
                 where #{checkinDate} &lt; check_out
                     or ( #{checkinDate} &lt; check_in and #{checkoutDate} > check_out )
