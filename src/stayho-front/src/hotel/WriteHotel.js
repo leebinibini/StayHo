@@ -1,10 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useState} from "react";
 import {Button, Container, Table, FormControl} from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Address from "../address/Address";
 
 const WriteHotel = () => {
+    let location = useLocation();
+    let registrantInfo = location.state.registrantInfo;
+
     const [inputs, setInputs] = useState({
         name: '',
         tel: '',
@@ -13,26 +16,36 @@ const WriteHotel = () => {
     });
     const navigate = useNavigate();
 
-    const categoryList = ['swimmingPool', 'parking', 'restaurant', 'smoking', 'laundryFacilities', 'fitnessCenter'];
+    const categoryList = [
+        'Swimming Pool',
+        'Parking',
+        'Restaurant',
+        'Smoking Area',
+        'Laundry Facilities',
+        'Fitness Center'
+    ];
+
 
     const onCheckedItem = useCallback((e) => {
         if (e && e.target) {
             const {checked, value} = e.target;
             setInputs(prev => ({
                 ...prev,
-                facilities: checked
-                    ? {...prev.facilities, [value]: 'true'}
-                    : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== value))
+                facilities: {
+                    ...prev.facilities,
+                    [value]: checked // 체크박스가 체크되면 true, 해제되면 false
+                }
             }));
-        } else {
-            console.error("Event or event.target is undefined");
         }
     }, []);
 
-    const onChange = (e) => {
-        const {name, value} = e.target;
-        setInputs((prev) => ({...prev, [name]: value}));
-    };
+    let onChange = (e) => {
+        let {name, value} = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
+    }
 
     const [imgList, setImgList] = useState([])
     const onFileChange = (e) => {
@@ -53,12 +66,12 @@ const WriteHotel = () => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            console.log(inputs);
             formData.append('hotelDTO', new Blob([JSON.stringify({
                 name: inputs.name,
                 tel: inputs.tel,
                 content: inputs.content,
                 facilities: inputs.facilities,
+                memberId: registrantInfo.id
             })], {type: "application/json"}));
 
             imgList.map(image => {
@@ -83,7 +96,7 @@ const WriteHotel = () => {
                     fitnessCenter: !!inputs.facilities.fitnessCenter
                 });
 
-                navigate(`/hotel/showOne/${hotelId}`);
+                navigate(`/hotel/showOne/`+hotelId, {state: {memberInfo: registrantInfo}});
             }
         } catch (error) {
             console.error("An error occurred during the request:", error);

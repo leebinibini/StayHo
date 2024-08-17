@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
 import {Button, Container, Form, FormControl, Image, Table} from "react-bootstrap";
 import axios from "axios";
@@ -7,6 +7,9 @@ import Address from "../address/Address";
 let UpdateHotel = () => {
     let params = useParams()
     let id = parseInt(params.id)
+    console.log(id)
+    // let location = useLocation()
+    // let memberInfo = location.state.memberInfo
     let [imgList, setImgList] = useState([])
     let [delImgList, setDelImgList] = useState([])
     let [inputs, setInputs] = useState({
@@ -27,6 +30,7 @@ let UpdateHotel = () => {
             } : Object.fromEntries(Object.entries(prev.facilities).filter(([key]) => key !== item))
         }));
     }, []);
+
 
     let onChange = (e) => {
         let {name, value} = e.target
@@ -76,12 +80,12 @@ let UpdateHotel = () => {
                 console.log(inputs.facilities)
                 const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/update', {
                     hotelId: id,
-                    swimmingPool: !!inputs.facilities.swimmingPool,
-                    parking: !!inputs.facilities.parking,
-                    restaurant: !!inputs.facilities.restaurant,
-                    smoking: !!inputs.facilities.smoking,
-                    laundryFacilities: !!inputs.facilities.laundryFacilities,
-                    fitnessCenter: !!inputs.facilities.fitnessCenter
+                    swimmingPool: !!inputs.facilities["Swimming Pool"],
+                    parking: !!inputs.facilities.Parking["Parking"],
+                    restaurant: !!inputs.facilities.Restaurant["Restaurant"],
+                    smoking: !!inputs.facilities["Smoking Area"],
+                    laundryFacilities: !!inputs.facilities["Laundry Facilities"],
+                    fitnessCenter: !!inputs.facilities["Fitness Center"]
 
                 });
                 const addressResponse = await axios.post("http://localhost:8080/location/update", addressData, {})
@@ -117,23 +121,33 @@ let UpdateHotel = () => {
             let hotelResponse = await axios.get('http://localhost:8080/hotel/showOne/' + id)
 
             if (hotelResponse.status === 200) {
-                let hotelDescriptionResponse = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id)
-
-                if (hotelDescriptionResponse.status === 200) {
-                    let hotelAddressResponse = await axios.get("http://localhost:8080/location/" + id)
-
-                    if (hotelAddressResponse.status === 200) {
-                        let imgResponse = await axios.get("http://localhost:8080/image/select/" + id)
-                        console.log(imgResponse)
-                        if (imgResponse.status === 200) {
-                            setImgList(imgResponse.data)
-                        }
+                const facilities = hotelResponse.data.facilities || {};
+                setInputs(prev => ({
+                    ...prev,
+                    ...hotelResponse.data,
+                    content: hotelResponse.data.content || '',  // content가 없는 경우 빈 문자열로 설정
+                    facilities: {
+                        ...facilities,
+                        "Swimming Pool": facilities["Swimming Pool"] || false,
+                        "Parking": facilities["Parking"] || false,
+                        "Restaurant": facilities["Restaurant"] || false,
+                        "Smoking Area": facilities["Smoking Area"] || false,
+                        "Laundry Facilities": facilities["Laundry Facilities"] || false,
+                        "Fitness Center": facilities["Fitness Center"] || false
                     }
-                    setAddressData(hotelAddressResponse.data)
-                }
-                setInputs(hotelResponse.data)
-                setInputs(hotelDescriptionResponse.data)
+                }));
             }
+            let hotelAddressResponse = await axios.get("http://localhost:8080/location/" + id)
+
+            if (hotelAddressResponse.status === 200) {
+                setAddressData(hotelAddressResponse.data)
+                let imgResponse = await axios.get("http://localhost:8080/image/select/" + id)
+                console.log(imgResponse)
+                if (imgResponse.status === 200) {
+                    setImgList(imgResponse.data)
+                }
+            }
+
         }
 
         getUpdate()

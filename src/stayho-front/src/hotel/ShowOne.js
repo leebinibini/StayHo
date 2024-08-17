@@ -25,7 +25,7 @@ const ShowOne = () => {
     const goToHotelList = () => {
         navigate('/hotel/showList', { state: { memberInfo: memberInfo }});
     };
-    let user = false
+    let user = memberInfo.role === "ROLE_USER";
 
     const onUpdate = () => {
         navigate(`/hotel/update/${id}`, { state: { memberInfo: memberInfo }});
@@ -46,11 +46,11 @@ const ShowOne = () => {
     useEffect(() => {
         const selectOne = async () => {
             try {
-                const resp1 = await axios.get(`http://localhost:8080/hotel/showOne/${id}`);
+                const resp1 = await axios.get(`http://localhost:8080/hotel/showOne/`+id);
                 if (resp1.status === 200) {
                     setData1(resp1.data);
                 }
-                const resp2 = await axios.get(`http://localhost:8080/hotelDescription/showOne/${id}`);
+                const resp2 = await axios.get(`http://localhost:8080/hotelDescription/showOne/`+id);
                 if (resp2.status === 200) {
                     setData2(resp2.data);
                 }
