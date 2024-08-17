@@ -34,7 +34,8 @@ let Secede = () => {
 
     let onSecede = async (e) => {
         e.preventDefault()
-        let resp = await axios.post('http://localhost:8080/member/withdraw', inputs, {
+        let resp = await
+            axios.post('http://localhost:8080/member/withdraw', inputs, {
             withCredentials: true
         })
         if (resp.status === 200)

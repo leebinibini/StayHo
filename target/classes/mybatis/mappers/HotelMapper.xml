@@ -35,4 +35,9 @@
         INSERT INTO hotel_images (hotel_id, image_url)
         VALUES (#{hotelId}, #{imageUrl})
     </insert>
+    <update id="updateRating" parameterType="HashMap">
+        UPDATE hotel
+        SET rating = #{rating}
+        WHERE id = #{hotelId}
+    </update>
 </mapper>

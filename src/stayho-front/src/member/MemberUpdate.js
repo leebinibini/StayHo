@@ -66,7 +66,6 @@ let MemberUpdate = () => {
         if (resp.status === 200) {
             moveToNext();
         }
-
     }
 
     return (

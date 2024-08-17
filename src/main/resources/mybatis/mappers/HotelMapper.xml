@@ -31,6 +31,11 @@
         DELETE FROM hotel
         WHERE hotel.id = #{id}
     </delete>
+    <update id="updateRating" parameterType="HashMap">
+        UPDATE hotel
+        SET rating = #{rating}
+        WHERE id = #{hotelId}
+    </update>
     <insert id="insertHotelImg" parameterType="HotelImgDTO">
         INSERT INTO hotel_images (hotel_id, image_url)
         VALUES (#{hotelId}, #{imageUrl})

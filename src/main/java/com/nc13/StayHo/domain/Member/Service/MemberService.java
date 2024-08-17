@@ -1,10 +1,14 @@
 package com.nc13.StayHo.domain.Member.Service;
 
 import com.nc13.StayHo.domain.Member.Model.MemberDTO;
+import com.nc13.StayHo.domain.Member.Model.Role;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -41,4 +45,11 @@ public class MemberService {
     public boolean selectByPassword(String password) {
         return SESSION.selectOne(NAMESPACE + ".selectByPassword", password) != null;
     }
+
+    public List<MemberDTO> selectAll(String role){
+        return SESSION.selectList(NAMESPACE + ".selectList", role) ;
+    }
+
+
+
 }
