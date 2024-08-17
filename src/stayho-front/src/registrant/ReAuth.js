@@ -22,40 +22,36 @@ let ReAuth = () => {
 
     let onSubmit = async (e) => {
         e.preventDefault()
-        let formData = new FormData()
-        formData.append('email', inputs.email)
-        formData.append('password', inputs.password)
-
-        let response = await axios({
-            url: 'http://localhost:8080/member/auth',
-            method: "POST",
-            data: formData,
-            withCredentials: true
-        })
-
-        console.log(response)
-
-
-        if (response.status === 200 && response.data.result === 'success') {
-            let registrantInfo = {
-                id: response.data.id,
-                email: response.data.email,
-                password: response.data.password,
-                name: response.data.name,
-                tel: response.data.tel,
-                role: response.data.role
+        try {
+            let formData = new FormData()
+            formData.append('email', inputs.email)
+            formData.append('password', inputs.password)
+            let response = await axios({
+                url: 'http://localhost:8080/member/auth',
+                method: "POST",
+                data: formData,
+                withCredentials: true
+            })
+            if (response.status === 200 && response.data.result === 'success') {
+                let registrantInfo = {
+                    id: response.data.id,
+                    email: response.data.email,
+                    password: response.data.password,
+                    name: response.data.name,
+                    tel: response.data.tel,
+                    role: response.data.role
+                }
+                navigate('/hotel/write', {state: {registrantInfo: registrantInfo}})
+            }else if(!(response.status === 200 && response.data.result === 'success')){
+                window.alert("로그인 실패!")
             }
-            navigate('/hotel/write', {state: {registrantInfo: registrantInfo}})
-
-
+        } catch {
+            console.log('로그인 에러:')
         }
     }
-
     let goRegister = () => {
         navigate('/registrant/reRegister')
     }
-
-
     return (
         <form onSubmit={onSubmit}>
             <Container>

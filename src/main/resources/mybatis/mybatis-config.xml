@@ -7,6 +7,8 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
+        <typeAlias type="com.nc13.StayHo.domain.hotel.model.HotelDTO" alias="hotelDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.hotelDescription.model.HotelDescriptionDTO" alias="hotelDescriptionDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.review.entity.Review" alias="Review"/>
         <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewUpdateDTO" alias="ReviewUpdateDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewSelectDTO" alias="ReviewSelectDTO"/>
@@ -16,6 +18,7 @@
         <typeAlias type="com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.price.dto.PriceDTO" alias="priceDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationDTO" alias="locationDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationInfoDTO" alias="locationInfoDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchResultDTO" alias="searchResultDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchConditionDTO" alias="searchConditionDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.reservation.domain.ReservationDTO" alias="reservationDTO"/>
