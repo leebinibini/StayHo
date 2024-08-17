@@ -37,6 +37,7 @@ import AdUpdate from "./admin/AdUpdate";
 import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
 import MemUpdate from "./admin/MemUpdate";
+import ReviewList from "./review/memberReviewList/ReviewList";
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
                     <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                     <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
+                    <Route path={"/review/showAllByMember/:memberId"} element={<ReviewList/>}/>
                     <Route path={"/room/update/:id"} element={<RoomUpdate/>}/>
                     <Route path={"/room/insert/:id"} element={<RoomInsert/>}/>
                     <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
