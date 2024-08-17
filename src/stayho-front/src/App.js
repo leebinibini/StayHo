@@ -16,7 +16,7 @@ import SearchResult from "./search/SearchResult";
 import SearchForm from "./search/SearchForm";
 import Registrant from "./Reservation/registerant/Registrant";
 import Admin from "./Reservation/admin/Admin";
-import ShowAll from "./review/ShowAll";
+import ShowAll from "./review/hotelReviewList/ShowAll";
 import Auth from "./member/Auth";
 import Register from "./member/Register";
 import ShowList from "./hotel/ShowList";
