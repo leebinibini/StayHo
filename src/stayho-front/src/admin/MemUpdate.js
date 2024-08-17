@@ -2,20 +2,21 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 import {Button, Container, FormControl, Table} from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.css'
 
-let AdUpdate = () => {
+let MemUpdate = () => {
     let location = useLocation()
-    let adminInfo = location.state.adminInfo
+  /*  let memberInfo = location.state.memberInfo
+    let adminInfo =    location.state.adminInfo*/
+    let { adminInfo, memberInfo } = location.state || {}
 
-    let id = adminInfo.id
+
     let [inputs, setInputs] = useState({
-        id: adminInfo.id,
-        email: adminInfo.email,
+        id: memberInfo.id,
+        email: memberInfo.email,
         password: "",
-        name: adminInfo.name,
-        tel: adminInfo.tel,
-        role: adminInfo.role
+        name: memberInfo.name,
+        tel: memberInfo.tel,
+        role: memberInfo.role
     })
 
     let onChange = (e) => {
@@ -25,13 +26,16 @@ let AdUpdate = () => {
             [name]: value
         })
     }
+
+
     let isValid = inputs.email !== ''
         && inputs.name !== '' && inputs.tel !== ''
 
     let navigate = useNavigate()
     let moveToNext = () => {
-        navigate('/admin/adMyPage', {state: {adminInfo: inputs}})
+        navigate('/admin/memberAdmin', {state: {adminInfo: adminInfo}})
     }
+
     let checkPhoneNumber = (event) => {
         let phoneNumber = event.target.value
         // '-' 입력 시
@@ -42,7 +46,6 @@ let AdUpdate = () => {
         return regExp.test(phoneNumber) || regExp2.test(phoneNumber);
     }
     let passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/
-
     let onSubmit = async (e) => {
         e.preventDefault()
         if (!inputs.password.match(passwordRegEx)) {
@@ -55,14 +58,17 @@ let AdUpdate = () => {
             alert("전화번호를 바르게 기입해 주세요.");
             return;
         }
-        let resp = await axios.post('http://localhost:8080/admin/update', inputs, {
-            withCredentials: true
-        })
-        if (resp.status === 200) {
-            moveToNext()
-        }
-    }
 
+        let resp = await axios.post('http://localhost:8080/admin/update', inputs, {
+            state: {memberInfo: inputs},
+            withCredentials: true
+        });
+
+        if (resp.status === 200) {
+            moveToNext();
+        }
+        console.log(adminInfo)
+    }
 
     return (
         <Container>
@@ -70,7 +76,7 @@ let AdUpdate = () => {
                 <Table striped border hover>
                     <thead>
                     <tr>
-                        <td colSpan={2}>관리자 정보 수정하기</td>
+                        <td colSpan={2}>일반 회원 정보 수정하기</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -108,7 +114,7 @@ let AdUpdate = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>이름</td>
+                        <td>닉네임</td>
                         <td>
                             <FormControl
                                 type={'text'}
@@ -125,5 +131,9 @@ let AdUpdate = () => {
         </Container>
     )
 }
-export default AdUpdate
+export default MemUpdate
+
+
+
+
 
