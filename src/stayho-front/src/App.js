@@ -13,9 +13,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import SearchResult from "./search/SearchResult";
+import SearchForm from "./search/SearchForm";
+import ShowAll from "./review/hotelReviewList/ShowAll";
 import Registrant from "./reservation/registerant/Registrant";
+import Admin from "./reservation/admin/Admin";
 import ReservationAdmin from "./reservation/admin/Admin";
-import ShowAll from "./review/ShowAll";
 import Auth from "./member/Auth";
 import Register from "./member/Register";
 import ShowList from "./hotel/ShowList";
@@ -34,8 +36,6 @@ import WriteHotel from "./hotel/WriteHotel";
 import MemberUpdate from "./member/MemberUpdate";
 import AdUpdate from "./admin/AdUpdate";
 import Main from "./main/Main";
-import Header from "./member/Header";
-import SearchForm from "./search/SearchForm";
 import React from "react";
 
 function App() {
