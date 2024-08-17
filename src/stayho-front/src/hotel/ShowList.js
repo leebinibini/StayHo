@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Card, Table } from "react-bootstrap";
+import {Button, Container, Row, Col} from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import HotelCard from "./HotelCard"; // 찜하기 컴포넌트 가져오기
 
 let ShowList = () => {
     let [data, setData] = useState({ hotelList: [] });
     let location = useLocation();
     let state = location.state;
+    let memberInfo = state ? state.memberInfo : null;
     console.log(state);
 
     let navigate = useNavigate();
@@ -38,31 +40,12 @@ let ShowList = () => {
             <Row>
                 {data.hotelList.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <HotelCard hotel={h} moveToSingle={moveToSingle} />
+                        <HotelCard hotel={h} moveToSingle={moveToSingle}
+                        memberInfo={memberInfo}/>
                     </Col>
                 ))}
             </Row>
         </Container>
-    );
-}
-
-let HotelCard = ({ hotel, moveToSingle }) => {
-    return (
-        <Card className="shadow-sm h-100">
-            <Card.Img
-                variant="top"
-                src={hotel.imageUrl ? hotel.imageUrl : "default-image-url"}
-                alt={hotel.name}
-                style={{ height: '200px', objectFit: 'cover' }}
-            />
-            <Card.Body className="d-flex flex-column">
-                <Card.Title>{hotel.name}</Card.Title>
-                <Card.Text>
-                    {hotel.tel}
-                </Card.Text>
-                <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
-            </Card.Body>
-        </Card>
     );
 }
 

@@ -4,15 +4,16 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.HotelMapper">
     <select id="selectList" resultType="HotelDTO">
-        SELECT * FROM hotel
+        SELECT *
+        FROM hotel
         INNER JOIN hotel_description
         ON hotel.id = hotel_id
     </select>
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
-        SELECT *, member.name as providerName
+        SELECT *
         FROM hotel
-        INNER JOIN member
-        ON hotel.member_id=member.id
+        INNER JOIN hotel_description
+        ON hotel.id = hotel_id
         WHERE hotel.id = #{id}
     </select>
     <insert id="insert" parameterType="HotelDTO" useGeneratedKeys="true" keyProperty="id">
@@ -35,4 +36,8 @@
         SET rating = #{rating}
         WHERE id = #{hotelId}
     </update>
+    <insert id="insertHotelImg" parameterType="HotelImgDTO">
+        INSERT INTO hotel_images (hotel_id, image_url)
+        VALUES (#{hotelId}, #{imageUrl})
+    </insert>
 </mapper>
