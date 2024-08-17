@@ -2,6 +2,11 @@ package com.nc13.StayHo.domain.hotel.controller;
 
 import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import com.nc13.StayHo.domain.hotel.service.HotelService;
+import com.nc13.StayHo.domain.hotelDescription.service.HotelDescriptionService;
+import com.nc13.StayHo.domain.img.dto.HotelImgDTO;
+import com.nc13.StayHo.domain.img.dto.RoomImgDTO;
+import com.nc13.StayHo.domain.img.service.ImgService;
+import com.nc13.StayHo.domain.roomDescription.service.RoomDescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,11 +28,18 @@ import java.util.UUID;
 @CrossOrigin
 @RequestMapping("/hotel/")
 public class HotelController {
-    private HotelService HOTEL_SERVICE;
+    private final HotelService HOTEL_SERVICE;
+    private final HotelDescriptionService HOTEL_DESCRIPTION_SERVICE;
+    private final ImgService IMG_SERVICE;
+    private final String STATIC_PATH = "/Users/jisue/Desktop/bit/studyBIT/StayHo_NC13 복사본 2/src/main/resources/static/image/";
+    private final String HOTEL_PATH = "hotel";
 
     @Autowired
-    public HotelController(HotelService hotelService) {
-        HOTEL_SERVICE = hotelService;
+    public HotelController(HotelService hotelService, HotelDescriptionService hotelDescriptionService, ImgService imgService) {
+        this.HOTEL_SERVICE = hotelService;
+        this.HOTEL_DESCRIPTION_SERVICE = hotelDescriptionService;
+        this.IMG_SERVICE = imgService;
+
     }
 
     @GetMapping("showList")
@@ -38,6 +51,9 @@ public class HotelController {
 
     @GetMapping("showOne/{id}")
     public HotelDTO selectOne(@PathVariable int id) {
+        HotelDTO hotelDTO = new HotelDTO();
+        hotelDTO.setId(id);
+        System.out.println(hotelDTO);
         System.out.println("hotel showOne success");
         return HOTEL_SERVICE.selectOne(id);
     }
@@ -45,39 +61,27 @@ public class HotelController {
 
     @PostMapping("write")
     public HashMap<String, Object> write(
-            @RequestPart("hotelDTO") HotelDTO hotelDTO) {
-
+            @RequestPart(value = "hotelDTO") HotelDTO hotelDTO, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        System.out.println(hotelDTO+ "/t"+files);
         HashMap<String, Object> resultMap = new HashMap<>();
-        try {
-            hotelDTO.setMemberId(1);  // 로그인 정보와 연결되면 이 부분을 수정
-            String path = "/Users/jisue/Desktop/bit/studyBIT/StayHo_NC13 복사본 2/src/main/resources/static/images/hotel";
 
-            // 파일 저장 디렉토리 생성
-            File pathDir = new File(path);
-            if (!pathDir.exists()) {
-                pathDir.mkdirs();
-            }
+        HotelDTO h = new HotelDTO();
+        System.out.println("호텔번호: " +hotelDTO.getId());
+        h.setId(hotelDTO.getId());
+        h.setName(hotelDTO.getName());
+        h.setTel(hotelDTO.getTel());
+        h.setContent(hotelDTO.getContent());
+        h.setMemberId(hotelDTO.getMemberId());
 
-            // 파일 저장 로직
-  /*          for (MultipartFile file : files) {
-                if (!file.isEmpty()) {
-                    String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-                    String uploadName = UUID.randomUUID().toString() + extension;
-                    File f = new File(path, uploadName);
-                    file.transferTo(f);
-                }
-            }*/
+        HOTEL_SERVICE.insert(h);
 
-            // HotelDTO 저장 로직
-            HOTEL_SERVICE.insert(hotelDTO);
-            System.out.println(hotelDTO);
-            resultMap.put("result", "success");
-            resultMap.put("resultId", hotelDTO.getId());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", "fail");
+        if (files == null || files.isEmpty()) {
+            System.out.println("No files provided.");
+        } else {
+            insertImageProcess(files, h.getId());
         }
+
+        resultMap.put("resultId", h.getId());
 
         return resultMap;
     }
@@ -98,64 +102,32 @@ public class HotelController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("uploads")
-    public Map<String, Object> uploads(MultipartHttpServletRequest request) {
-
-        System.out.println("uploads/");
-        System.out.println("request: " + request);
-        Map<String, Object> resultMap = new HashMap<>();
-        MultipartFile file = request.getFile("upload");
-        System.out.println(file);
-        if (file == null || file.isEmpty()) {
-            resultMap.put("uploaded", false);
-            resultMap.put("error", "No file uploaded");
-            return resultMap;
+    private void insertImageProcess(List<MultipartFile> files, int hotelId) {
+        File pathDir = new File(HOTEL_PATH);
+        System.out.println("pathDir: " + pathDir);
+        if (!pathDir.exists()) {
+            new File(HOTEL_PATH).mkdirs();
         }
 
-        System.out.println("file존재함");
-        String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
-        String extension = fileName.substring(fileName.lastIndexOf("."));
-        String uploadName = UUID.randomUUID() + extension;
-        System.out.println(uploadName);
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            String extension = fileName.substring(fileName.lastIndexOf("."));
+            String uploadName = UUID.randomUUID() + extension;
+            String path = STATIC_PATH + HOTEL_PATH;
+            System.out.println("path는" + path);
 
-        String realPath = request.getServletContext().getRealPath("/hotel/uploads/");
-        System.out.println(realPath);
-        Path realDir = Paths.get(realPath);
-        System.out.println(realDir);
-        if (!Files.exists(realDir)) {
+            HotelImgDTO hotelImgDTO = new HotelImgDTO(HOTEL_PATH, uploadName, hotelId);
+            System.out.println("files = " + files + ", hotelId = " + hotelId);
+            System.out.println("hotelImgDTO = " + hotelImgDTO);
+            File target = new File(path, uploadName);
             try {
-                Files.createDirectories(realDir);
-                System.out.println("success");
+                file.transferTo(target);
             } catch (IOException e) {
                 e.printStackTrace();
-                resultMap.put("uploaded", false);
-                resultMap.put("error", "Could not create upload directory");
-                return resultMap;
             }
+            IMG_SERVICE.insertHotel(hotelImgDTO);
         }
 
-        File uploadFile = new File(realPath, uploadName);
-        try {
-            file.transferTo(uploadFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            resultMap.put("uploaded", false);
-            resultMap.put("error", "File transfer failed");
-            return resultMap;
-        }
-
-        String uploadPath = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/hotel/uploads/")
-                .path(uploadName)
-                .toUriString();
-
-        System.out.println(uploadPath);
-
-        resultMap.put("uploaded", true);
-        System.out.println("uploaded");
-        resultMap.put("url", uploadPath);
-        System.out.println(resultMap);
-        return resultMap;
+        return;
     }
 }

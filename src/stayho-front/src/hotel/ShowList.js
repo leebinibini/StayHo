@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Card, Table } from "react-bootstrap";
+import {Button, Container, Row, Col} from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import HotelCard from "./HotelCard"; // 찜하기 컴포넌트 가져오기
 
 let ShowList = () => {
     let [data, setData] = useState({ hotelList: [] });
     let location = useLocation();
     let state = location.state;
+    let memberInfo = state ? state.memberInfo : null;
     console.log(state);
 
     let navigate = useNavigate();
 
     let moveToSingle = (id) => {
-        navigate(`/hotel/showOne/` + id);
-    };
-
-    let onWrite = async () => {
-        navigate('/hotel/write');
+        navigate(`/hotel/showOne/` + id, { state: { memberInfo: memberInfo }});
     };
 
     let onLogOut = async () => {
@@ -71,7 +69,7 @@ let ShowList = () => {
         <Container className="mt-4">
             <Row className="mb-4">
                 <Col className="text-end">
-                    {state ? (
+                    {state? (
                         <>
                             <Button variant="outline-primary" className="mx-2" onClick={onMyPage}>마이페이지</Button>
                             <Button variant="outline-danger" className="mx-2" onClick={onLogOut}>로그아웃</Button>
@@ -84,13 +82,13 @@ let ShowList = () => {
                             <Button variant="outline-warning" className="mx-2" onClick={onHotelWrite}>숙박시설 등록하기</Button>
                         </>
                     )}
-                    <Button variant="outline-warning" className="mx-2" onClick={onWrite}>호텔 등록하기</Button>
                 </Col>
             </Row>
             <Row>
                 {data.hotelList.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <HotelCard hotel={h} moveToSingle={moveToSingle} />
+                        <HotelCard hotel={h} moveToSingle={moveToSingle}
+                        memberInfo={memberInfo}/>
                     </Col>
                 ))}
             </Row>
@@ -98,24 +96,5 @@ let ShowList = () => {
     );
 }
 
-let HotelCard = ({ hotel, moveToSingle }) => {
-    return (
-        <Card className="shadow-sm h-100">
-            <Card.Img
-                variant="top"
-                src={hotel.imageUrl ? hotel.imageUrl : "default-image-url"}
-                alt={hotel.name}
-                style={{ height: '200px', objectFit: 'cover' }}
-            />
-            <Card.Body className="d-flex flex-column">
-                <Card.Title>{hotel.name}</Card.Title>
-                <Card.Text>
-                    {hotel.tel}
-                </Card.Text>
-                <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
-            </Card.Body>
-        </Card>
-    );
-}
 
 export default ShowList;

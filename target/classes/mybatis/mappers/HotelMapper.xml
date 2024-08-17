@@ -4,10 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.HotelMapper">
     <select id="selectList" resultType="HotelDTO">
-        SELECT *, member.name as providerName
+        SELECT *
         FROM hotel
-        INNER JOIN member
-        ON hotel.member_id=member_id
         INNER JOIN hotel_description
         ON hotel.id = hotel_id
     </select>
@@ -33,6 +31,10 @@
         DELETE FROM hotel
         WHERE hotel.id = #{id}
     </delete>
+    <insert id="insertHotelImg" parameterType="HotelImgDTO">
+        INSERT INTO hotel_images (hotel_id, image_url)
+        VALUES (#{hotelId}, #{imageUrl})
+    </insert>
     <update id="updateRating" parameterType="HashMap">
         UPDATE hotel
         SET rating = #{rating}
