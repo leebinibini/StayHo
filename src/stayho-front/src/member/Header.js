@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Image } from 'react-bootstrap';
 import SearchForm from "../search/SearchForm";
 
-let ShowList = () => {
+let Header = () => {
     let location = useLocation();
 
     let memberInfo = (location.state && location.state.memberInfo) || null;
@@ -89,4 +89,4 @@ let ShowList = () => {
     );
 }
 
-export default ShowList;
+export default Header;

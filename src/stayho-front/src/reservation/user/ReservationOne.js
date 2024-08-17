@@ -87,7 +87,8 @@ let ReservationOne = () => {
     return (
         <Container className={"mt-3"}>
             <Button onClick={goBack}>뒤로가기</Button>
-            {data.confirmed ? <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ""}
+            {data.confirmed ? data.status ?
+                    '' : <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ''}
             <Button className={"m-lg-1"} onClick={openModalDelete}>예약 취소하기</Button>
 
             <Table striped className={"table-dark mt-1"}>

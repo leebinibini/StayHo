@@ -13,53 +13,81 @@ let ReservationInsert = () => {
     // (startDate, endDate, price, roomId)
 
     let [inputs, setInputs] = useState({
+
         checkIn: null,
         checkOut: null,
-        roomId: 1,
+        roomId: 3,
         memberId: 1,
     })
 
-    let [startDate, setStartDate] = useState(null);
-    let [endDate, setEndDate] = useState(null);
+    let [roomDescription, setRoomDescription] = useState({
+        room:{
+            bath: '',
+            bed: '',
+            hotelId: '',
+            id: '',
+            limitPeople: '',
+            price: '',
+            roomId: '',
+            surcharge: '',
+            type: '',
+            view: ''
+        }
+    })
 
     let moveToNext = (id) => {
         navigate(`/reservation/showOne/${id}}`)
-            // ,{state: {memberInfo: memberInfo}}
+        // ,{state: {memberInfo: memberInfo}}
     }
 
     let onSubmit = async (e) => {
         e.preventDefault()
-        try{
-            let resp= await axios.post("http://localhost:8080/reservation/insert", inputs)
-            if(resp.data.resultId !== undefined){
+        try {
+            let resp = await axios.post("http://localhost:8080/reservation/insert", inputs)
+            if (resp.data.resultId !== undefined) {
                 moveToNext(resp.data.resultId)
             }
-        } catch (error){
+        } catch (error) {
             console.error(error)
         }
     }
 
-    useEffect()
+    useEffect(() => {
+        let selectList = async () => {
+            let resp = await axios
+                .get("http://localhost:8080/room/select/" + inputs.roomId)
+                .catch((e) => {
+                    console.log(e)
+                })
+            if (resp.status === 200) {
+                console.log(resp.data)
+                setRoomDescription(resp.data)
+            }
+        }
+        selectList()
+    }, [])
 
     return (
         <Container>
             <form onSubmit={onSubmit}>
-                <Table striped hover className={"text-center"}>
-                    <thead>
-                    <tr>
-                        <td colSpan={2}><h2>방 예약</h2></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td colSpan={2} className={'text-center'}>
-                            <Button type={"submit"}>
-                                예약하기
-                            </Button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </Table>
+                <div>
+                    <h2>숙박 시설 세부 정보</h2>
+                    <div>
+                        <h3>숙박 시설 특징</h3>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <h3>{roomDescription.room.type}</h3>
+                        <div>
+                            <span>객실에 포함된 사항: </span>
+                            <span className={"me-2"}>{roomDescription.room.bed !==0 ? '침대 ' + roomDescription.room.bed +'개' : ''}</span>
+                            <span className={"me-2"}>{roomDescription.room.bath ? '욕조 ○ ' : '욕조 X'}</span>
+                            <span className={"me-2"}>뷰 {roomDescription.room.view}</span>
+                        </div>
+                    </div>
+                </div>
             </form>
         </Container>
     )
