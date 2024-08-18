@@ -21,7 +21,6 @@ let ShowList = () => {
     };
 
     let onLogOut = async () => {
-
         let response = await axios.post('http://localhost:8080/member/logout', {
             withCredentials: true
         });
@@ -43,7 +42,7 @@ let ShowList = () => {
             let memberInfo = state.memberInfo;
             navigate('/member/myPage', {state: {memberInfo: memberInfo}});
         }
-    }
+    };
 
     let onHotelWrite = () => {
         navigate('/registrant/reAuth');
@@ -54,11 +53,10 @@ let ShowList = () => {
             let resp = await axios
                 .get("http://localhost:8080/hotel/showList")
                 .catch((e) => {
-                    console.error(e)
-                })
+                    console.error(e);
+                });
 
             if (resp.status === 200) {
-                setData(resp.data)
                 setData(resp.data.hotelList)
                 setImgData(resp.data.imgList)
             }
@@ -83,13 +81,13 @@ let ShowList = () => {
                             <Button variant="outline-warning" className="mx-2" onClick={onHotelWrite}>숙박시설 등록하기</Button>
                         </>
                     )}
-                    <Button variant="outline-warning" className="mx-2" onClick={onWrite}>호텔 등록하기</Button>
                 </Col>
             </Row>
             <Row>
-                {data.hotelList.map(h => (
+                {data.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <HotelCard hotel={h} moveToSingle={moveToSingle} />
+                        <HotelCard hotel={h} moveToSingle={moveToSingle} hotelImgDTO={imgData}
+                                   memberInfo={memberInfo}/>
                     </Col>
                 ))}
             </Row>
