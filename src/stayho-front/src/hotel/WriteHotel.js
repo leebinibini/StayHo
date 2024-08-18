@@ -1,87 +1,102 @@
-import React, { useCallback, useState } from "react";
-import { Button, Container, Form, Row, Col, Card } from "react-bootstrap";
+import React, {useCallback, useState} from "react";
+import {Button, Container, Table, FormControl} from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {useLocation, useNavigate} from "react-router-dom";
+import Address from "../address/Address";
 
 const WriteHotel = () => {
+    let location = useLocation();
+    let registrantInfo = location.state.registrantInfo;
+
     const [inputs, setInputs] = useState({
         name: '',
         tel: '',
         content: '',
         facilities: {},
-        file: null
     });
     const navigate = useNavigate();
 
-    const categoryList = ['Swimming Pool', 'Parking', 'Restaurant', 'Smoking Area', 'Laundry Facilities', 'Fitness Center'];
+    const categoryList = [
+        'Swimming Pool',
+        'Parking',
+        'Restaurant',
+        'Smoking Area',
+        'Laundry Facilities',
+        'Fitness Center'
+    ];
+
 
     const onCheckedItem = useCallback((e) => {
         if (e && e.target) {
-            const { checked, value } = e.target;
+            const {checked, value} = e.target;
             setInputs(prev => ({
                 ...prev,
                 facilities: {
                     ...prev.facilities,
-                    [value]: checked // 체크박스가 체크되었을 때 true, 해제되었을 때 false로 설정
+                    [value]: checked // 체크박스가 체크되면 true, 해제되면 false
                 }
             }));
-        } else {
-            console.error("Event or event.target is undefined");
         }
     }, []);
 
-    const onChange = (e) => {
-        const { name, value } = e.target;
-        setInputs((prev) => ({ ...prev, [name]: value }));
-    };
+    let onChange = (e) => {
+        let {name, value} = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
+    }
 
+    const [imgList, setImgList] = useState([])
     const onFileChange = (e) => {
-        setInputs((prev) => ({ ...prev, file: e.target.files[0] }));
+        setImgList([
+            ...imgList,
+            ...e.target.files
+        ])
     };
 
-    const onEditorChange = (event, editor) => {
-        if (editor) {
-            const data = editor.getData();
-            setInputs((prev) => ({ ...prev, content: data }));
-        } else {
-            console.error("Editor is undefined");
-        }
-    };
+    // 주소 관련
+    let [modalState, setModalState] = useState(false)
+    let [addressData, setAddressData] = useState({})
+    let onPopup = () => {
+        setModalState(true)
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            console.log(inputs);
             formData.append('hotelDTO', new Blob([JSON.stringify({
                 name: inputs.name,
                 tel: inputs.tel,
                 content: inputs.content,
                 facilities: inputs.facilities,
-            })], { type: "application/json" }));
+                memberId: registrantInfo.id
+            })], {type: "application/json"}));
 
-            if (inputs.file) {
-                formData.append('files', inputs.file);
-            }
-
-            const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData);
+            imgList.map(image => {
+                formData.append('files', image)
+            })
+            formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
+            const hotelResponse = await axios.post(
+                'http://localhost:8080/hotel/write', formData,
+                {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials: true}
+            );
 
             const hotelId = hotelResponse.data.resultId;
 
             if (hotelId) {
                 await axios.post('http://localhost:8080/hotelDescription/write', {
                     hotelId: hotelId,
-                    swimmingPool: !!inputs.facilities["Swimming Pool"],
-                    parking: !!inputs.facilities.Parking,
-                    restaurant: !!inputs.facilities.Restaurant,
-                    smoking: !!inputs.facilities["Smoking Area"],
-                    laundryFacilities: !!inputs.facilities["Laundry Facilities"],
-                    fitnessCenter: !!inputs.facilities["Fitness Center"]
+                    swimmingPool: !!inputs.facilities.swimmingPool,
+                    parking: !!inputs.facilities.parking,
+                    restaurant: !!inputs.facilities.restaurant,
+                    smoking: !!inputs.facilities.smoking,
+                    laundryFacilities: !!inputs.facilities.laundryFacilities,
+                    fitnessCenter: !!inputs.facilities.fitnessCenter
                 });
 
-                navigate(`/hotel/showOne/${hotelId}`);
+                navigate(`/hotel/showOne/`+hotelId, {state: {memberInfo: registrantInfo}});
             }
         } catch (error) {
             console.error("An error occurred during the request:", error);
@@ -89,92 +104,92 @@ const WriteHotel = () => {
     };
 
     return (
-        <Container className="mt-5">
-            <Row className="justify-content-center">
-                <Col md={8}>
-                    <Card className="shadow-lg p-4 mb-5 bg-white rounded">
-                        <Card.Body>
-                            <h3 className="text-center mb-4">호텔 등록하기</h3>
-                            <Form onSubmit={onSubmit} encType="multipart/form-data">
-                                <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column sm={3}>호텔 이름</Form.Label>
-                                    <Col sm={9}>
-                                        <Form.Control
-                                            type="text"
-                                            value={inputs.name}
-                                            name="name"
-                                            onChange={onChange}
-                                            required
-                                            placeholder="호텔 이름을 입력하세요"
+        <Container className="mt-3">
+            <form onSubmit={onSubmit} encType="multipart/form-data">
+                <Table striped hover bordered>
+                    <thead>
+                    <tr>
+                        <th colSpan={2} className="text-center">호텔 등록하기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>호텔이름</td>
+                        <td>
+                            <FormControl
+                                type="text"
+                                value={inputs.name}
+                                name="name"
+                                onChange={onChange}
+                                required
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            주소
+                        </td>
+                        <td>
+                            {addressData.address}
+                            <Button onClick={onPopup} className={'ms-1'}>
+                                주소찾기
+                                <Address setModalState={setModalState} modalState={modalState}
+                                         setAddressData={setAddressData}/>
+                            </Button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>시설정보</td>
+                        <td>
+                            <div className="list">
+                                {categoryList.map(name => (
+                                    <label className="checkboxLabel" key={name}>
+                                        <input
+                                            type="checkbox"
+                                            id={name}
+                                            value={name}
+                                            onChange={onCheckedItem}
                                         />
-                                    </Col>
-                                </Form.Group>
+                                        <span>{name}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>전화번호</td>
+                        <td>
+                            <FormControl
+                                type="text"
+                                value={inputs.tel}
+                                name="tel"
+                                onChange={onChange}
+                                required
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>호텔 설명 작성</td>
+                        <td>
+                            <FormControl as={"textarea"} aria-label={"호텔 설명"} style={{minHeight: '15rem'}}
+                                         name={'content'} value={inputs.content} onChange={onChange}/>
 
-                                <Form.Group as={Row} className="mb-3">
-                                    <Form.Label column sm={3}>전화번호</Form.Label>
-                                    <Col sm={9}>
-                                        <Form.Control
-                                            type="text"
-                                            value={inputs.tel}
-                                            name="tel"
-                                            onChange={onChange}
-                                            required
-                                            placeholder="전화번호를 입력하세요"
-                                        />
-                                    </Col>
-                                </Form.Group>
-
-                                <Form.Group className="mb-4">
-                                    <Form.Label>호텔 설명 작성</Form.Label>
-                                    <CKEditor
-                                        editor={ClassicEditor}
-                                        data={inputs.content}
-                                        name={"content"}
-                                        config={{
-                                            ckfinder: {
-                                                uploadUrl: 'http://localhost:8080/hotel/uploads',
-                                            }
-                                        }}
-                                        onChange={onEditorChange}
-                                        required
-                                    />
-                                </Form.Group>
-
-                                <Form.Group className="mb-4">
-                                    <Form.Label>편의시설</Form.Label>
-                                    <Row>
-                                        {categoryList.map(name => (
-                                            <Col md={6} key={name}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    label={name}
-                                                    id={name}
-                                                    value={name}
-                                                    onChange={onCheckedItem}
-                                                />
-                                            </Col>
-                                        ))}
-                                    </Row>
-                                </Form.Group>
-
-                                <Form.Group className="mb-4">
-                                    <Form.Label>호텔 이미지 업로드</Form.Label>
-                                    <Form.Control
-                                        type="file"
-                                        onChange={onFileChange}
-                                        accept="image/*"
-                                    />
-                                </Form.Group>
-
-                                <div className="text-center">
-                                    <Button type="submit" variant="primary" className="mx-2">작성하기</Button>
-                                    <Button variant="secondary" className="mx-2" onClick={() => navigate(-1)}>취소하기</Button>
-                                </div>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>호텔 사진</td>
+                        <td><FormControl type="file" multiple={true} onChange={onFileChange}
+                                         accept={'image.jpg,image/png,image/jpeg'}/></td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2} className="text-center">
+                            <Button type="submit">작성하기</Button>
+                            <Button onClick={() => navigate(-1)}>취소하기</Button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
+            </form>
         </Container>
     );
 };

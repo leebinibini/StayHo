@@ -32,7 +32,6 @@ const ShowAll = () => {
         <div>
             <h1>리뷰 목록</h1>
             <AverageRating hotelId={hotelId}/>
-
             <div>
                 <button onClick={toggleSortOrder}>
                     {sortOrder === 'desc' ? '최신순' : '오래된 순'}

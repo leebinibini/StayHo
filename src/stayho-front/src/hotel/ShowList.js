@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Card, Table } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react"
+import {Button, Container, Row, Col, Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import HotelCard from "./HotelCard";
+
 
 let ShowList = () => {
-    let [data, setData] = useState({ hotelList: [] });
+    let [data, setData] = useState([]);
+    let [imgData, setImgData] = useState([])
     let location = useLocation();
     let state = location.state;
+    let memberInfo = state ? state.memberInfo : null;
+    console.log(state);
 
     let navigate = useNavigate();
 
     let moveToSingle = (id) => {
-        navigate(`/hotel/showOne/` + id);
-    };
-
-    let onWrite = async () => {
-        navigate('/hotel/write');
+        navigate(`/hotel/showOne/` + id, {state: {memberInfo: memberInfo}});
     };
 
     let onLogOut = async () => {
@@ -38,10 +39,9 @@ let ShowList = () => {
     };
 
     let onMyPage = () => {
-        //console.log(memberInfo)
         if (state !== null) {
             let memberInfo = state.memberInfo;
-            navigate('/member/myPage', { state: { memberInfo: memberInfo } });
+            navigate('/member/myPage', {state: {memberInfo: memberInfo}});
         }
     }
 
@@ -51,8 +51,6 @@ let ShowList = () => {
 
     useEffect(() => {
         let selectList = async () => {
-
-            // axios를 사용하여 url로 부터 응답을 받아오고, 만약 에러 발생시 콘솔 창에 출력한다.
             let resp = await axios
                 .get("http://localhost:8080/hotel/showList")
                 .catch((e) => {
@@ -61,6 +59,8 @@ let ShowList = () => {
 
             if (resp.status === 200) {
                 setData(resp.data)
+                setData(resp.data.hotelList)
+                setImgData(resp.data.imgList)
             }
         };
         selectList();

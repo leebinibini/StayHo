@@ -36,6 +36,10 @@ public class LocationController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/location/{id}")
+    public LocationDTO select(@PathVariable int id){
+        return LOCATION_SERVICE.select(id);
+    }
 
     @GetMapping("/location/sido")
     public ResponseEntity<Map<String, Object>> selectSido(){

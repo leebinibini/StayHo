@@ -29,6 +29,7 @@ import ReSecede from "./registrant/ReSecede";
 import ReMyPage from "./registrant/ReMyPage";
 import AdMyPage from "./admin/AdMyPage";
 import Menu from "./admin/Menu";
+import AdAuth from "./admin/AdAuth";
 import ShowOne from "./hotel/ShowOne";
 import UpdateHotel from "./hotel/UpdateHotel";
 import WriteHotel from "./hotel/WriteHotel";
@@ -37,14 +38,15 @@ import AdUpdate from "./admin/AdUpdate";
 import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
 import MemUpdate from "./admin/MemUpdate";
+import ReviewList from "./review/memberReviewList/ReviewList";
 import RegiUpdate from "./admin/RegiUpdate";
 
 
 function App() {
     return (
-        <div className="App">
-            <header className="App">
+        <div>
                 <SearchForm/>
+            <header>
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
                     <Route path="/member/register" element={<Register/>}/>
@@ -52,6 +54,7 @@ function App() {
                     <Route path="/" element={<ShowList/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
+                    <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                     <Route path="/registrant/reAuth" element={<ReAuth/>}/>
                     <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                     <Route path="/registrant/reUpdate" element={<ReUpdate/>}/>
@@ -66,20 +69,17 @@ function App() {
                     <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                     <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
+                    <Route path={"/review/showAllByMember/:memberId"} element={<ReviewList/>}/>
                     <Route path={"/room/update/:id"} element={<RoomUpdate/>}/>
                     <Route path={"/room/insert/:id"} element={<RoomInsert/>}/>
                     <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
                     <Route path={"/room/list/:id"} element={<ListForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
-                    <Route path={"/admin/memberAdmin"} element={<MemberAdmin/>}/>
-                    <Route path={"/admin/registrantAdmin"} element={<RegistrantAdmin/>}/>
-                    <Route path={"/admin/memUpdate"} element={<MemUpdate/>}/>
                     <Route path="/hotel/showList" element={<ShowList/>}/>
                     <Route path="/hotel/showOne/:id" element={<ShowOne/>}/>
                     <Route path="/hotel/write" element={<WriteHotel/>}/>
                     <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
-                    <Route path="/admin/regiUpdate" element={<RegiUpdate/>}/>
                 </Routes>
             </header>
         </div>
