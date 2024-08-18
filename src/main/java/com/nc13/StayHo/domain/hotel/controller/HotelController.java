@@ -1,5 +1,4 @@
 package com.nc13.StayHo.domain.hotel.controller;
-
 import com.nc13.StayHo.domain.hotel.model.HotelDTO;
 import com.nc13.StayHo.domain.hotel.service.HotelService;
 import com.nc13.StayHo.domain.hotelDescription.service.HotelDescriptionService;
@@ -29,7 +28,7 @@ public class HotelController {
 
     @Autowired
     public HotelController(HotelService hotelService,HotelDescriptionService hotelDescriptionService, LocationService locationService,ImgService imgService) {
-        HOTEL_SERVICE = hotelService;
+        this.HOTEL_SERVICE = hotelService;
         this.HOTEL_DESCRIPTION_SERVICE = hotelDescriptionService;
         this.LOCATION_SERVICE= locationService;
         this.IMG_SERVICE = imgService;
@@ -53,17 +52,27 @@ public class HotelController {
     }
 
     @GetMapping("showOne/{id}")
-    public HotelDTO selectOne(@PathVariable int id) {
-        return HOTEL_SERVICE.selectOne(id);
-    }
+    public ResponseEntity<Map<String, Object>> selectOne(@PathVariable int id) {
+        HotelDTO hotelDTO = new HotelDTO();
+        hotelDTO.setId(id);
 
+        Map<String, Object> resultMap = new HashMap<>();
+        List<HotelImgDTO> hotelImageList = IMG_SERVICE.selectHotel(id);
+        if (hotelImageList.isEmpty()) {
+            hotelImageList.add(new HotelImgDTO("hotel", "default.png", id));
+        }
+        resultMap.put("image", hotelImageList);
+        resultMap.put("hotel", HOTEL_SERVICE.selectOne(id));
+
+        return ResponseEntity.ok(resultMap);
+    }
 
     @PostMapping("write")
     public HashMap<String, Object> write(
-            @RequestPart("hotelDTO") HotelDTO hotelDTO,
-            @RequestPart(value = "files", required = false) List<MultipartFile> files,
+            @RequestPart(value = "hotelDTO") HotelDTO hotelDTO, @RequestPart(value = "files", required = false) List<MultipartFile> files,
             @RequestPart("address") LocationDTO locationDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
+
         try {
             HOTEL_SERVICE.insert(hotelDTO);
 
@@ -82,7 +91,8 @@ public class HotelController {
 
         return resultMap;
     }
-    public void insertImageProcess(List<MultipartFile> files, int hotelId) {
+
+    private void insertImageProcess(List<MultipartFile> files, int hotelId) {
         File pathDir = new File(HOTEL_PATH);
         if (!pathDir.exists()) {
             new File(HOTEL_PATH).mkdirs();
@@ -102,15 +112,15 @@ public class HotelController {
             }
             IMG_SERVICE.insertHotel(hotelImgDTO);
         }
-
     }
 
-    @PostMapping("update")
-    public ResponseEntity<Void> update(@RequestBody HotelDTO hotelDTO) {
+    @PostMapping("update/{id}")
+    public HashMap<String, Object> update(@RequestPart("hotelDTO") HotelDTO hotelDTO, @PathVariable int id) {
         HashMap<String, Object> resultMap = new HashMap<>();
 
         HOTEL_SERVICE.update(hotelDTO);
-        return ResponseEntity.ok().build();
+        resultMap.put("resultId", hotelDTO.getId());
+        return resultMap;
     }
 
     @GetMapping("delete/{id}")

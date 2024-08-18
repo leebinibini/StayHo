@@ -4,9 +4,10 @@ import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
 
-const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
+const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    let [images, setImages] = useState([]);
 
     useEffect(() => {
         if (memberInfo && memberInfo.id) {
@@ -24,7 +25,6 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
                 withCredentials: true
             });
             const wishLists = response.data.wishLists || [];
-            console.log(wishLists);
             const isHotelInWishlist = wishLists.some(wish => wish.hotelId === hotel.id);
             setIsFavorite(isHotelInWishlist);
         } catch (error) {
@@ -32,6 +32,19 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
         }
     };
 
+    useEffect(() => {
+        let selectOne = async () => {
+            try {
+                let resp1 = await axios.get('http://localhost:8080/hotel/showOne/' + hotel.id);
+                if (resp1.status === 200) {
+                    setImages(resp1.data.image);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        selectOne();
+    }, [hotel.id]);
 
     const toggleFavorite = async () => {
         if (!isLoggedIn) {
@@ -70,28 +83,29 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
 
     return (
         <Card className="shadow-sm h-100" style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
+            <div style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                zIndex: 10,
+                pointerEvents: 'auto'
+            }}>
                 <HeartIcon
                     isFavorite={isFavorite}
                     onClick={toggleFavorite}
                     style={{ fontSize: '1.5rem', cursor: 'pointer' }}
                 />
             </div>
-            <Carousel interval={null} style={{ pointerEvents: 'none' }}>
-                {hotelImgDTO.map(
-                    image => image.map(
-                        img => (img.hotelId === hotel.id ?
-                                <CarouselItem>
-                                    <CardImg variant={"top"}
-                                             src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
-                                             style={{height: '200px', objectFit: 'cover'}}
-                                    />
-                                </CarouselItem>
-                                :
-                                null
-                        )
-                    )
-                )}
+            <Carousel interval={null} style={{ pointerEvents: 'auto', zIndex: 1 }}>
+                {images?.map(img => (
+                    <CarouselItem key={img.id}>
+                        <Card.Img
+                            variant="top"
+                            src={"http://localhost:8080/image/" + img.filepath + "/" + img.filename}
+                            style={{ border: 'black 1px solid', height: '50vh' }}
+                        />
+                    </CarouselItem>
+                ))}
             </Carousel>
             <Card.Body className="d-flex flex-column">
                 <Card.Title>{hotel.name}</Card.Title>

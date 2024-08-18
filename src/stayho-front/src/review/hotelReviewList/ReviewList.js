@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Container, Row, Spinner, Alert, Col } from 'react-bootstrap';
+import {Container, Row, Spinner, Alert, Col} from 'react-bootstrap';
 import SearchBar from './SearchBar';
 import ReviewCard from './ReviewCard';
 
-const ReviewList = ({ hotelId, reviews, setReviews, sortOrder }) => {
+const ReviewList = ({hotelId, reviews, setReviews, sortOrder}) => {
     const [keyword, setKeyword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -39,7 +39,7 @@ const ReviewList = ({ hotelId, reviews, setReviews, sortOrder }) => {
         setError('');
         try {
             const response = await axios.get('http://localhost:8080/review/searchByComment', {
-                params: { hotelId, keyword },
+                params: {hotelId, keyword},
             });
             if (response.status === 200) {
                 let searchResults = response.data.reviewList || [];
@@ -58,12 +58,12 @@ const ReviewList = ({ hotelId, reviews, setReviews, sortOrder }) => {
     };
 
     return (
-        <Container className="mt-4" style={{ maxWidth: '800px' }}>
-            <SearchBar keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} />
+        <Container className="mt-4" style={{maxWidth: '800px'}}>
+            <SearchBar keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch}/>
 
             {loading && (
                 <div className="text-center mb-3">
-                    <Spinner animation="border" />
+                    <Spinner animation="border"/>
                 </div>
             )}
             {error && (
@@ -71,11 +71,11 @@ const ReviewList = ({ hotelId, reviews, setReviews, sortOrder }) => {
                     {error}
                 </Alert>
             )}
-            <div style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+            <div style={{maxHeight: '70vh', overflowY: 'auto'}}>
                 <Row>
                     {reviews.map((review) => (
                         <Col xs={12} key={review.id} className="mb-3">
-                            <ReviewCard review={review} />
+                            <ReviewCard review={review}/>
                         </Col>
                     ))}
                 </Row>

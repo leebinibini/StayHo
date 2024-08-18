@@ -1,17 +1,19 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
-import {Button, Container, Form, FormControl, Image, Table} from "react-bootstrap";
+import {Button, Card, Col, Container, Form, FormControl, Image, Table, Row} from "react-bootstrap";
 import axios from "axios";
 import Address from "../address/Address";
 
 let UpdateHotel = () => {
     let params = useParams()
     let id = parseInt(params.id)
-    console.log(id)
-    // let location = useLocation()
-    // let memberInfo = location.state.memberInfo
+
+    //let location = useLocation()
+    //let memberInfo = location.state.memberInfo
+
     let [imgList, setImgList] = useState([])
     let [delImgList, setDelImgList] = useState([])
+
     let [inputs, setInputs] = useState({
         name: '',
         tel: '',
@@ -74,21 +76,20 @@ let UpdateHotel = () => {
             content: inputs.content
         }
         try {
-            const hotelResponse = await axios.post('http://localhost:8080/hotel/update', hotelDTO, {withCredentials: true});
+            const hotelResponse = await axios.post('http://localhost:8080/hotel/update/'+ id, hotelDTO, {withCredentials: true});
 
             if (hotelResponse.status === 200) {
-                console.log(inputs.facilities)
                 const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/update', {
                     hotelId: id,
-                    swimmingPool: !!inputs.facilities["Swimming Pool"],
-                    parking: !!inputs.facilities.Parking["Parking"],
-                    restaurant: !!inputs.facilities.Restaurant["Restaurant"],
-                    smoking: !!inputs.facilities["Smoking Area"],
-                    laundryFacilities: !!inputs.facilities["Laundry Facilities"],
-                    fitnessCenter: !!inputs.facilities["Fitness Center"]
+                    swimmingPool: !!inputs.facilities["swimmingPool"],
+                    parking: !!inputs.facilities["parking"],
+                    restaurant: !!inputs.facilities["restaurant"],
+                    smoking: !!inputs.facilities["smoking"],
+                    laundryFacilities: !!inputs.facilities["laundryFacilities"],
+                    fitnessCenter: !!inputs.facilities["fitnessCenter"]
 
                 });
-                const addressResponse = await axios.post("http://localhost:8080/location/update", addressData, {})
+                const addressResponse = await axios.post("http://localhost:8080/location/update/" + id, addressData, {})
                 const formData = new FormData()
                 imgList.map(image => {
                     formData.append('files', image)
@@ -120,23 +121,23 @@ let UpdateHotel = () => {
         let getUpdate = async () => {
             let hotelResponse = await axios.get('http://localhost:8080/hotel/showOne/' + id)
 
-            if (hotelResponse.status === 200) {
-                const facilities = hotelResponse.data.facilities || {};
-                setInputs(prev => ({
-                    ...prev,
-                    ...hotelResponse.data,
-                    content: hotelResponse.data.content || '',  // content가 없는 경우 빈 문자열로 설정
-                    facilities: {
-                        ...facilities,
-                        "Swimming Pool": facilities["Swimming Pool"] || false,
-                        "Parking": facilities["Parking"] || false,
-                        "Restaurant": facilities["Restaurant"] || false,
-                        "Smoking Area": facilities["Smoking Area"] || false,
-                        "Laundry Facilities": facilities["Laundry Facilities"] || false,
-                        "Fitness Center": facilities["Fitness Center"] || false
-                    }
-                }));
-            }
+        if (hotelResponse.status === 200) {
+            const facilities = hotelResponse.data.facilities || {};
+            setInputs(prev => ({
+                ...prev,
+                ...hotelResponse.data,
+                content: hotelResponse.data.content || '',  // content가 없는 경우 빈 문자열로 설정
+                facilities: {
+                    ...facilities,
+                    swimmingPool: facilities["swimmingPool"] || false,
+                    parking : facilities["parking"] || false,
+                    restaurant : facilities["restaurant"] || false,
+                    smoking : facilities["smoking"] || false,
+                    laundryFacilities : facilities["laundryFacilities"] || false,
+                    fitnessCenter : facilities["fitnessCenter"] || false
+                }
+            }));
+        }
             let hotelAddressResponse = await axios.get("http://localhost:8080/location/" + id)
 
             if (hotelAddressResponse.status === 200) {
@@ -147,115 +148,113 @@ let UpdateHotel = () => {
                     setImgList(imgResponse.data)
                 }
             }
+    }
 
-        }
-
-        getUpdate()
-    }, [])
+    getUpdate()
+}, [id])
 
     return (
-        <Container>
-            <form onSubmit={onSubmit}>
-                <Table striped bordered hover>
-                    <thead>
-                    <tr>
-                        <td colSpan={3}>{id}번 호텔 정보 수정하기</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>호텔이름</td>
-                        <td>
-                            <FormControl
-                                type={'text'}
-                                name={'name'}
-                                value={inputs.name}
-                                onChange={onChange}
-                                required/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            주소
-                        </td>
-                        <td>
-                            {addressData.address}
-                            <Button onClick={onPopup} className={'ms-1'}>
-                                주소찾기
-                                <Address setModalState={setModalState} modalState={modalState}
-                                         setAddressData={setAddressData}/>
-                            </Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>시설정보</td>
-                        <td>
-                            <div className='list'>
-                                {categoryList.map(name => (
-                                    <label className="checkboxLabel" key={name}>
-                                        <input
-                                            type="checkbox"
-                                            id={name}
-                                            value={name}
-                                            onChange={(e) => onCheckedItem(e.target.checked, name)}
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col md={8}>
+                    <Card className="shadow-lg p-4 mb-5 bg-white rounded">
+                        <Card.Body>
+                            <h3 className="text-center mb-4">{id}번 호텔 정보 수정하기</h3>
+                            <Form onSubmit={onSubmit} encType="multipart/form-data">
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={3}>호텔 이름</Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control
+                                            type="text"
+                                            value={inputs.name}
+                                            name="name"
+                                            onChange={onChange}
+                                            required
+                                            placeholder="호텔 이름을 입력하세요"
                                         />
-                                        <span>{name}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>호텔 설명 작성</td>
-                        <td>
-                            <FormControl as={"textarea"} aria-label={"호텔 설명"} style={{minHeight: '15rem'}}
-                                         name={'content'} value={inputs.content} onChange={onChange}/>
+                                    </Col>
+                                </Form.Group>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>호텔 사진</td>
+                                <tr>
+                                    <td>
+                                        주소
+                                    </td>
+                                    <td>
+                                        {addressData.address}
+                                        <Button onClick={onPopup} className={'ms-1'}>
+                                            주소찾기
+                                            <Address setModalState={setModalState} modalState={modalState}
+                                                     setAddressData={setAddressData}/>
+                                        </Button>
+                                    </td>
+                                </tr>
+                                <Form.Group className="mb-4">
+                                    <Form.Label>호텔 설명 작성</Form.Label>
+                                    <FormControl type={'content'} name={'content'} vaule={inputs.content}
+                                                 onChange={onChange}
+                                                 defaultValue={inputs.content}/>
+                                </Form.Group>
 
-                        <td>
-                            <div className={'d-flex'}>
-                                {imgList.map(img => (
-                                    <div className={'justify-content-center'}>
-                                        <Image
-                                            src={"http://localhost:8080/image?path=" + img.filepath + "&name=" + img.filename}
-                                            style={{width: '20rem'}}/>
-                                        <Button onClick={() => onDelete(img.id)} style={{display: 'block'}}
-                                                className={'btn-danger'}>삭제</Button>
-                                    </div>
-                                ))}
-                            </div>
-                            <FormControl type="file" multiple={true} onChange={onFileChange}
-                                         accept={'image.jpg,image/png,image/jpeg'}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>전화번호</td>
-                        <td>
-                        <textarea
-                            name={'tel'}
-                            className={'form-control'}
-                            value={inputs.tel}
-                            onChange={onChange}
-                            required/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2} className={'text-center'}>
-                            <Button type={'submit'}>수정하기</Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2} className={"text-center"}>
-                            <Button onClick={goBack}>뒤로 가기</Button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </Table>
-            </form>
+                                <Form.Group className="mb-4">
+                                    <Form.Label>편의시설</Form.Label>
+                                    <Row>
+                                        {categoryList.map(name => (
+                                            <Col md={6} key={name}>
+                                                <Form.Check
+                                                    type="checkbox"
+                                                    label={name}
+                                                    id={name}
+                                                    value={name}
+                                                    onChange={onCheckedItem}
+                                                    checked={!!inputs.facilities[name]} // 체크 여부를 상태와 연결
+                                                />
+                                            </Col>
+                                        ))}
+                                    </Row>
+                                </Form.Group>
+
+                                <tr>
+                                    <td>호텔 사진</td>
+
+                                    <td>
+                                        <div className={'d-flex'}>
+                                            {imgList.map(img => (
+                                                <div className={'justify-content-center'}>
+                                                    <Image
+                                                        src={"http://localhost:8080/image?path=" + img.filepath + "&name=" + img.filename}
+                                                        style={{width: '20rem'}}/>
+                                                    <Button onClick={() => onDelete(img.id)} style={{display: 'block'}}
+                                                            className={'btn-danger'}>삭제</Button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <FormControl type="file" multiple={true} onChange={onFileChange}
+                                                     accept={'image.jpg,image/png,image/jpeg'}/>
+                                    </td>
+                                </tr>
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={3}>전화번호</Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control
+                                            type="text"
+                                            value={inputs.tel}
+                                            name="tel"
+                                            onChange={onChange}
+                                            required
+                                            placeholder="전화번호를 입력하세요"
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <div className="text-center">
+                                    <Button type="submit" variant="primary" className="mx-2">수정하기</Button>
+                                    <Button variant="secondary" className="mx-2"
+                                            onClick={() => navigate(-1)}>취소하기</Button>
+                                </div>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         </Container>
     )
 }
