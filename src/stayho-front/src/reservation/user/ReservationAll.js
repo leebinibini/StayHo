@@ -4,17 +4,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import dayjs from "dayjs";
 
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import InsertReview from "../../review/InsertReview";
+import {useLocation, useNavigate} from "react-router-dom";
 
 let ReservationAll = () => {
+    let location = useLocation();
+    let memberInfo = location.state.memberInfo
 
     let [data, setData] = useState({resve:[]})
     let navigate = useNavigate()
 
-    let index = 1; // 번호
+    let index = 1; // 인덱싱 번호
 
-    let user_id = 1; // 사용자 id 정보 받기
+    let user_id = location.state.memberInfo.id; // 사용자 id 정보 받기
 
     let [reviewableReservationId, setReviewableReservationId] = useState(null);
 
@@ -35,7 +37,7 @@ let ReservationAll = () => {
     }, [])
 
     let movoToSingle = (id) => {
-        navigate('/reservation/showOne/' + id)
+        navigate('/reservation/showOne/' + id, {state: {memberInfo: memberInfo}})
     }
 
     let handleReviewSubmit = () => {
@@ -75,7 +77,7 @@ let ReservationAll = () => {
                 ) : (
                     data.resve.map(resve => (
                         <tr key={resve.id} onClick={() => movoToSingle(resve.id)}>
-                            <td>{resve.id}</td>
+                            <td>{index++}</td>
                             <td>{dayjs(resve.checkIn).format('YYYY-MM-DD HH:mm:ss')}</td>
                             <td>{dayjs(resve.checkOut).format('YYYY-MM-DD HH:mm:ss')}</td>
                             <td>{resve.roomId}</td>

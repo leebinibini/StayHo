@@ -1,5 +1,5 @@
 import {Button, Container, Table} from "react-bootstrap";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -12,6 +12,8 @@ let ReservationOne = () => {
     let params = useParams()
     let id = parseInt(params.id)
     let navigate = useNavigate()
+    let location = useLocation();
+    let memberInfo = location.state.memberInfo
 
     let [isOpenDelete, setIsOpenDelete] = useState(false);
     let [isOpenApproval, setIsOpenApproval] = useState(false);
@@ -27,22 +29,18 @@ let ReservationOne = () => {
     let closeModalDelete = () => setIsOpenDelete(false);
     let closeModalApproval = () => setIsOpenApproval(false);
 
-    let goBack = () => navigate('/reservation/showAll')
+    let goBack = () => navigate('/reservation/showAll', {state:{memberInfo:memberInfo}})
 
     let onDelete = async (e) => {
-        let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
-            withCredentials: true
-        })
+        let response = await axios.get('http://localhost:8080/reservation/delete/' + id)
         if (response.status === 200) {
-            navigate('/reservation/showAll')
+            navigate('/reservation/showAll',{state:{memberInfo:memberInfo}})
         }
     }
 
     let onApproval = async (e) => {
         data.status = true
-        let response = await axios.post('http://localhost:8080/reservation/updateApproval', data, {
-            withCredentials: true
-        })
+        let response = await axios.post('http://localhost:8080/reservation/updateApproval', data)
         if (response.status === 200) {
             closeModalApproval()
         }
@@ -66,9 +64,7 @@ let ReservationOne = () => {
     useEffect(() => {
         let selectOne = async () => {
             try {
-                let resp = await axios.get("http://localhost:8080/reservation/one/" + id, {
-                    withCredentials: true
-                })
+                let resp = await axios.get("http://localhost:8080/reservation/one/" + id)
                 if (resp.status === 200) {
                     setData(resp.data)
                 }
@@ -91,7 +87,8 @@ let ReservationOne = () => {
     return (
         <Container className={"mt-3"}>
             <Button onClick={goBack}>뒤로가기</Button>
-            {data.confirmed ? <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ""}
+            {data.confirmed ? data.status ?
+                    '' : <Button className={"m-lg-1"} onClick={openModalApproval}>결재하기</Button> : ''}
             <Button className={"m-lg-1"} onClick={openModalDelete}>예약 취소하기</Button>
 
             <Table striped className={"table-dark mt-1"}>
@@ -107,7 +104,7 @@ let ReservationOne = () => {
                 <tr>
                     <td>
                         객실: &nbsp;
-                        <Button size={"sm"}>객실 정보</Button>
+                        <Button size={"sm"} onClick={onOpenRooms}>객실 정보</Button>
                     </td>
                 </tr>
                 <tr>

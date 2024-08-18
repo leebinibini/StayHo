@@ -1,18 +1,14 @@
-import SearchForm from "../search/SearchForm";
-import ShowList from "../hotel/ShowList";
 import {Container} from "react-bootstrap";
+import Header from "../member/Header";
 
 let Main = () => {
-    return(
+    return (
         <Container>
             <header>
                 <nav>
-                    <SearchForm/>
+                    <Header/>
                 </nav>
             </header>
-            <body>
-                <ShowList/>
-            </body>
         </Container>
     )
 }

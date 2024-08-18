@@ -26,6 +26,11 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     }
 
     @Override
+    public List<ReservationDTO> selectAllRegistrant(int member_id) {
+        return SESSION.selectList(NAMESPACE + ".selectAllRegistrant", member_id);
+    }
+
+    @Override
     public ReservationDTO selectOne(int id) {
         return SESSION.selectOne(NAMESPACE + ".selectOne", id);
     }
@@ -33,6 +38,11 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     @Override
     public void update(ReservationDTO reservationDTO) {
         SESSION.update(NAMESPACE + ".update", reservationDTO);
+    }
+
+    @Override
+    public void confirm(ReservationDTO reservationDTO) {
+        SESSION.update(NAMESPACE + ".confirm", reservationDTO);
     }
 
     @Override

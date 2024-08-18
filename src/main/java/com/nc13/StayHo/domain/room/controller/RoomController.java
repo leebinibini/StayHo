@@ -91,6 +91,7 @@ public class RoomController {
         resultMap.put("roomList", ROOM_SERVICE.selectByHotelForSearch(condition));
         return ResponseEntity.ok(resultMap);
     }
+
     @GetMapping("description/{id}")
     public ResponseEntity<Map<String, Object>> selectDescription(@PathVariable int id) {
 

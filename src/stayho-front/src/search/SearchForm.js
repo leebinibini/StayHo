@@ -2,9 +2,12 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Container, Form, FormControl, FormFloating, FormSelect, Table} from "react-bootstrap";
 import DatePicker from "react-date-picker";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 let SearchForm = () => {
+    let location= useLocation()
+    let memberInfo = (location.state && location.state.memberInfo) || null;
+    let member = !!memberInfo;
     let [sidos, setSidos] = useState([])
     let [sigungus, setSigungus] = useState([])
     let [startDate, setStartDate] = useState(new Date())

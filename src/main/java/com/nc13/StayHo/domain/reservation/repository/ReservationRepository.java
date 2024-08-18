@@ -9,8 +9,10 @@ import java.util.List;
 public interface ReservationRepository {
     List<ReservationDTO> selectAll(int member_id);
     List<ReservationDTO> selectAllAdmin();
+    List<ReservationDTO> selectAllRegistrant(int member_id);
     ReservationDTO selectOne(int id);
     void update(ReservationDTO reservationDTO);
+    void confirm(ReservationDTO reservationDTO);
     void delete(int id);
     void insert(ReservationDTO reservationDTO);
 }
