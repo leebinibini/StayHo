@@ -103,34 +103,24 @@ let ShowList = () => {
     );
 }
 
-// let HotelCard = ({hotel, moveToSingle, images}) => {
-//     return (
-//         <Card className="shadow-sm h-100">
-//             <Carousel>
-//                 {images.map(
-//                     image => image.map(
-//                         img => (img.hotelId === hotel.id ?
-//                                 <CarouselItem>
-//                                     <CardImg variant={"top"}
-//                                              src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
-//                                              style={{height: '200px', objectFit: 'cover'}}
-//                                     />
-//                                 </CarouselItem>
-//                                 :
-//                                 null
-//                         )
-//                     )
-//                 )}
-//             </Carousel>
-//             <Card.Body className="d-flex flex-column">
-//                 <Card.Title>{hotel.name}</Card.Title>
-//                 <Card.Text>
-//                     {hotel.tel}
-//                 </Card.Text>
-//                 <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
-//             </Card.Body>
-//         </Card>
-//     );
-// }
+let HotelCard = ({ hotel, moveToSingle }) => {
+    return (
+        <Card className="shadow-sm h-100">
+            <Card.Img
+                variant="top"
+                src={hotel.imageUrl ? hotel.imageUrl : "default-image-url"}
+                alt={hotel.name}
+                style={{ height: '200px', objectFit: 'cover' }}
+            />
+            <Card.Body className="d-flex flex-column">
+                <Card.Title>{hotel.name}</Card.Title>
+                <Card.Text>
+                    {hotel.tel}
+                </Card.Text>
+                <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
+            </Card.Body>
+        </Card>
+    );
+}
 
 export default ShowList;

@@ -37,12 +37,14 @@ import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
 import MemUpdate from "./admin/MemUpdate";
 import ReviewList from "./review/memberReviewList/ReviewList";
+import RegiUpdate from "./admin/RegiUpdate";
 
 
 function App() {
     return (
         <div>
                 <SearchForm/>
+            <header>
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
                     <Route path="/member/register" element={<Register/>}/>
@@ -50,6 +52,7 @@ function App() {
                     <Route path="/" element={<ShowList/>}/>
                     <Route path="/member/myPage" element={<MyPage/>}/>
                     <Route path="/member/secede" element={<Secede/>}/>
+                    <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                     <Route path="/registrant/reAuth" element={<ReAuth/>}/>
                     <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                     <Route path="/registrant/reUpdate" element={<ReUpdate/>}/>
@@ -79,6 +82,7 @@ function App() {
                     <Route path="/hotel/write" element={<WriteHotel/>}/>
                     <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
                 </Routes>
+            </header>
         </div>
     );
 }
