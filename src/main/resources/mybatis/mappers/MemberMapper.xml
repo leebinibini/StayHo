@@ -32,4 +32,9 @@
         SELECT * FROM member
         WHERE password = #{password}
     </select>
+
+    <select id="selectList" resultType="MemberDTO" parameterType="String">
+        SELECT * FROM member
+        WHERE role = #{role}
+    </select>
 </mapper>

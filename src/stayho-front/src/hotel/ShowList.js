@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Card, Table } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react"
+import {Button, Container, Row, Col, Card, CarouselItem, CardImg, Carousel} from "react-bootstrap";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import HotelCard from "./HotelCard";
+
 
 let ShowList = () => {
-    let [data, setData] = useState({ hotelList: [] });
+    let [data, setData] = useState([]);
+    let [imgData, setImgData] = useState([])
     let location = useLocation();
     let state = location.state;
+    let memberInfo = state ? state.memberInfo : null;
     console.log(state);
 
     let navigate = useNavigate();
 
     let moveToSingle = (id) => {
-        navigate(`/hotel/showOne/` + id);
-    };
-
-    let onWrite = async () => {
-        navigate('/hotel/write');
+        navigate(`/hotel/showOne/` + id, {state: {memberInfo: memberInfo}});
     };
 
     let onLogOut = async () => {
@@ -40,7 +40,7 @@ let ShowList = () => {
     let onMyPage = () => {
         if (state !== null) {
             let memberInfo = state.memberInfo;
-            navigate('/member/myPage', { state: { memberInfo: memberInfo } });
+            navigate('/member/myPage', {state: {memberInfo: memberInfo}});
         }
     };
 
@@ -57,7 +57,8 @@ let ShowList = () => {
                 });
 
             if (resp.status === 200) {
-                setData(resp.data);
+                setData(resp.data.hotelList)
+                setImgData(resp.data.imgList)
             }
         };
         selectList();
@@ -80,13 +81,13 @@ let ShowList = () => {
                             <Button variant="outline-warning" className="mx-2" onClick={onHotelWrite}>숙박시설 등록하기</Button>
                         </>
                     )}
-                    <Button variant="outline-warning" className="mx-2" onClick={onWrite}>호텔 등록하기</Button>
                 </Col>
             </Row>
             <Row>
-                {data.hotelList.map(h => (
+                {data.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <HotelCard hotel={h} moveToSingle={moveToSingle} />
+                        <HotelCard hotel={h} moveToSingle={moveToSingle} hotelImgDTO={imgData}
+                                   memberInfo={memberInfo}/>
                     </Col>
                 ))}
             </Row>
@@ -94,24 +95,34 @@ let ShowList = () => {
     );
 }
 
-let HotelCard = ({ hotel, moveToSingle }) => {
-    return (
-        <Card className="shadow-sm h-100">
-            <Card.Img
-                variant="top"
-                src={hotel.imageUrl ? hotel.imageUrl : "default-image-url"}
-                alt={hotel.name}
-                style={{ height: '200px', objectFit: 'cover' }}
-            />
-            <Card.Body className="d-flex flex-column">
-                <Card.Title>{hotel.name}</Card.Title>
-                <Card.Text>
-                    {hotel.tel}
-                </Card.Text>
-                <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
-            </Card.Body>
-        </Card>
-    );
-}
+// let HotelCard = ({hotel, moveToSingle, images}) => {
+//     return (
+//         <Card className="shadow-sm h-100">
+//             <Carousel>
+//                 {images.map(
+//                     image => image.map(
+//                         img => (img.hotelId === hotel.id ?
+//                                 <CarouselItem>
+//                                     <CardImg variant={"top"}
+//                                              src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+//                                              style={{height: '200px', objectFit: 'cover'}}
+//                                     />
+//                                 </CarouselItem>
+//                                 :
+//                                 null
+//                         )
+//                     )
+//                 )}
+//             </Carousel>
+//             <Card.Body className="d-flex flex-column">
+//                 <Card.Title>{hotel.name}</Card.Title>
+//                 <Card.Text>
+//                     {hotel.tel}
+//                 </Card.Text>
+//                 <Button variant="primary" onClick={() => moveToSingle(hotel.id)} className="mt-auto">호텔 상세보기</Button>
+//             </Card.Body>
+//         </Card>
+//     );
+// }
 
 export default ShowList;

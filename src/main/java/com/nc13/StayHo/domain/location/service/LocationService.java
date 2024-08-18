@@ -22,6 +22,9 @@ public class LocationService {
     public void delete(int id){
         SESSION.delete(NAMESPACE+".delete", id);
     }
+    public LocationDTO select(int id){
+        return SESSION.selectOne(NAMESPACE+".select", id);
+    }
     public List<String> selectSido(){
         return SESSION.selectList(NAMESPACE+".selectSido");
     }
