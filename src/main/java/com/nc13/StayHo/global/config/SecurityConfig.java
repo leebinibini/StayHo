@@ -29,10 +29,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) ->
                         authorize
+                                .requestMatchers("/reservation/**").permitAll()
+                                .requestMatchers("/reservation/registrant/*").permitAll()
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/search", "/room/**", "/location/**","/image/**", "/hotel/**", "/hotelDescription/**").permitAll()
                                 .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")
                                 .requestMatchers("/registrant/**").permitAll()
+                                .requestMatchers("/member/**" , "/registrant/reRegister").permitAll()
+                                .requestMatchers("/search", "/room/**", "/location/**","/image", "/hotel/**", "/hotelDescription/**").permitAll()
+                                .requestMatchers("/registrant/update","/registrant/withdraw","/hotel/write","/registrant/reAuth").hasAnyAuthority("ROLE_REGISTRANT")
+                                .requestMatchers("/registrant/update","/registrant/withdraw").hasAnyAuthority("ROLE_REGISTRANT")
                                 .requestMatchers("/admin/adMyPage").hasAnyAuthority("ROLE_ADMIN")
                                 .requestMatchers("/wishlist/**").authenticated()
                                 .anyRequest().authenticated()

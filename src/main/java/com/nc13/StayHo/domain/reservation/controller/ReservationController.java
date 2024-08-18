@@ -38,6 +38,12 @@ public class ReservationController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("confirm")
+    public ResponseEntity<Void> confirm(@RequestBody ReservationDTO reservationDTO) {
+        RESVE_SERVICE.confirm(reservationDTO);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("delete/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable int id) {
         RESVE_SERVICE.delete(id);
@@ -64,6 +70,14 @@ public class ReservationController {
     public Map<String, Object> getAdminAll() {
         Map<String, Object> resultMap = new HashMap<>();
         List<ReservationDTO> reservations = RESVE_SERVICE.selectAllAdmin();
+        resultMap.put("resve", reservations);
+
+        return resultMap;
+    }
+    @GetMapping("registrant/{userId}")
+    public Map<String, Object> getRegistrantAll(@PathVariable int userId) {
+        Map<String, Object> resultMap = new HashMap<>();
+        List<ReservationDTO> reservations = RESVE_SERVICE.selectAllRegistrant(userId);
         resultMap.put("resve", reservations);
 
         return resultMap;

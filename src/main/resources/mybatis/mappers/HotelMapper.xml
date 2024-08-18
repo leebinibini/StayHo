@@ -7,7 +7,7 @@
         SELECT *
         FROM hotel
         INNER JOIN hotel_description
-        ON hotel.id = hotel_id
+        ON hotel.id = hotel_description.hotel_id
     </select>
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
         SELECT *

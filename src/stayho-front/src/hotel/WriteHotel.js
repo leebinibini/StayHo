@@ -8,6 +8,12 @@ const WriteHotel = () => {
     let location = useLocation();
     let registrantInfo = location.state.registrantInfo;
 
+    let [modalState, setModalState] = useState(false)
+    let [addressData, setAddressData] = useState({})
+    let onPopup = () => {
+        setModalState(true)
+    }
+
     const [inputs, setInputs] = useState({
         name: '',
         tel: '',
@@ -62,7 +68,7 @@ const WriteHotel = () => {
             imgList.map(image => {
                 formData.append('files', image)
             })
-            //formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
+            formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
             const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', charset:'UTF-8'
@@ -110,6 +116,14 @@ const WriteHotel = () => {
                                         />
                                     </Col>
                                 </Form.Group>
+                                <div>
+                                    {addressData.address}
+                                    <Button onClick={onPopup} className={'ms-1'}>
+                                        주소찾기
+                                        <Address setModalState={setModalState} modalState={modalState}
+                                                 setAddressData={setAddressData}/>
+                                    </Button>
+                                </div>
 
                                 <Form.Group as={Row} className="mb-3">
                                     <Form.Label column sm={3}>전화번호</Form.Label>
@@ -135,7 +149,7 @@ const WriteHotel = () => {
                                 <Form.Group className="mb-4">
                                     <Form.Label>호텔 이미지 업로드</Form.Label>
                                     <Form.Control type="file" multiple={true} onChange={onChangeImg}
-                                                 accept={'image.jpg,image/png,image/jpeg'}/>
+                                                  accept={'image.jpg,image/png,image/jpeg'}/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-4">
@@ -157,7 +171,8 @@ const WriteHotel = () => {
                                 </Form.Group>
                                 <div className="text-center">
                                     <Button type="submit" variant="primary" className="mx-2">작성하기</Button>
-                                    <Button variant="secondary" className="mx-2" onClick={() => navigate(-1)}>취소하기</Button>
+                                    <Button variant="secondary" className="mx-2"
+                                            onClick={() => navigate(-1)}>취소하기</Button>
                                 </div>
                             </Form>
                         </Card.Body>

@@ -39,15 +39,6 @@ public class HotelController {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<HotelDTO> hotelList= HOTEL_SERVICE.selectAll();
         resultMap.put("hotelList", hotelList);
-        List<List<HotelImgDTO>> list= new ArrayList<>();
-        for (HotelDTO hotel: hotelList){
-            List<HotelImgDTO> imgList= IMG_SERVICE.selectHotel(hotel.getId());
-            if (imgList.isEmpty()){
-                imgList.add(new HotelImgDTO("hotel", "default.png", hotel.getId()));
-            }
-            list.add(imgList);
-        }
-        resultMap.put("imgList", list);
         return resultMap;
     }
 

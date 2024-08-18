@@ -8,6 +8,7 @@ let SearchResult=()=>{
     let location= useLocation()
     let hotels= location.state.list
     let images= location.state.images
+    let memberInfo= location.state.memberInfo
     let [optionList, setOptionList]= useState(hotels)
     useEffect(() => {
         setOptionList(hotels)

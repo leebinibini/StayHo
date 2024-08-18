@@ -4,12 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import dayjs from "dayjs";
 
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Modal from "react-modal";
 
 let Admin = () => {
     let [data, setData] = useState({resve: []})
     let navigate = useNavigate()
+    let location = useLocation();
+    let adminInfo = location.state.adminInfo
 
     let [isOpenDelete, setIsOpenDelete] = useState(false);
     let openModalDelete = () => setIsOpenDelete(true)
@@ -20,9 +22,7 @@ let Admin = () => {
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
-                .get("http://localhost:8080/reservation/adminAll", {
-                    withCredentials: true
-                })
+                .get("http://localhost:8080/reservation/adminAll")
                 .catch((e) => {
                     console.log(e)
                 })
@@ -34,9 +34,7 @@ let Admin = () => {
     }, [])
 
     let onDelete = async (id) => {
-        let response = await axios.get('http://localhost:8080/reservation/delete/' + id, {
-            withCredentials: true
-        })
+        let response = await axios.get('http://localhost:8080/reservation/delete/' + id)
         if (response.status === 200) {
             setData((prevData) => ({
                 resve: prevData.resve.filter((item) => item.id !== id)

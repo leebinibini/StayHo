@@ -1,8 +1,10 @@
 import Modal from "react-modal";
 import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
-let RoomDescription = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
+let RoomDescription = ({description, modalOpen, setModalOpen, room, images, reservation,condition}) => {
+    let location = useLocation();
+    let memberInfo = location.state.memberInfo;
     let customStyle = {
         content: {
             top: '50%',
@@ -16,7 +18,8 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room, images, rese
     let navigation = useNavigate();
 
     let onClick = () => { // 버튼 추가 (정민)
-        navigation('/reservation/insert', {state: {roomId: `${room.id}`, price: `${room.price}`}})
+        navigation('/reservation/insert', {state:
+                {memberInfo:memberInfo, roomId: `${room.id}`, price: `${room.price}`, hotelId: `${room.hotelId}`, checkIn: `${condition.checkinDate}`, checkOut: `${condition.checkoutDate}`}})
     }
 
     return (
@@ -50,7 +53,7 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room, images, rese
                         최대 입실 인원: {room?.limitPeople}명<br/>
                         <hr/>
                     </Card.Text>
-                    {reservation ? null : <Button onClick={onClick}>예약하기</Button>}
+                    {memberInfo ?  <Button onClick={onClick}>예약하기</Button>: <p style={{color:'red'}}><a href={"/member/auth"}>로그인</a> 후 예약이 가능합니다.</p>}
                 </Card.Body>
             </Card>
         </Modal>

@@ -33,8 +33,6 @@
     </select>
     <select id="select" resultType="synthesisDTO" parameterType="int">
         SELECT * FROM room
-        INNER JOIN hotel
-        ON hotel.id= room.hotel_id
         INNER JOIN room_description
         ON room.id= room_description.room_id
         INNER JOIN price

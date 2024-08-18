@@ -7,8 +7,17 @@
         SELECT * FROM reservation
         WHERE member_id = #{member_id}
     </select>
+
     <select id="selectAllAdmin" resultType="reservationDTO">
         SELECT * FROM reservation
+    </select>
+
+    <select id="selectAllRegistrant" resultType="reservationDTO" parameterType="int">
+        SELECT reservation.id, reservation.member_id, reservation.check_in, reservation.check_out, reservation.confirmed, reservation.status, reservation.room_id, reservation.member_id FROM room
+        INNER JOIN hotel on hotel_id = hotel.id
+        INNER JOIN member on hotel.member_id = member.id
+        INNER JOIN reservation on room.id = reservation.room_id
+        WHERE member.id = #{member_id};
     </select>
 
     <select id="selectOne" resultType="reservationDTO" parameterType="int">
@@ -17,6 +26,11 @@
     </select>
 
     <update id="update" parameterType="reservationDTO">
+        UPDATE reservation
+        SET check_in = #{checkIn}, check_out = #{checkOut}, confirmed = #{confirmed}, status = #{status}
+        WHERE id = #{id}
+    </update>
+    <update id="confirm" parameterType="reservationDTO">
         UPDATE reservation
         SET check_in = #{checkIn}, check_out = #{checkOut}, confirmed = #{confirmed}, status = #{status}
         WHERE id = #{id}

@@ -50,7 +50,7 @@ public class RoomController {
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
 
-        if (!files.isEmpty()) {
+        if (files!=null) {
             insertImageProcess(files, roomDTO.getId());
         }
         return ResponseEntity.ok().build();
@@ -91,6 +91,7 @@ public class RoomController {
         resultMap.put("roomList", ROOM_SERVICE.selectByHotelForSearch(condition));
         return ResponseEntity.ok(resultMap);
     }
+
     @GetMapping("description/{id}")
     public ResponseEntity<Map<String, Object>> selectDescription(@PathVariable int id) {
 
