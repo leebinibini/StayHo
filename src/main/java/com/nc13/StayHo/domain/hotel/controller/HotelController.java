@@ -50,14 +50,21 @@ public class HotelController {
     }
 
     @GetMapping("showOne/{id}")
-    public HotelDTO selectOne(@PathVariable int id) {
+    public ResponseEntity<Map<String, Object>> selectOne(@PathVariable int id) {
         HotelDTO hotelDTO = new HotelDTO();
         hotelDTO.setId(id);
-        System.out.println(hotelDTO);
-        System.out.println("hotel showOne success");
-        return HOTEL_SERVICE.selectOne(id);
-    }
 
+        System.out.println("hotel showOne processing");
+        Map<String, Object> resultMap = new HashMap<>();
+        List<HotelImgDTO> hotelImageList = IMG_SERVICE.selectHotel(id);
+        if (hotelImageList.isEmpty()) {
+            hotelImageList.add(new HotelImgDTO("hotel", "default.png", id));
+        }
+        resultMap.put("image", hotelImageList);
+        resultMap.put("hotel", HOTEL_SERVICE.selectOne(id));
+
+        return ResponseEntity.ok(resultMap);
+    }
 
     @PostMapping("write")
     public HashMap<String, Object> write(
@@ -128,6 +135,5 @@ public class HotelController {
             IMG_SERVICE.insertHotel(hotelImgDTO);
         }
 
-        return;
     }
 }

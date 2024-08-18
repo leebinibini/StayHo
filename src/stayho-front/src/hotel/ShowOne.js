@@ -2,13 +2,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Row, Col, Card, Badge } from "react-bootstrap";
+import {Button, Container, Row, Col, Card, Badge, CarouselItem, Carousel} from "react-bootstrap";
 
 const ShowOne = () => {
-    const [data1, setData1] = useState({});
-    const [data2, setData2] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    let [data1, setData1] = useState({});
+    let [data2, setData2] = useState({});
+    let [images, setImages] = useState([])
+    let [loading, setLoading] = useState(true);
+    let [error, setError] = useState(null);
 
     let params = useParams();
     let id = parseInt(params.id);
@@ -39,7 +40,9 @@ const ShowOne = () => {
             try {
                 let resp1 = await axios.get('http://localhost:8080/hotel/showOne/' + id);
                 if (resp1.status === 200) {
-                    setData1(resp1.data);
+                    setData1(resp1.data.hotel);
+                    setImages(resp1.data.image)
+
                 }
                 let resp2 = await axios.get('http://localhost:8080/hotelDescription/showOne/' + id);
                 if (resp2.status === 200) {
@@ -55,6 +58,7 @@ const ShowOne = () => {
         selectOne();
     }, [id]);
 
+
     if (loading) return <div className="text-center my-5"><span className="spinner-border"></span> 로딩 중...</div>;
     if (error) return <div className="text-danger text-center my-5">{error}</div>;
 
@@ -68,9 +72,19 @@ const ShowOne = () => {
                         <Card.Body>
                             <h2 className="text-primary">{data1.name}</h2>
                             <Badge bg="secondary" className="mb-3">글번호: {data1.id}</Badge>
-                            <p className="text-muted">제공자: </p>
                             <hr />
-                            <div>사진: </div>
+                            <Carousel>
+                                {images?.map(img => (
+                                    <CarouselItem key={img.id}>
+                                        <Card.Img
+                                            variant="top"
+                                            src={"http://localhost:8080/image/" + img.filepath + "/" + img.filename}
+                                            style={{border: 'black 1px solid', height: '50vh'}}
+                                        />
+                                    </CarouselItem>
+
+                                ))}
+                            </Carousel>
                             <hr />
                             <h4>편의시설</h4>
                             <Row className="mb-4">

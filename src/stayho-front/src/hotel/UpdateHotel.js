@@ -10,7 +10,7 @@ let UpdateHotel = () => {
     let id = parseInt(params.id)
 
     let location = useLocation()
-    let memberInfo = location.state.memberInfo
+
 
     let [inputs, setInputs] = useState({
         name: '',
@@ -67,12 +67,12 @@ let UpdateHotel = () => {
                 console.log(inputs.facilities)
                 const hotelDescriptionResponse = await axios.post('http://localhost:8080/hotelDescription/update', {
                     hotelId: hotelId,
-                    swimmingPool: !!inputs.facilities["Swimming Pool"],
-                    parking: !!inputs.facilities.Parking["Parking"],
-                    restaurant: !!inputs.facilities.Restaurant["Restaurant"],
-                    smoking: !!inputs.facilities["Smoking Area"],
-                    laundryFacilities: !!inputs.facilities["Laundry Facilities"],
-                    fitnessCenter: !!inputs.facilities["Fitness Center"]
+                    swimmingPool: !!inputs.facilities["swimmingPool"],
+                    parking: !!inputs.facilities["parking"],
+                    restaurant: !!inputs.facilities["restaurant"],
+                    smoking: !!inputs.facilities["smoking"],
+                    laundryFacilities: !!inputs.facilities["laundryFacilities"],
+                    fitnessCenter: !!inputs.facilities["fitnessCenter"]
 
                 });
 
@@ -103,12 +103,12 @@ let UpdateHotel = () => {
                 content: hotelResponse.data.content || '',  // content가 없는 경우 빈 문자열로 설정
                 facilities: {
                     ...facilities,
-                    "Swimming Pool": facilities["Swimming Pool"] || false,
-                    "Parking": facilities["Parking"] || false,
-                    "Restaurant": facilities["Restaurant"] || false,
-                    "Smoking Area": facilities["Smoking Area"] || false,
-                    "Laundry Facilities": facilities["Laundry Facilities"] || false,
-                    "Fitness Center": facilities["Fitness Center"] || false
+                    swimmingPool: facilities["swimmingPool"] || false,
+                    parking : facilities["parking"] || false,
+                    restaurant : facilities["restaurant"] || false,
+                    smoking : facilities["smoking"] || false,
+                    laundryFacilities : facilities["laundryFacilities"] || false,
+                    fitnessCenter : facilities["fitnessCenter"] || false
                 }
             }));
         }
@@ -155,17 +155,9 @@ let UpdateHotel = () => {
 
                                 <Form.Group className="mb-4">
                                     <Form.Label>호텔 설명 작성</Form.Label>
-                                    <CKEditor
-                                        editor={ClassicEditor}
-                                        data={inputs.content}
-                                        name={"content"}
-                                        config={{
-                                            ckfinder: {
-                                                uploadUrl: 'http://localhost:8080/hotel/uploads',
-                                            }
-                                        }}
-                                        required
-                                    />
+                                    <FormControl type={'content'} name={'content'} vaule={inputs.content}
+                                                 onChange={onChange}
+                                                 defaultValue={inputs.content}/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-4">
@@ -179,6 +171,7 @@ let UpdateHotel = () => {
                                                     id={name}
                                                     value={name}
                                                     onChange={onCheckedItem}
+                                                    checked={!!inputs.facilities[name]} // 체크 여부를 상태와 연결
                                                 />
                                             </Col>
                                         ))}
