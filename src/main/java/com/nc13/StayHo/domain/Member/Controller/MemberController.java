@@ -88,7 +88,6 @@ public class MemberController {
     @PostMapping("/member/update")
     public HashMap<String, Object> update(@RequestBody MemberDTO memberDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
-        System.out.println("update: "+memberDTO);
 
         String password = memberDTO.getPassword();
 
@@ -124,10 +123,8 @@ public class MemberController {
 
     @GetMapping("/admin/withdraw/{memberId}")
     public ResponseEntity<Void> adminWithdraw(@PathVariable int memberId) {
-        System.out.println(memberId);
 
         memberService.delete(memberId);
-        System.out.println(memberId);
         return ResponseEntity.ok().build();
     }
 
@@ -155,7 +152,6 @@ public class MemberController {
 
         memberService.update(memberDTO);
         resultMap.put("id", memberDTO.getId());
-        System.out.println(memberDTO);
         return resultMap;
     }
 

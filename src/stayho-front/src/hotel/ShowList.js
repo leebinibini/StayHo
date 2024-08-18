@@ -8,7 +8,6 @@ import HotelCard from "./HotelCard";
 
 let ShowList = () => {
     let [data, setData] = useState([]);
-    let [imgData, setImgData] = useState([])
     let location = useLocation();
     let state = location.state;
     let memberInfo = state ? state.memberInfo : null;
@@ -29,7 +28,6 @@ let ShowList = () => {
 
             if (resp.status === 200) {
                 setData(resp.data.hotelList)
-                setImgData(resp.data.imgList)
             }
         };
         selectList();
@@ -40,7 +38,7 @@ let ShowList = () => {
             <Row>
                 {data.map(h => (
                     <Col md={4} className="mb-4" key={h.id}>
-                        <HotelCard hotel={h} moveToSingle={moveToSingle} hotelImgDTO={imgData}
+                        <HotelCard hotel={h} moveToSingle={moveToSingle}
                                    memberInfo={memberInfo}/>
                     </Col>
                 ))}

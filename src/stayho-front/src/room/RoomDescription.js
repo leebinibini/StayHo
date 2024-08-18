@@ -53,7 +53,7 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room, images, rese
                         최대 입실 인원: {room?.limitPeople}명<br/>
                         <hr/>
                     </Card.Text>
-                    {reservation ? null : <Button onClick={onClick}>예약하기</Button>}
+                    {memberInfo ?  <Button onClick={onClick}>예약하기</Button>: <p style={{color:'red'}}><a href={"/member/auth"}>로그인</a> 후 예약이 가능합니다.</p>}
                 </Card.Body>
             </Card>
         </Modal>
