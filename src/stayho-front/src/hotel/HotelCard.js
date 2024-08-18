@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Carousel } from "react-bootstrap";
+import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
 import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
 
-const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
+const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    let [images, setImages] = useState([])
 
     useEffect(() => {
         if (memberInfo && memberInfo.id) {
@@ -31,6 +32,20 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
             console.error("위시리스트 불러오기 오류:", error);
         }
     };
+
+    useEffect(() => {
+        let selectOne = async () => {
+            try {
+                let resp1 = await axios.get('http://localhost:8080/hotel/showOne/' + hotel.id);
+                if (resp1.status === 200) {
+                    setImages(resp1.data.image)
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        selectOne();
+    }, [hotel.id]);
 
 
     const toggleFavorite = async () => {
@@ -77,28 +92,17 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
                     style={{ fontSize: '1.5rem', cursor: 'pointer' }}
                 />
             </div>
-            <Carousel interval={null} style={{ pointerEvents: 'none' }}>
-                {hotel.images && hotel.images.length > 0 ? (
-                    hotel.images.map((image, index) => (
-                        <Carousel.Item key={index}>
-                            <img
-                                className="d-block w-100"
-                                src={image}
-                                alt={`${hotel.name} 이미지 ${index + 1}`}
-                                style={{ height: '200px', objectFit: 'cover', pointerEvents: 'auto' }}
-                            />
-                        </Carousel.Item>
-                    ))
-                ) : (
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="http://localhost:8080/image/hotel/default.png"
-                            alt="기본 이미지"
-                            style={{ height: '200px', objectFit: 'cover', pointerEvents: 'auto' }}
+            <Carousel>
+                {images?.map(img => (
+                    <CarouselItem key={img.id}>
+                        <Card.Img
+                            variant="top"
+                            src={"http://localhost:8080/image/" + img.filepath + "/" + img.filename}
+                            style={{border: 'black 1px solid', height: '50vh'}}
                         />
-                    </Carousel.Item>
-                )}
+                    </CarouselItem>
+
+                ))}
             </Carousel>
             <Card.Body className="d-flex flex-column">
                 <Card.Title>{hotel.name}</Card.Title>
