@@ -57,7 +57,7 @@ let MemberMenu = () => {
     let onManageReviews = () => {
         if (location.state !== null) {
             let memberId = location.state.memberInfo.id;
-            navigate('/review/showAllByMember/' + memberId);
+            navigate('/review/showAllByMember/' + memberId,{state:{memberInfo:memberInfo}});
         }
     }
 

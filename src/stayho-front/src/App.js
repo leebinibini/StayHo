@@ -66,7 +66,6 @@ function App() {
                 <Route path="/registrant/reMyPage" element={<ReMyPage/>}/>
                 <Route path="/admin/adMyPage" element={<AdMyPage/>}/>
                 <Route path="/admin/adUpdate" element={<AdUpdate/>}/>
-                <Route path="/admin/menu" element={<Menu/>}/>
                 <Route path={"/reservation/showAll"} element={<ReservationAll/>}/>
                 <Route path={"/reservation/registrant"} element={<Registrant/>}/>
                 <Route path={"/reservation/admin"} element={<Admin/>}/>
