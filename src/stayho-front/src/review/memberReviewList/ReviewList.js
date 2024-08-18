@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useLocation, useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +8,12 @@ import UpdateReview from './UpdateReview';
 
 const ReviewList = () => {
     const {memberId} = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // memberInfo를 location.state에서 가져옴
+    const memberInfo = location.state ? location.state.memberInfo : null;
+
     const [reviews, setReviews] = useState([]);
     const [selectedReview, setSelectedReview] = useState(null);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -48,10 +54,17 @@ const ReviewList = () => {
         fetchReviews();
     };
 
+    const handleBackToMenu = () => {
+        navigate('/', {state: {memberInfo: memberInfo}});
+    };
+
     return (
         <div>
             <h2>리뷰 목록</h2>
-            <Table striped bordered hover>
+            <Button variant="secondary" onClick={handleBackToMenu}>
+                메뉴로 돌아가기
+            </Button>
+            <Table striped bordered hover className="mt-3">
                 <thead>
                 <tr>
                     <th>#</th>
