@@ -6,6 +6,8 @@
     <select id="selectList" resultType="HotelDTO">
         SELECT *
         FROM hotel
+        INNER JOIN member
+        ON hotel.member_id=member_id
         INNER JOIN hotel_description
         ON hotel.id = hotel_id
     </select>
