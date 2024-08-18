@@ -8,7 +8,7 @@ let RoomForProvider = ({hotelId}) => {
     let [checkInputs, setCheckInputs] = useState([])
     let navigate = useNavigate()
     let location = useLocation()
-    // let memberInfo = location.state.memberInfo
+    let memberInfo = location.state.memberInfo
 
     useEffect(() => {
         let onLoad = async () => {
@@ -21,12 +21,10 @@ let RoomForProvider = ({hotelId}) => {
     }, []);
 
     let MoveToUpdate = (id) => {
-        navigate("/room/update/" + id)
-            // , {state: {memberInfo: memberInfo}})
+        navigate("/room/update/" + id , {state: {memberInfo: memberInfo}})
     }
     let moveToInsert = () => {
-        navigate("/room/insert/" + hotelId)
-            // , {state: {memberInfo: memberInfo}})
+        navigate("/room/insert/" + hotelId, {state: {memberInfo: memberInfo}})
     }
 
     let onChecked = (checked, id) => {

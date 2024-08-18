@@ -22,36 +22,28 @@ public class HotelDescriptionController {
 
     @GetMapping("showOne/{id}")
     public HotelDescriptionDTO selectOne(@PathVariable int id) {
-        System.out.println(HOTEL_DESCRIPTION_SERVICE.selectOne(id));
         return HOTEL_DESCRIPTION_SERVICE.selectOne(id);
     }
 
     @PostMapping("write")
     public HashMap<String, Object> write(@RequestBody HotelDescriptionDTO hotelDescriptionDTO) {
-        System.out.println(hotelDescriptionDTO);
-
         HashMap<String, Object> resultMap = new HashMap();
         try {
             HOTEL_DESCRIPTION_SERVICE.insert(hotelDescriptionDTO);
             resultMap.put("result", "success");
             resultMap.put("resultId", hotelDescriptionDTO.getHotelId());
-            System.out.println("resultMap = " + resultMap);
-            System.out.println("hotelDescriptionDTO = " + hotelDescriptionDTO);
 
         } catch (Exception e) {
             e.printStackTrace();
             resultMap.put("result", "fail");
         }
-        System.out.println(resultMap);
         return resultMap;
     }
 
     @PostMapping("update")
     public HashMap<String, Object> update(@RequestBody HotelDescriptionDTO hotelDescriptionDTO) {
-        System.out.println(hotelDescriptionDTO);
         HashMap<String, Object> resultMap = new HashMap<>();
 
-        System.out.println(resultMap);
         HOTEL_DESCRIPTION_SERVICE.update(hotelDescriptionDTO);
 
         resultMap.put("resultId", hotelDescriptionDTO.getHotelId());

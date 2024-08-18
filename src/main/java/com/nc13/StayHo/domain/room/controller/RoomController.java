@@ -50,7 +50,7 @@ public class RoomController {
         PriceDTO priceDTO = new PriceDTO(roomDTO.getId(), params.getPrice(), params.getSurcharge());
         PRICE_SERVICE.insert(priceDTO);
 
-        if (!files.isEmpty()) {
+        if (files!=null) {
             insertImageProcess(files, roomDTO.getId());
         }
         return ResponseEntity.ok().build();

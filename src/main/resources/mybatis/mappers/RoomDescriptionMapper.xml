@@ -14,7 +14,7 @@
     </select>
     <update id="update" parameterType="roomDescriptionDTO">
         UPDATE room_description SET
-        bath=#{bath}, bed=#{bed}, view=#{view}
+        bath=#{bath}, bed=#{bed}, view=#{view}, content=#{content}
         WHERE room_id= #{roomId}
     </update>
     <delete id="delete" parameterType="int">

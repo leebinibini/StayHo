@@ -53,9 +53,8 @@ let RoomUpdate = () => {
             view: inputs.view,
             price: watch('price'),
             surcharge: watch('surcharge'),
-            content: watch('content')
+            content: watch('content'),
         }
-
         const formData = new FormData()
         imgList.map(image => {
             formData.append('files', image)
@@ -76,14 +75,9 @@ let RoomUpdate = () => {
     }
     useEffect(() => {
         let onLoad = async () => {
-            let resp = await axios.get("http://localhost:8080/hotel/" + id)
-            if (resp.status === 200) {
-                if (resp.data.memberId !== memberInfo.id) {
-                    navigate("/", {state: {memberInfo: memberInfo}});
-                }
-            }
             let response = await axios.get("http://localhost:8080/room/select/" + id, {});
             if (response.status === 200) {
+                console.log(response.data)
                 setInputs(response.data.room)
                 setImgList(response.data.images)
             }
@@ -112,17 +106,17 @@ let RoomUpdate = () => {
                     </tr>
                     <tr>
                         <td>객실 타입 이름</td>
-                        <td><FormControl type={'text'} name={'type'} vaule={inputs.type} onChange={onChange}
+                        <td><FormControl type={'text'} name={'type'} value={inputs.type}
                                          aria-describedby='typeExplain' defaultValue={inputs.type}
-                                         {...register("type", {required: true, maxLength: 50})}/>
+                                         {...register("type", {required: true, maxLength: 50, onChange:onChange})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>
                     </tr>
                     <tr>
                         <td>객실 설명</td>
-                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                        <td><FormControl as={'textarea'} name={'content'} value={inputs.content}
                                          style={{minHeight: '15rem'}} defaultValue={inputs.type}
-                                         {...register("content", {required: true})}/></td>
+                                         {...register("content", {required: true, onChange: onChange})}/></td>
                     </tr>
                     <tr>
                         <td>욕조 여부</td>

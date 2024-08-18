@@ -1,12 +1,13 @@
 import {Card, CardSubtitle, CardTitle, Carousel, CarouselItem, Container} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import axios from "axios";
 
 let SearchList = ({hotels, images}) => {
     let navigate = useNavigate()
+    let location= useLocation()
     let onClick = (hotel) => {
-        navigate("/hotel/showOne/" + hotel.id)
+        navigate("/hotel/showOne/" + hotel.id, {state:{memberInfo:location.state.memberInfo}})
     }
 
     return (
