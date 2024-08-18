@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
+import { Button, Card, Carousel, CarouselItem } from "react-bootstrap";
 import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
 
-const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
+const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    let [images, setImages] = useState([])
+    let [images, setImages] = useState([]);
 
     useEffect(() => {
         if (memberInfo && memberInfo.id) {
@@ -25,7 +25,6 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
                 withCredentials: true
             });
             const wishLists = response.data.wishLists || [];
-            console.log(wishLists);
             const isHotelInWishlist = wishLists.some(wish => wish.hotelId === hotel.id);
             setIsFavorite(isHotelInWishlist);
         } catch (error) {
@@ -38,7 +37,7 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
             try {
                 let resp1 = await axios.get('http://localhost:8080/hotel/showOne/' + hotel.id);
                 if (resp1.status === 200) {
-                    setImages(resp1.data.image)
+                    setImages(resp1.data.image);
                 }
             } catch (e) {
                 console.error(e);
@@ -46,7 +45,6 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
         };
         selectOne();
     }, [hotel.id]);
-
 
     const toggleFavorite = async () => {
         if (!isLoggedIn) {
@@ -85,23 +83,30 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
 
     return (
         <Card className="shadow-sm h-100" style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
+            {/* 하트 아이콘에 높은 z-index와 포인터 이벤트 적용 */}
+            <div style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                zIndex: 10,  // 높게 설정
+                pointerEvents: 'auto' // 클릭 가능
+            }}>
                 <HeartIcon
                     isFavorite={isFavorite}
                     onClick={toggleFavorite}
                     style={{ fontSize: '1.5rem', cursor: 'pointer' }}
                 />
             </div>
-            <Carousel>
+            {/* Carousel에 낮은 z-index와 pointer-events none */}
+            <Carousel interval={null} style={{ pointerEvents: 'auto', zIndex: 1 }}>
                 {images?.map(img => (
                     <CarouselItem key={img.id}>
                         <Card.Img
                             variant="top"
                             src={"http://localhost:8080/image/" + img.filepath + "/" + img.filename}
-                            style={{border: 'black 1px solid', height: '50vh'}}
+                            style={{ border: 'black 1px solid', height: '50vh' }}
                         />
                     </CarouselItem>
-
                 ))}
             </Carousel>
             <Card.Body className="d-flex flex-column">
@@ -116,6 +121,6 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo}) => {
             </Card.Body>
         </Card>
     );
-}
+};
 
 export default HotelCard;

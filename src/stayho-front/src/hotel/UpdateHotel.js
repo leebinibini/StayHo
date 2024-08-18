@@ -1,9 +1,7 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
-import {Button, Card, Col, Container, Form, FormControl, Row, Table} from "react-bootstrap";
+import {Button, Card, Col, Container, Form, FormControl, Row} from "react-bootstrap";
 import axios from "axios";
-import {CKEditor} from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 let UpdateHotel = () => {
     let params = useParams()
