@@ -1,71 +1,74 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Form, Modal} from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {Button, Form, Modal} from 'react-bootstrap';
 
 const UpdateReview = ({reviewId, show, handleClose}) => {
     const [rating, setRating] = useState(1);
     const [comment, setComment] = useState('');
     const [img, setImg] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
-    const [existingImages, setExistingImages] = useState([]);
 
     useEffect(() => {
-        if (reviewId) {
-            const fetchReview = async () => {
-                try {
-                    const response = await axios.get(`http://localhost:8080/review/showOne/${reviewId}`);
-                    if (response.status === 200) {
-                        const {review, images} = response.data;
-                        setRating(review.rating);
-                        setComment(review.comment);
-
-                        setExistingImages(images.map(img => img.path + img.name));
-
-                        if (images.length > 0) {
-                            setImgPreview(images[0].path + images[0].name);
-                        }
+        const fetchReviewDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/review/${reviewId}`);
+                if (response.status === 200) {
+                    const {rating, comment, img} = response.data;
+                    setRating(rating);
+                    setComment(comment);
+                    if (img) {
+                        setImgPreview(`http://localhost:8080/review/images/${img}`);
                     }
-                } catch (error) {
-                    console.error('Error fetching review:', error);
-                    alert('리뷰를 가져오는 데 실패했습니다.');
                 }
-            };
-
-            fetchReview();
-        }
+            } catch (error) {
+                console.error('Error fetching review details:', error);
+            }
+        };
+        fetchReviewDetails();
     }, [reviewId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('reviewData', JSON.stringify({rating, comment}));
+        formData.append(
+            'reviewData',
+            new Blob([JSON.stringify({rating, comment})], {
+                type: 'application/json',
+            })
+        );
+
         if (img) {
             formData.append('img', img);
         }
+
         try {
             const response = await axios.put(`http://localhost:8080/review/update/${reviewId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             if (response.status === 200) {
                 alert('리뷰 수정 성공');
                 handleClose();
             }
         } catch (error) {
-            console.error('Error submitting review:', error);
-            alert('리뷰 수정 중 오류 발생');
+            console.error(error);
+            alert('리뷰 수정 실패');
         }
     };
 
     const handleImgChange = (e) => {
-        setImg(e.target.files[0]);
-        if (e.target.files[0]) {
+        const file = e.target.files[0];
+        setImg(file);
+        if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImgPreview(reader.result);
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
+        } else {
+            setImgPreview(null);
         }
     };
 
@@ -103,17 +106,6 @@ const UpdateReview = ({reviewId, show, handleClose}) => {
                         />
                     </Form.Group>
 
-                    {imgPreview && (
-                        <div>
-                            <Form.Label>현재 이미지</Form.Label>
-                            <img
-                                src={imgPreview}
-                                alt="Review"
-                                style={{maxWidth: '100%', height: 'auto', display: 'block', marginBottom: '1rem'}}
-                            />
-                        </div>
-                    )}
-
                     <Form.Group controlId="img">
                         <Form.Label>이미지 업로드</Form.Label>
                         <Form.Control
@@ -121,13 +113,23 @@ const UpdateReview = ({reviewId, show, handleClose}) => {
                             onChange={handleImgChange}
                             accept="image/*"
                         />
+                        {imgPreview && (
+                            <div className="mt-3">
+                                <Form.Label>미리 보기</Form.Label>
+                                <img
+                                    src={imgPreview}
+                                    alt="Preview"
+                                    style={{maxWidth: '100%', height: 'auto'}}
+                                />
+                            </div>
+                        )}
                     </Form.Group>
 
                     <Button variant="secondary" onClick={handleClose}>
                         취소
                     </Button>
                     <Button variant="primary" type="submit">
-                        수정
+                        제출
                     </Button>
                 </Form>
             </Modal.Body>

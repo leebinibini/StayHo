@@ -1,13 +1,15 @@
 import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSelect} from "react-bootstrap";
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 let RoomInsert = () => {
     let params = useParams()
     let id = parseInt(params.id);
     let navigate = useNavigate()
+    let location = useLocation()
+    let memberInfo = location.state.memberInfo
     let {register, handleSubmit, watch, formState: {errors}} = useForm();
     let [inputs, setInputs] = useState({
         limitPeople: '',
@@ -39,7 +41,17 @@ let RoomInsert = () => {
             ...e.target.files
         ])
     }
-
+    useEffect(() => {
+        let onLoad = async () => {
+            let response = await axios.get("http://localhost:8080/hotel/" + id)
+            if (response.status === 200) {
+                if (response.data.memberId !== memberInfo.id) {
+                    navigate("/", {state: {memberInfo: memberInfo}});
+                }
+            }
+        }
+        onLoad()
+    }, []);
     let onSubmit = async () => {
         let data = {
             limitPeople: watch('limitPeople'),
@@ -49,7 +61,8 @@ let RoomInsert = () => {
             view: inputs.view,
             price: watch('price'),
             surcharge: watch('surcharge'),
-            hotelId: id
+            hotelId: id,
+            content: watch('contentnp')
         }
 
         const formData = new FormData()
@@ -63,7 +76,7 @@ let RoomInsert = () => {
         )
         let response = await axios.post(
             "http://localhost:8080/room/insert", formData,
-            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}}
+            {headers: {'Content-Type': 'multipart/form-data', charset: 'UTF-8'}, withCredentials: true}
         )
         if (response.status === 200) {
             window.alert("객실이 추가되었습니다. ")
@@ -98,6 +111,12 @@ let RoomInsert = () => {
                                          {...register("type", {required: true, maxLength: 50})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>객실 설명</td>
+                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                                         style={{minHeight: '15rem'}}
+                                         {...register("content", {required: true})}/></td>
                     </tr>
                     <tr>
                         <td>욕조 여부</td>

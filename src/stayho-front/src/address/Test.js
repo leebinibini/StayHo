@@ -1,5 +1,5 @@
 import {Button} from "react-bootstrap";
-import InsertAddress from "./InsertAddress";
+import Address from "./Address";
 import {useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
@@ -34,8 +34,8 @@ let Test = () => {
         <div>
             <Button onClick={onPopup}>
                 주소찾기
-                <InsertAddress setModalState={setModalState} modalState={modalState} hotelId={id}
-                               setAddressData={setAddressData}/>
+                <Address setModalState={setModalState} modalState={modalState}
+                         setAddressData={setAddressData}/>
             </Button>
             <div>{addressData.address}</div>
             <Button onClick={onInsert}>추가하기</Button>

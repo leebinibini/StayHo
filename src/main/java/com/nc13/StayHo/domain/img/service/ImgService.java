@@ -13,25 +13,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImgService {
     private final SqlSession SESSION;
-    private final String NAMESPACE="mapper.ImgMapper";
+    private final String NAMESPACE = "mapper.ImgMapper";
 
-    public void insertRoom(RoomImgDTO roomImgDTO){
-        SESSION.insert(NAMESPACE+".insertRoom", roomImgDTO);
+    public void insertRoom(RoomImgDTO roomImgDTO) {
+        SESSION.insert(NAMESPACE + ".insertRoom", roomImgDTO);
     }
-    public List<RoomImgDTO> selectRoom(int id){
-        return SESSION.selectList(NAMESPACE+".selectRoom", id);
+
+    public List<RoomImgDTO> selectRoom(int id) {
+        return SESSION.selectList(NAMESPACE + ".selectRoom", id);
     }
-    public List<HotelImgDTO> selectHotel(int id){
-        return SESSION.selectList(NAMESPACE+".selectHotel", id);
+
+    public void insertHotel(HotelImgDTO hotelImgDTO) {
+        SESSION.insert(NAMESPACE + ".insertHotel", hotelImgDTO);
     }
-    public void delete(int id){
-        SESSION.delete(NAMESPACE+".delete", id);
+
+    public List<HotelImgDTO> selectHotel(int id) {
+        return SESSION.selectList(NAMESPACE + ".selectHotel", id);
     }
+
+    public List<HotelImgDTO> selectAllHotel() {
+        return SESSION.selectList(NAMESPACE + ".selectAllHotel");
+    }
+
+    public void delete(int id) {
+        SESSION.delete(NAMESPACE + ".delete", id);
+    }
+
     public void insertReviewImg(ReviewImgDTO reviewImgDTO) {
         SESSION.insert(NAMESPACE + ".insertReview", reviewImgDTO);
     }
 
     public List<ReviewImgDTO> selectReviewImg(int reviewId) {
         return SESSION.selectList(NAMESPACE + ".selectReview", reviewId);
+    }
+
+    public void deleteReviewImgByReviewId(int reviewId) {
+        SESSION.delete(NAMESPACE + ".deleteReview", reviewId);
     }
 }

@@ -24,6 +24,7 @@
         <typeAlias type="com.nc13.StayHo.domain.reservation.domain.ReservationDTO" alias="reservationDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.img.dto.HotelImgDTO" alias="hotelImgDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.img.dto.RoomImgDTO" alias="roomImgDTO"/>
+        <typeAlias type="com.nc13.StayHo.domain.wishList.model.WishListDTO" alias="wishListDTO"/>
         <typeAlias type="com.nc13.StayHo.domain.img.dto.ReviewImgDTO" alias="reviewImgDTO"/>
         <package name="com.nc13.StayHo.domain.Member.Model"/>
         <package name="com.nc13.StayHo.domain.hotel.model"/>
