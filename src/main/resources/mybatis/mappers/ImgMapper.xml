@@ -12,19 +12,23 @@
         SELECT * FROM img
         WHERE room_id= #{id}
     </select>
+    <insert id="insertHotel" parameterType="hotelImgDTO">
+        INSERT INTO img
+        (filepath, filename, hotel_id)
+        VALUES(#{filepath}, #{filename},#{hotelId})
+    </insert>
     <select id="selectHotel" parameterType="int" resultType="hotelImgDTO">
         SELECT * FROM img
         WHERE hotel_id= #{id}
+    </select>
+    <select id="selectAllHotel" parameterType="int" resultType="hotelImgDTO">
+        SELECT * FROM img
+        WHERE NOT hotel_id  IS NULL;
     </select>
     <delete id="delete" parameterType="int">
         DELETE FROM img
         WHERE id= #{id}
     </delete>
-    <insert id="insertHotel" parameterType="hotelImgDTO">
-        INSERT INTO img
-        (filepath, filename, hotel_id)
-        VALUES(#{filepath}, #{filename}, #{hotelId} )
-    </insert>
     <insert id="insertReview" parameterType="ReviewImgDTO">
         INSERT INTO img
         (filepath, filename, review_id)
@@ -34,4 +38,8 @@
         SELECT * FROM img
         WHERE review_id=#{reviewId}
     </select>
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM img
+        WHERE review_id= #{reviewId}
+    </delete>
 </mapper>

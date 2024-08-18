@@ -14,4 +14,5 @@ public class SynthesisDTO {
     private String view;
     private int price;
     private int surcharge;
+    private String content;
 }

@@ -1,13 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
 import ReservationAll from "./reservation/user/ReservationAll";
 import ReservationOne from "./reservation/user/ReservationOne";
 import ReservationInsert from "./reservation/user/ReservationInsert";
 import RoomInsert from "./room/RoomInsert";
-import ListForUser from "./room/ListForUser";
+import RoomForUser from "./room/RoomForUser";
 import RoomUpdate from "./room/RoomUpdate";
-import ListForProvider from "./room/ListForProvider";
+import RoomForProvider from "./room/RoomForProvider";
 import Test from "./address/Test";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-date-picker/dist/DatePicker.css';
@@ -37,12 +36,12 @@ import AdUpdate from "./admin/AdUpdate";
 import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
 import MemUpdate from "./admin/MemUpdate";
+import ReviewList from "./review/memberReviewList/ReviewList";
 
 
 function App() {
     return (
-        <div className="App">
-            <header className="App">
+        <div>
                 <SearchForm/>
                 <Routes>
                     <Route path="/member/auth" element={<Auth/>}/>
@@ -65,10 +64,11 @@ function App() {
                     <Route path={"/reservation/showOne/:id"} element={<ReservationOne/>}/>
                     <Route path={"/reservation/insert"} element={<ReservationInsert/>}/>
                     <Route path={"/review/showAllByHotel/:hotelId"} element={<ShowAll/>}/>
+                    <Route path={"/review/showAllByMember/:memberId"} element={<ReviewList/>}/>
                     <Route path={"/room/update/:id"} element={<RoomUpdate/>}/>
                     <Route path={"/room/insert/:id"} element={<RoomInsert/>}/>
-                    <Route path={"/room/management/:id"} element={<ListForProvider/>}/>
-                    <Route path={"/room/list/:id"} element={<ListForUser/>}/>
+                    <Route path={"/room/management/:id"} element={<RoomForProvider/>}/>
+                    <Route path={"/room/list/:id"} element={<RoomForUser/>}/>
                     <Route path={"/room/test/:id"} element={<Test/>}/>
                     <Route path={"/search"} element={<SearchResult/>}/>
                     <Route path={"/admin/memberAdmin"} element={<MemberAdmin/>}/>
@@ -79,7 +79,6 @@ function App() {
                     <Route path="/hotel/write" element={<WriteHotel/>}/>
                     <Route path="/hotel/update/:id" element={<UpdateHotel/>}/>
                 </Routes>
-            </header>
         </div>
     );
 }

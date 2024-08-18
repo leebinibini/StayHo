@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from "react";
 import {Button, Container, Form, Row, Col, Card, FormControl, FormText} from "react-bootstrap";
 import axios from "axios";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {useLocation, useNavigate} from "react-router-dom";
+import Address from "../address/Address";
 
 const WriteHotel = () => {
     let location = useLocation();
@@ -47,7 +46,7 @@ const WriteHotel = () => {
             [name]: value
         })
     }
-    console.log(registrantInfo.id)
+
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -63,16 +62,14 @@ const WriteHotel = () => {
             imgList.map(image => {
                 formData.append('files', image)
             })
-            console.log(formData)
+            //formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
             const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', charset:'UTF-8'
-                }
-            });
+                }, withCredentials: true}
+            );
             console.log("호텔응답 데이터" + hotelResponse.data)
             const hotelId = hotelResponse.data.resultId;
-            console.log(inputs.facilities)
-            console.log(hotelId)
 
             if (hotelId) {
                 let response2 = await axios.post('http://localhost:8080/hotelDescription/write', {
@@ -85,8 +82,7 @@ const WriteHotel = () => {
                     fitnessCenter: !!inputs.facilities["fitnessCenter"]
                 });
 
-
-                navigate(`/hotel/showOne/${hotelId}`, { state: { memberInfo: registrantInfo }});
+                navigate(`/hotel/showOne/`+hotelId, {state: {memberInfo: registrantInfo}});
             }
         } catch (error) {
             console.error("An error occurred during the request:", error);

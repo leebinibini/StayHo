@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Carousel, CarouselItem } from "react-bootstrap";
+import {Button, Card, CardImg, Carousel, CarouselItem} from "react-bootstrap";
 import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
@@ -83,13 +83,12 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
 
     return (
         <Card className="shadow-sm h-100" style={{ position: 'relative' }}>
-            {/* 하트 아이콘에 높은 z-index와 포인터 이벤트 적용 */}
             <div style={{
                 position: 'absolute',
                 top: '10px',
                 right: '10px',
-                zIndex: 10,  // 높게 설정
-                pointerEvents: 'auto' // 클릭 가능
+                zIndex: 10,
+                pointerEvents: 'auto'
             }}>
                 <HeartIcon
                     isFavorite={isFavorite}
@@ -97,7 +96,6 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
                     style={{ fontSize: '1.5rem', cursor: 'pointer' }}
                 />
             </div>
-            {/* Carousel에 낮은 z-index와 pointer-events none */}
             <Carousel interval={null} style={{ pointerEvents: 'auto', zIndex: 1 }}>
                 {images?.map(img => (
                     <CarouselItem key={img.id}>
@@ -121,6 +119,6 @@ const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
             </Card.Body>
         </Card>
     );
-};
+}
 
 export default HotelCard;

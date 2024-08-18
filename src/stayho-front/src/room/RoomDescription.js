@@ -13,11 +13,10 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room, images, rese
             transform: 'translate(-50%, -50%)'
         }
     }
-
-    let navation = useNavigate();
+    let navigation = useNavigate();
 
     let onClick = () => { // 버튼 추가 (정민)
-        navation('/reservation/insert', {state:{roomId: `${room.id}`, price:`${room.price}`}})
+        navigation('/reservation/insert', {state: {roomId: `${room.id}`, price: `${room.price}`}})
     }
 
     return (
@@ -42,10 +41,14 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room, images, rese
                 <Card.Body>
                     <Card.Title>{room?.type}</Card.Title>
                     <Card.Text>
+                        객실 설명
+                        {description.content}
+                        <hr/>
                         뷰: {description.view}<br/>
                         욕조: {description.bath ? 'O' : 'X'}<br/>
                         침대수: {description.bed}개<br/>
-                        최대  입실 인원: {room?.limitPeople}명
+                        최대 입실 인원: {room?.limitPeople}명<br/>
+                        <hr/>
                     </Card.Text>
                     {reservation ? null : <Button onClick={onClick}>예약하기</Button>}
                 </Card.Body>
