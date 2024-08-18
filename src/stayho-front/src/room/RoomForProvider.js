@@ -3,12 +3,12 @@ import axios from "axios";
 import {Button, Container, Form, FormCheck, Table} from "react-bootstrap";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-let RoomForProvider = ({hotelId, memberInfo}) => {
+let RoomForProvider = ({hotelId}) => {
     let [rooms, setRooms] = useState({roomList: []})
     let [checkInputs, setCheckInputs] = useState([])
     let navigate = useNavigate()
     let location = useLocation()
-    // let memberInfo = location.state.memberInfo
+    let memberInfo = location.state.memberInfo
 
     useEffect(() => {
         let onLoad = async () => {

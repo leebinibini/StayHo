@@ -76,14 +76,9 @@ let RoomUpdate = () => {
     }
     useEffect(() => {
         let onLoad = async () => {
-            let resp = await axios.get("http://localhost:8080/hotel/showOne/" + id)
-            if (resp.status === 200) {
-                if (resp.data.memberId !== memberInfo.id) {
-                    navigate("/", {state: {memberInfo: memberInfo}});
-                }
-            }
             let response = await axios.get("http://localhost:8080/room/select/" + id, {});
             if (response.status === 200) {
+                console.log(response.data)
                 setInputs(response.data.room)
                 setImgList(response.data.images)
             }
@@ -121,7 +116,7 @@ let RoomUpdate = () => {
                     <tr>
                         <td>객실 설명</td>
                         <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
-                                         style={{minHeight: '15rem'}} defaultValue={inputs.type}
+                                         style={{minHeight: '15rem'}}
                                          {...register("content", {required: true})}/></td>
                     </tr>
                     <tr>

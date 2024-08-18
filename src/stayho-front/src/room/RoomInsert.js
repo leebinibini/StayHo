@@ -1,6 +1,6 @@
 import {Button, Container, FormControl, Form, Table, FormCheck, FormText, FormSelect} from "react-bootstrap";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
@@ -41,17 +41,6 @@ let RoomInsert = () => {
             ...e.target.files
         ])
     }
-    useEffect(() => {
-        let onLoad = async () => {
-            let response = await axios.get("http://localhost:8080/hotel/showOne/" + id)
-            if (response.status === 200) {
-                if (response.data.memberId !== memberInfo.id) {
-                    navigate("/", {state: {memberInfo: memberInfo}});
-                }
-            }
-        }
-        onLoad()
-    }, []);
     let onSubmit = async () => {
         let data = {
             limitPeople: watch('limitPeople'),
@@ -62,7 +51,7 @@ let RoomInsert = () => {
             price: watch('price'),
             surcharge: watch('surcharge'),
             hotelId: id,
-            content: watch('contentnp')
+            content: watch('content')
         }
 
         const formData = new FormData()
@@ -114,7 +103,7 @@ let RoomInsert = () => {
                     </tr>
                     <tr>
                         <td>객실 설명</td>
-                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                            <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
                                          style={{minHeight: '15rem'}}
                                          {...register("content", {required: true})}/></td>
                     </tr>
