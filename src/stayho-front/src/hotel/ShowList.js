@@ -12,7 +12,6 @@ let ShowList = () => {
     let location = useLocation();
     let state = location.state;
     let memberInfo = state ? state.memberInfo : null;
-    console.log(state);
 
     let navigate = useNavigate();
 
