@@ -47,8 +47,6 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> authFail() {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "fail");
-
-
         return ResponseEntity.ok(resultMap);
     }
 

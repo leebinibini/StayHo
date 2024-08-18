@@ -105,6 +105,7 @@ let MemUpdate = () => {
                             <FormControl
                                 type={'tel'}
                                 name={'tel'}
+                                maxLength={11}
                                 value={inputs.tel}
                                 onChange={onChange}
                             />
