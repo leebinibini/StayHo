@@ -25,6 +25,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<ReservationDTO> selectAllRegistrant(int member_id) {
+        return REPOSITORY.selectAllRegistrant(member_id);
+    }
+
+    @Override
     public ReservationDTO selectOne(int id) {
         return REPOSITORY.selectOne(id);
     }
@@ -32,6 +37,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void update(ReservationDTO reservationDTO) {
         REPOSITORY.update(reservationDTO);
+    }
+
+    @Override
+    public void confirm(ReservationDTO reservationDTO) {
+        REPOSITORY.confirm(reservationDTO);
     }
 
     @Override
@@ -45,12 +55,12 @@ public class ReservationServiceImpl implements ReservationService {
 
         // 체크인 시간 09:00 설정
         calendar.setTime(reservationDTO.getCheckIn());
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
         reservationDTO.setCheckIn(calendar.getTime());
 
         // 체크아웃 시간 13:00 설정
         calendar.setTime(reservationDTO.getCheckOut());
-        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
         reservationDTO.setCheckOut(calendar.getTime());
 
         REPOSITORY.insert(reservationDTO);
