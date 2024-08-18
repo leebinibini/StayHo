@@ -38,6 +38,7 @@ import MemberAdmin from "./admin/MemberAdmin";
 import RegistrantAdmin from "./admin/RegistrantAdmin";
 import MemUpdate from "./admin/MemUpdate";
 import ReviewList from "./review/memberReviewList/ReviewList";
+import RegiUpdate from "./admin/RegiUpdate";
 
 import Main from "./main/Main";
 import React from "react";
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
                 <Route path="/member/myPage" element={<MyPage/>}/>
                 <Route path="/member/secede" element={<Secede/>}/>
+                <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                 <Route path="/registrant/reAuth" element={<ReAuth/>}/>
                 <Route path="/registrant/reRegister" element={<ReRegister/>}/>
                 <Route path="/registrant/reUpdate" element={<ReUpdate/>}/>

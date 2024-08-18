@@ -47,8 +47,6 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> authFail() {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "fail");
-
-
         return ResponseEntity.ok(resultMap);
     }
 
@@ -90,6 +88,8 @@ public class MemberController {
     @PostMapping("/member/update")
     public HashMap<String, Object> update(@RequestBody MemberDTO memberDTO) {
         HashMap<String, Object> resultMap = new HashMap<>();
+        System.out.println("update: "+memberDTO);
+
         String password = memberDTO.getPassword();
 
         memberDTO.setPassword(encoder.encode(password));

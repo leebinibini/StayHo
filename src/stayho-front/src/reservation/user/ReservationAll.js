@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import dayjs from "dayjs";
 
 import axios from "axios";
+import InsertReview from "../../review/InsertReview";
 import {useLocation, useNavigate} from "react-router-dom";
 
 let ReservationAll = () => {
@@ -17,10 +18,14 @@ let ReservationAll = () => {
 
     let user_id = location.state.memberInfo.id; // 사용자 id 정보 받기
 
+    let [reviewableReservationId, setReviewableReservationId] = useState(null);
+
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
-                .get("http://localhost:8080/reservation/all/" + user_id)
+                .get("http://localhost:8080/reservation/all/" + user_id, {
+                    withCredentials: true
+                })
                 .catch((e) => {
                     console.log(e)
                 })
@@ -35,6 +40,22 @@ let ReservationAll = () => {
         navigate('/reservation/showOne/' + id, {state: {memberInfo: memberInfo}})
     }
 
+    let handleReviewSubmit = () => {
+        const refreshData = async () => {
+            try {
+                const resp = await axios.get('http://localhost:8080/reservation/all/'+{user_id}, {
+                    withCredentials: true
+                });
+                if (resp.status === 200) {
+                    setData(resp.data);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        refreshData();
+    }
+
     return (
         <Container className={"mt-3"}>
             <h2>내 예약</h2>
@@ -47,20 +68,32 @@ let ReservationAll = () => {
                     <td>객실</td>
                     <td>사장</td>
                     <td>사용자</td>
+                    <td>리뷰</td>
                 </tr>
                 </thead>
                 <tbody className={"text-center"}>
-                {data.resve.length === 0 ? <tr><td colSpan={6}>현재 예약한 호텔이 없습니다.</td></tr> : ''}
-                {data.resve.map(resve => (
-                    <tr key={resve.id} onClick={() => movoToSingle(resve.id)}>
-                        <td>{index++}</td>
-                        <td>{dayjs(resve.checkIn).format('YYYY-MM-DD HH:mm:ss')}</td>
-                        <td>{dayjs(resve.checkOut).format('YYYY-MM-DD HH:mm:ss')}</td>
-                        <td>{resve.roomId}</td>
-                        <td>{resve.confirmed ? "완료" : "대기"}</td>
-                        <td>{resve.status ? "완료" : "대기"}</td>
-                    </tr>
-                ))}
+                {data.resve.length === 0 ? (
+                    <tr><td colSpan={7}>현재 예약한 호텔이 없습니다.</td></tr>
+                ) : (
+                    data.resve.map(resve => (
+                        <tr key={resve.id} onClick={() => movoToSingle(resve.id)}>
+                            <td>{index++}</td>
+                            <td>{dayjs(resve.checkIn).format('YYYY-MM-DD HH:mm:ss')}</td>
+                            <td>{dayjs(resve.checkOut).format('YYYY-MM-DD HH:mm:ss')}</td>
+                            <td>{resve.roomId}</td>
+                            <td>{resve.confirmed ? "완료" : "대기"}</td>
+                            <td>{resve.status ? "완료" : "대기"}</td>
+                            <td>
+                                {resve.status && resve.confirmed && (
+                                    <InsertReview
+                                        reservationId={resve.id}
+                                        onReviewSubmit={handleReviewSubmit}
+                                    />
+                                )}
+                            </td>
+                        </tr>
+                    ))
+                )}
                 </tbody>
             </Table>
         </Container>

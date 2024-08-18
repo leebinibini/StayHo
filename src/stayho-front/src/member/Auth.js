@@ -21,7 +21,6 @@ let Auth = () => {
     let navigate = useNavigate()
 
     let onSubmit = async (e) => {
-
         e.preventDefault()
         try {
             let formData = new FormData()
@@ -34,29 +33,24 @@ let Auth = () => {
                 data: formData,
                 withCredentials: true
             })
-            console.log(response)
-            if (response.data.role === 'ROLE_ADMIN') {
-                let adminInfo = {
-                    id: response.data.id,
-                    email: response.data.email,
-                    name: response.data.name,
-                    role: response.data.role,
-                    tel: response.data.tel
-                }
-                navigate('/', {state: {adminInfo: adminInfo}})
-            } else if (response.status === 200 &&
-                (response.data.result === 'success' || response.data.result === undefined)) {
-                let memberInfo = {
-                    id: response.data.id,
-                    email: response.data.email,
-                    password: response.data.password,
-                    name: response.data.name,
-                    tel: response.data.tel,
-                    role: response.data.role
-                }
+            if (response.status === 200 && response.data.role === 'ROLE_ADMIN') {
+                let {id, email, name, role, tel} = response.data; // 비구조화 할당
+                let adminInfo = {id, email, name, role, tel};
+                navigate('/admin/menu', {state: {adminInfo: adminInfo}})
+                console.log(role)
+
+            } else if (response.status === 200 && response.data.role === 'ROLE_REGISTRANT') {
+                let {id, email, name, role, tel} = response.data;
+                let registrantInfo = {id, email, name, role, tel};
+                navigate('/hotel/write', {state: {registrantInfo: registrantInfo}})
+                console.log(registrantInfo.role)
+
+            } else if (response.status === 200 && response.data.result === 'success') {
+                let {id, email, name, role, tel} = response.data;
+                let memberInfo = {id, email, name, role, tel};
                 navigate('/', {state: {memberInfo: memberInfo}})
 
-            } else if (!(response.status === 200 && response.data.result === 'success')) {
+            } else if (!(response.status === 200 && response.data.result === 'fail')) {
                 window.alert("로그인에 실패!")
             }
         } catch {

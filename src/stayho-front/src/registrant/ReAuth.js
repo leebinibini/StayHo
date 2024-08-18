@@ -32,15 +32,9 @@ let ReAuth = () => {
                 data: formData,
                 withCredentials: true
             })
-            if (response.status === 200 && response.data.result === 'success') {
-                let registrantInfo = {
-                    id: response.data.id,
-                    email: response.data.email,
-                    password: response.data.password,
-                    name: response.data.name,
-                    tel: response.data.tel,
-                    role: response.data.role
-                }
+            if(response.status === 200 && response.data.role === 'ROLE_REGISTRANT') {
+                let {id, email, name, role, tel} = response.data;
+                let registrantInfo = {id, email, name, role, tel};
                 navigate('/hotel/write', {state: {registrantInfo: registrantInfo}})
             }else if(!(response.status === 200 && response.data.result === 'success')){
                 window.alert("로그인 실패!")
