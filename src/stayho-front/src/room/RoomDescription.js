@@ -1,8 +1,10 @@
 import Modal from "react-modal";
 import {Button, Card, Carousel, CarouselItem} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
-let RoomDescription = ({description, modalOpen, setModalOpen, room, images, reservation}) => {
+let RoomDescription = ({description, modalOpen, setModalOpen, room, images, reservation,condition}) => {
+    let location = useLocation();
+    let memberInfo = location.state.memberInfo;
     let customStyle = {
         content: {
             top: '50%',
@@ -16,7 +18,8 @@ let RoomDescription = ({description, modalOpen, setModalOpen, room, images, rese
     let navigation = useNavigate();
 
     let onClick = () => { // 버튼 추가 (정민)
-        navigation('/reservation/insert', {state: {roomId: `${room.id}`, price: `${room.price}`}})
+        navigation('/reservation/insert', {state:
+                {memberInfo:memberInfo, roomId: `${room.id}`, price: `${room.price}`, hotelId: `${room.hotelId}`, checkIn: `${condition.checkinDate}`, checkOut: `${condition.checkoutDate}`}})
     }
 
     return (

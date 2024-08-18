@@ -9,6 +9,10 @@ let Menu = () => {
     let location = useLocation()
     let adminInfo = location.state.adminInfo
 
+    let reservationAdmin = () => {
+        navigate("/reservation/admin", {state:{adminInfo: adminInfo}})
+    }
+
     let onMyPage = () => {
         navigate("/admin/adMyPage", {state: {adminInfo: adminInfo}})
     }
@@ -40,6 +44,7 @@ let Menu = () => {
                         />
                         <div style={{ display: 'flex', gap: '10px' }}>
                             <Button onClick={onLogOut}>로그아웃</Button>
+                            <Button onClick={reservationAdmin}>예약정보(관리자)</Button>
                             <Button onClick={onMyPage}>마이페이지</Button>
                             <Button onClick={onMemberAdmin}>일반 회원 정보 관리하기</Button>
                             <Button onClick={onRegistrantAdmin}>등록자 회원 정보 관리하기</Button>

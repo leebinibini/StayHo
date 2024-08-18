@@ -50,10 +50,10 @@ function App() {
             <Main/>
             {showSearchForm && <SearchForm/>}
             <Routes>
+                <Route path="/" element={<ShowList/>}/>
                 <Route path="/member/auth" element={<Auth/>}/>
                 <Route path="/member/register" element={<Register/>}/>
                 <Route path="/member/memberUpdate" element={<MemberUpdate/>}/>
-                <Route path="/" element={<ShowList/>}/>
                 <Route path="/member/myPage" element={<MyPage/>}/>
                 <Route path="/member/secede" element={<Secede/>}/>
                 <Route path="/registrant/reAuth" element={<ReAuth/>}/>

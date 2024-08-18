@@ -17,7 +17,7 @@ let ShowList = () => {
     let navigate = useNavigate();
 
     let moveToSingle = (id) => {
-        navigate(`/hotel/showOne/` + id);
+        navigate(`/hotel/showOne/` + id, {state:{memberInfo:memberInfo}});
     };
 
     useEffect(() => {

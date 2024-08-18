@@ -7,7 +7,6 @@ import {useLocation, useParams} from "react-router-dom";
 import DatePicker from "react-date-picker";
 
 let RoomForUser = ({hotelId}) => {
-    console.log(hotelId)
     let [rooms, setRooms] = useState({roomList: []})
     let [roomD, setRoomD] = useState()
     let [description, setDescription] = useState({})
@@ -67,7 +66,6 @@ let RoomForUser = ({hotelId}) => {
             setImages(response.data.image)
             setRoomD(response.data.room)
         }
-
         setModalOpen(true)
     }
     return (
@@ -109,7 +107,7 @@ let RoomForUser = ({hotelId}) => {
                 </tbody>
             </Table>
             <RoomDescription description={description} modalOpen={modalOpen} setModalOpen={setModalOpen} room={roomD}
-                             images={images} reservation={false}/>
+                             images={images} reservation={false} condition={condition}/>
         </Container>
     )
 }
