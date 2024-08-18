@@ -53,9 +53,8 @@ let RoomUpdate = () => {
             view: inputs.view,
             price: watch('price'),
             surcharge: watch('surcharge'),
-            content: watch('content')
+            content: watch('content'),
         }
-
         const formData = new FormData()
         imgList.map(image => {
             formData.append('files', image)
@@ -107,17 +106,17 @@ let RoomUpdate = () => {
                     </tr>
                     <tr>
                         <td>객실 타입 이름</td>
-                        <td><FormControl type={'text'} name={'type'} vaule={inputs.type} onChange={onChange}
+                        <td><FormControl type={'text'} name={'type'} value={inputs.type}
                                          aria-describedby='typeExplain' defaultValue={inputs.type}
-                                         {...register("type", {required: true, maxLength: 50})}/>
+                                         {...register("type", {required: true, maxLength: 50, onChange:onChange})}/>
                             <FormText id="typeExplain" muted>최대 50자까지 입력가능합니다.</FormText>
                         </td>
                     </tr>
                     <tr>
                         <td>객실 설명</td>
-                        <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
-                                         style={{minHeight: '15rem'}}
-                                         {...register("content", {required: true})}/></td>
+                        <td><FormControl as={'textarea'} name={'content'} value={inputs.content}
+                                         style={{minHeight: '15rem'}} defaultValue={inputs.type}
+                                         {...register("content", {required: true, onChange: onChange})}/></td>
                     </tr>
                     <tr>
                         <td>욕조 여부</td>

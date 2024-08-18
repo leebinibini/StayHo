@@ -103,7 +103,7 @@ let RoomInsert = () => {
                     </tr>
                     <tr>
                         <td>객실 설명</td>
-                            <td><FormControl type={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
+                            <td><FormControl as={'textarea'} name={'content'} value={inputs.content} onChange={onChange}
                                          style={{minHeight: '15rem'}}
                                          {...register("content", {required: true})}/></td>
                     </tr>
