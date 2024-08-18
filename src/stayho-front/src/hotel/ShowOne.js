@@ -6,19 +6,22 @@ import {Button, Container, Row, Col, Card, Badge, CarouselItem, CardImg, Carouse
 import RoomForUser from "../room/RoomForUser";
 import RoomForProvider from "../room/RoomForProvider";
 import StarRating from './StarRating';
+import ReviewModal from '../review/hotelReviewList/ShowAll'
 
 const ShowOne = () => {
-    const [data1, setData1] = useState({ id: null, name: '', rating: 0 });
+    const [data1, setData1] = useState({id: null, name: '', rating: 0});
     const [data2, setData2] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    let [images, setImages] = useState([])
+
+    const [image, setImage] = useState([])
+    const [showReviewModal, setShowReviewModal] = useState(false);
 
     const params = useParams();
     const id = parseInt(params.id);
 
     const location = useLocation();
-    const memberInfo = location.state?.memberInfo || { id: 'Unknown' };
+    const memberInfo = location.state?.memberInfo || {id: 'Unknown'};
 
     const navigate = useNavigate();
 
@@ -28,14 +31,14 @@ const ShowOne = () => {
     let registrant = memberInfo.role === "ROLE_REGISTRANT";
 
     const onUpdate = () => {
-        navigate(`/hotel/update/${id}`, { state: { memberInfo: memberInfo }});
+        navigate(`/hotel/update/${id}`, {state: {memberInfo: memberInfo}});
     };
 
     const onDelete = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/hotel/delete/${id}`, { withCredentials: true });
+            const response = await axios.get(`http://localhost:8080/hotel/delete/${id}`, {withCredentials: true});
             if (response.status === 200) {
-                navigate('/hotel/showList', { state: { memberInfo: memberInfo }});
+                navigate('/hotel/showList', {state: {memberInfo: memberInfo}});
             }
         } catch (e) {
             console.error(e);
@@ -46,13 +49,13 @@ const ShowOne = () => {
     useEffect(() => {
         const selectOne = async () => {
             try {
-                const resp1 = await axios.get(`http://localhost:8080/hotel/showOne/`+id);
+                const resp1 = await axios.get(`http://localhost:8080/hotel/showOne/` + id);
                 if (resp1.status === 200) {
                     setData1(resp1.data.hotel);
                     setImages(resp1.data.image)
 
                 }
-                const resp2 = await axios.get(`http://localhost:8080/hotelDescription/showOne/`+id);
+                const resp2 = await axios.get(`http://localhost:8080/hotelDescription/showOne/` + id);
                 if (resp2.status === 200) {
                     setData2(resp2.data);
                 }
@@ -81,22 +84,25 @@ const ShowOne = () => {
                             <div>
                                 <h2 className="text-primary">{data1.name}</h2>
                                 <Badge bg="secondary" className="mb-3">글번호: {data1.id}</Badge>
-                                <hr/>
-                                <Carousel>
-                                    {images?.map(img => (
-                                        <CarouselItem key={img.id}>
-                                            <Card.Img
-                                                variant="top"
-                                                src={"http://localhost:8080/image/" + img.filepath + "/" + img.filename}
-                                                style={{border: 'black 1px solid', height: '50vh'}}
-                                            />
-                                        </CarouselItem>
-
-                                    ))}
-                                </Carousel>
+                                <p className="text-muted">작성자: {memberInfo.id}</p>
                                 <hr/>
                                 <StarRating rating={data1.rating} size={32}/>
+                                <Button variant="link" onClick={() => setShowReviewModal(true)}>
+                                    리뷰 보기
+                                </Button>
+                                <hr/>
                             </div>
+                            <Carousel>
+                                {image.map(
+                                    img =>
+                                        <CarouselItem>
+                                            <CardImg variant={"top"}
+                                                     src={"http://localhost:8080/image?path=" + encodeURIComponent(img.filepath) + "&name=" + encodeURIComponent(img.filename)}
+                                                     style={{height: '25rem', objectFit: 'cover'}}
+                                            />
+                                        </CarouselItem>
+                                )}
+                            </Carousel>
                                 <h4>편의시설</h4>
                                 <Row className="mb-4">
                                     {Object.entries(data2).map(([key, value]) => (
@@ -123,6 +129,7 @@ const ShowOne = () => {
                     </Card>
                 </Col>
             </Row>
+            <ReviewModal hotelId={id} show={showReviewModal} handleClose={() => setShowReviewModal(false)} />
         </Container>
     );
 };

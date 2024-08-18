@@ -19,6 +19,13 @@ let ShowList = () => {
         navigate(`/hotel/showOne/` + id, {state:{memberInfo:memberInfo}});
     };
 
+    let onManageReviews = () => {
+        if (state !== null) {
+            let memberId = state.memberInfo.id;
+            navigate('/review/showAllByMember/' + memberId);
+        }
+    }
+
     useEffect(() => {
         let selectList = async () => {
             let resp = await axios
