@@ -52,8 +52,7 @@ const ShowOne = () => {
                 const resp1 = await axios.get(`http://localhost:8080/hotel/showOne/` + id);
                 if (resp1.status === 200) {
                     setData1(resp1.data.hotel);
-                    setImages(resp1.data.image)
-
+                    setImage(resp1.data.image)
                 }
                 const resp2 = await axios.get(`http://localhost:8080/hotelDescription/showOne/` + id);
                 if (resp2.status === 200) {

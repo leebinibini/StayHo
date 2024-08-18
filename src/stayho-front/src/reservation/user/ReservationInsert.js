@@ -10,13 +10,12 @@ let ReservationInsert = () => {
     let navigate = useNavigate();
     let memberInfo = location.state.memberInfo;
 
-    // (startDate, endDate, price, roomId)
-
+    // 초기 state 설정
     let [inputs, setInputs] = useState({
-        checkIn: dayjs(location.state?.checkIn).format('YYYY-MM-DD'),
-        checkOut: dayjs(location.state?.checkOut).format('YYYY-MM-DD'),
+        checkIn: location.state?.checkIn, // dayjs.format()를 제거
+        checkOut: location.state?.checkOut, // dayjs.format()를 제거
         roomId: location.state.roomId,
-        memberId: 3,
+        memberId: memberInfo.id,
     })
 
     let [roomDescription, setRoomDescription] = useState({
@@ -45,26 +44,32 @@ let ReservationInsert = () => {
     })
 
     let moveToNext = (id) => {
-        navigate(`/reservation/showOne/${id}}` ,{state: {memberInfo: memberInfo}})
+        navigate(`/reservation/showOne/${id}`, {state: {memberInfo: memberInfo}})
     }
 
-    let dateCondition  = (startDt,endDt) =>{
-        let btMs = endDt.getTime() - startDt.getTime();
-        let btDay = btMs / (1000*60*60*24);
-        return btDay.toFixed();
+    // dateCondition 함수 수정
+    let dateCondition = (startDt, endDt) => {
+        // dayjs 객체로 변환
+        let start = dayjs(startDt).startOf('day');
+        let end = dayjs(endDt).startOf('day');
+
+        // start와 end의 날짜 차이를 계산
+        let btDay  = end.diff(start, 'day');
+        return btDay;
     }
 
     let onSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            let resp = await axios.post("http://localhost:8080/reservation/insert", inputs)
+            let resp = await axios.post("http://localhost:8080/reservation/insert", inputs);
             if (resp.data.resultId !== undefined) {
-                moveToNext(resp.data.resultId)
+                moveToNext(resp.data.resultId);
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
+
 
     useEffect(() => {
         let selectList = async () => {
@@ -113,6 +118,7 @@ let ReservationInsert = () => {
                     </div>
                     <hr />
                     <Table>
+                        <tbody>
                         <tr>
                             <td className={'text-end'}>체크인</td>
                             <td className={'text-end w-25'}>{dayjs(location.state.checkIn).format('YYYY-MM-DD')}</td>
@@ -122,8 +128,14 @@ let ReservationInsert = () => {
                             <td className={'text-end'}>{dayjs(location.state.checkOut).format('YYYY-MM-DD')}</td>
                         </tr>
                         <tr>
-                            <td className={'text-end'}>{dateCondition(location.state.checkIn,location.state.checkOut)}</td>
+                            <td className={'text-end'}>총 일수</td>
+                            <td className={'text-end'}>{dateCondition(location.state.checkIn, location.state.checkOut)}</td>
                         </tr>
+                        <tr>
+                            <td className={'text-end'}>총 가격</td>
+                            <td className={'text-end'}>{roomDescription.room.price * dateCondition(location.state.checkIn, location.state.checkOut)}</td>
+                        </tr>
+                        </tbody>
                     </Table>
                     <div className="text-center mt-4">
                         <Button type="submit" variant="primary">예약하기</Button>

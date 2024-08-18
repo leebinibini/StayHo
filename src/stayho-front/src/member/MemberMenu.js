@@ -54,6 +54,13 @@ let MemberMenu = () => {
         }
     }
 
+    let onManageReviews = () => {
+        if (location.state !== null) {
+            let memberId = location.state.memberInfo.id;
+            navigate('/review/showAllByMember/' + memberId);
+        }
+    }
+
     return (
         <Container>
             <Table>
@@ -76,6 +83,8 @@ let MemberMenu = () => {
                                             <Button variant="outline-primary" className="mx-2"
                                                     onClick={onReservation}>예약정보(등록자)</Button>
                                             : ''}
+                                    <Button variant="outline-secondary" className="mx-2" onClick={onManageReviews}>내 리뷰
+                                        관리</Button>
                                     <Button variant="outline-primary" className="mx-2" onClick={onMyPage}>마이페이지</Button>
                                     <Button variant="outline-danger" className="mx-2" onClick={onLogOut}>로그아웃</Button>
                                 </>)
