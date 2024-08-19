@@ -42,13 +42,13 @@ let Auth = () => {
             } else if (response.status === 200 && response.data.role === 'ROLE_REGISTRANT') {
                 let {id, email, name, role, tel} = response.data;
                 let registrantInfo = {id, email, name, role, tel};
-                navigate('/', {state: {memberInfo: registrantInfo}})
+                navigate(-1, {state: {memberInfo: registrantInfo}})
                 console.log(registrantInfo.role)
 
             } else if (response.status === 200 && response.data.result === 'success') {
                 let {id, email, name, role, tel} = response.data;
                 let memberInfo = {id, email, name, role, tel};
-                navigate('/', {state: {memberInfo: memberInfo}})
+                navigate(-1, {state: {memberInfo: memberInfo}})
 
             } else if (!(response.status === 200 && response.data.result === 'fail')) {
                 window.alert("로그인에 실패!")

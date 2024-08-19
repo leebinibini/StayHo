@@ -21,7 +21,7 @@ let ShowList = () => {
     useEffect(() => {
         let selectList = async () => {
             let resp
-            if (memberInfo.role ==='ROLE_REGISTRANT'){
+            if (memberInfo?.role ==='ROLE_REGISTRANT'){
                 resp= await axios
                     .get("http://localhost:8080/hotel/showList/"+memberInfo.id)
                     .catch((e) => {
