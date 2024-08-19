@@ -42,7 +42,7 @@ let Auth = () => {
             } else if (response.status === 200 && response.data.role === 'ROLE_REGISTRANT') {
                 let {id, email, name, role, tel} = response.data;
                 let registrantInfo = {id, email, name, role, tel};
-                navigate('/hotel/write', {state: {registrantInfo: registrantInfo}})
+                navigate('/', {state: {memberInfo: registrantInfo}})
                 console.log(registrantInfo.role)
 
             } else if (response.status === 200 && response.data.result === 'success') {
