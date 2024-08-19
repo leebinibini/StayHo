@@ -16,6 +16,13 @@ const WriteHotel = () => {
     });
 
     let [imgList, setImgList] = useState([])
+
+    let [modalState, setModalState] = useState(false)
+    let [addressData, setAddressData] = useState({})
+    let onPopup = () => {
+        setModalState(true)
+    }
+
     let onChangeImg = (e) => {
         setImgList([
             ...imgList,
@@ -62,7 +69,7 @@ const WriteHotel = () => {
             imgList.map(image => {
                 formData.append('files', image)
             })
-            //formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
+            formData.append("address", new Blob([JSON.stringify(addressData)], {type: 'application/json'}))
             const hotelResponse = await axios.post('http://localhost:8080/hotel/write', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', charset:'UTF-8'
@@ -110,6 +117,15 @@ const WriteHotel = () => {
                                         />
                                     </Col>
                                 </Form.Group>
+
+                                <div>
+                                    {addressData.address}
+                                    <Button onClick={onPopup} className={'ms-1'}>
+                                        주소찾기
+                                        <Address setModalState={setModalState} modalState={modalState}
+                                                 setAddressData={setAddressData}/>
+                                    </Button>
+                                </div>
 
                                 <Form.Group as={Row} className="mb-3">
                                     <Form.Label column sm={3}>전화번호</Form.Label>

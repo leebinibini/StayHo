@@ -23,7 +23,7 @@ public class HotelController {
     private final HotelDescriptionService HOTEL_DESCRIPTION_SERVICE;
     private final LocationService LOCATION_SERVICE;
     private final ImgService IMG_SERVICE;
-    private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static\\image\\";
+    private final String STATIC_PATH = "/Users/jisue/Desktop/bit/studyBIT/StayHo_NC13 복사본 2/src/main/resources/static/image";
     private final String HOTEL_PATH = "hotel";
 
     @Autowired

@@ -4,7 +4,7 @@ import HeartIcon from "./HeartIcon";
 import StarRating from "./StarRating";
 import axios from "axios";
 
-const HotelCard = ({ hotel, moveToSingle, memberInfo }) => {
+const HotelCard = ({ hotel, moveToSingle, memberInfo, hotelImgDTO }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     let [images, setImages] = useState([]);

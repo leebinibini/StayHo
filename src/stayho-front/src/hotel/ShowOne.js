@@ -6,6 +6,7 @@ import {Button, Container, Row, Col, Card, Badge, CarouselItem, CardImg, Carouse
 import RoomForUser from "../room/RoomForUser";
 import RoomForProvider from "../room/RoomForProvider";
 import StarRating from './StarRating';
+import ReviewModal from '../review/hotelReviewList/ShowAll'
 
 const ShowOne = () => {
     const [data1, setData1] = useState({ id: null, name: '', rating: 0 });
@@ -13,6 +14,7 @@ const ShowOne = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     let [images, setImages] = useState([])
+    const [showReviewModal, setShowReviewModal] = useState(false);
 
     const params = useParams();
     const id = parseInt(params.id);
@@ -96,6 +98,9 @@ const ShowOne = () => {
                                 </Carousel>
                                 <hr/>
                                 <StarRating rating={data1.rating} size={32}/>
+                                <Button variant="link" onClick={() => setShowReviewModal(true)}>
+                                    리뷰 보기
+                                </Button>
                             </div>
                                 <h4>편의시설</h4>
                                 <Row className="mb-4">
@@ -123,6 +128,7 @@ const ShowOne = () => {
                     </Card>
                 </Col>
             </Row>
+            <ReviewModal hotelId={id} show={showReviewModal} handleClose={() => setShowReviewModal(false)} />
         </Container>
     );
 };
