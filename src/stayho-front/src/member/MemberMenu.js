@@ -43,7 +43,7 @@ let MemberMenu = () => {
     };
 
     let onHotelWrite = () => {
-        navigate('/registrant/reAuth');
+        navigate('/hotel/write',{state:{memberInfo:memberInfo}});
     };
 
     let onReservation = () => {

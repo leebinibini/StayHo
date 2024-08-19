@@ -20,16 +20,14 @@ import java.util.*;
 @RequestMapping("/hotel/")
 public class HotelController {
     private final HotelService HOTEL_SERVICE;
-    private final HotelDescriptionService HOTEL_DESCRIPTION_SERVICE;
     private final LocationService LOCATION_SERVICE;
     private final ImgService IMG_SERVICE;
     private final String STATIC_PATH = "D:\\NC13\\StayHo_NC13\\src\\main\\resources\\static\\image\\";
     private final String HOTEL_PATH = "hotel";
 
     @Autowired
-    public HotelController(HotelService hotelService,HotelDescriptionService hotelDescriptionService, LocationService locationService,ImgService imgService) {
+    public HotelController(HotelService hotelService, LocationService locationService,ImgService imgService) {
         this.HOTEL_SERVICE = hotelService;
-        this.HOTEL_DESCRIPTION_SERVICE = hotelDescriptionService;
         this.LOCATION_SERVICE= locationService;
         this.IMG_SERVICE = imgService;
     }
@@ -38,6 +36,13 @@ public class HotelController {
     public HashMap<String, Object> selectList() {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<HotelDTO> hotelList= HOTEL_SERVICE.selectAll();
+        resultMap.put("hotelList", hotelList);
+        return resultMap;
+    }
+    @GetMapping("showList/{id}")
+    public HashMap<String, Object> selectList(@PathVariable int id) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        List<HotelDTO> hotelList= HOTEL_SERVICE.selectMember(id);
         resultMap.put("hotelList", hotelList);
         return resultMap;
     }

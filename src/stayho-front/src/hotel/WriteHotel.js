@@ -6,7 +6,13 @@ import Address from "../address/Address";
 
 const WriteHotel = () => {
     let location = useLocation();
-    let registrantInfo = location.state.registrantInfo;
+    let registrantInfo = location.state.memberInfo;
+
+    let navigate = useNavigate();
+
+    if(registrantInfo === null){
+        navigate('/member/auth')
+    }
 
     let [modalState, setModalState] = useState(false)
     let [addressData, setAddressData] = useState({})
@@ -28,7 +34,6 @@ const WriteHotel = () => {
             ...e.target.files
         ])
     }
-    const navigate = useNavigate();
 
     const categoryList = ['swimmingPool', 'parking', 'restaurant', 'smoking', 'laundryFacilities', 'fitnessCenter']
 

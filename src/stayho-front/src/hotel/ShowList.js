@@ -20,12 +20,20 @@ let ShowList = () => {
 
     useEffect(() => {
         let selectList = async () => {
-            let resp = await axios
-                .get("http://localhost:8080/hotel/showList")
-                .catch((e) => {
-                    console.error(e);
-                });
-
+            let resp
+            if (memberInfo.role ==='ROLE_REGISTRANT'){
+                resp= await axios
+                    .get("http://localhost:8080/hotel/showList/"+memberInfo.id)
+                    .catch((e) => {
+                        console.error(e);
+                    });
+            }else {
+                resp = await axios
+                    .get("http://localhost:8080/hotel/showList")
+                    .catch((e) => {
+                        console.error(e);
+                    });
+            }
             if (resp.status === 200) {
                 setData(resp.data.hotelList)
             }

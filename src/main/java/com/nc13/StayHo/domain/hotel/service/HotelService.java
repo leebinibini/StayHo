@@ -20,6 +20,9 @@ public class HotelService {
     public List<HotelDTO> selectAll() {
         return SESSION.selectList(NAMESPACE + ".selectList");
     }
+    public List<HotelDTO> selectMember(int id) {
+        return SESSION.selectList(NAMESPACE + ".selectMember", id);
+    }
 
     public HotelDTO selectOne(int id) {
         return SESSION.selectOne(NAMESPACE + ".selectOne", id);

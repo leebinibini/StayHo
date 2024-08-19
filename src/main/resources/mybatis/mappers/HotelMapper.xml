@@ -9,6 +9,13 @@
         INNER JOIN hotel_description
         ON hotel.id = hotel_description.hotel_id
     </select>
+    <select id="selectMember" resultType="HotelDTO" parameterType="int">
+        SELECT *
+        FROM hotel
+        INNER JOIN hotel_description
+        ON hotel.id = hotel_description.hotel_id
+        WHERE member_id= #{id}
+    </select>
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
         SELECT *
         FROM hotel
