@@ -55,11 +55,11 @@ let MemberMenu = () => {
     }
 
     let onManageReviews = () => {
-        if (location.state !== null) {
-            let memberId = location.state.memberInfo.id;
-            navigate('/review/showAllByMember/' + memberId,{state:{memberInfo:memberInfo}});
+        if (memberInfo) {
+            let memberId = memberInfo.id;
+            navigate('/review/showAllByMember/' + memberId, { state: { memberInfo: memberInfo } });
         }
-    }
+    };
 
     return (
         <Container>
