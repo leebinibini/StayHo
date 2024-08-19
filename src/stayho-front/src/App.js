@@ -42,7 +42,21 @@ import React from "react";
 
 function App() {
     const location = useLocation();
-    const showSearchForm = !["/member/auth", "/member/register", "/member/memberUpdate", "/reservation/showAll", "/member/myPage"].includes(location.pathname);
+    const hideSearchFormPaths = [
+        "/member/auth",
+        "/member/register",
+        "/member/memberUpdate",
+        "/reservation/showAll",
+        "/reservation/registrant",
+        "/reservation/admin",
+        "/member/myPage"
+    ];
+
+    // Determine if SearchForm should be shown
+    const showSearchForm = !hideSearchFormPaths.some(path =>
+        location.pathname.startsWith(path) || location.pathname.includes('/reservation/showOne/')||
+        location.pathname.includes('/review/showAllByMember/')
+    );
 
     return (
         <div>

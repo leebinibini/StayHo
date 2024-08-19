@@ -12,8 +12,8 @@ let ReservationInsert = () => {
 
     // 초기 state 설정
     let [inputs, setInputs] = useState({
-        checkIn: dayjs(location.state?.checkIn),
-        checkOut: dayjs(location.state?.checkOut),
+        checkIn: dayjs(location.state?.checkIn).startOf('day'),
+        checkOut: dayjs(location.state?.checkOut).startOf('day'),
         roomId: location.state.roomId,
         memberId: memberInfo.id,
     })
