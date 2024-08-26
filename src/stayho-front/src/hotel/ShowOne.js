@@ -116,21 +116,32 @@ const ShowOne = () => {
                                 <hr/>
                                 {
                                     registrant ?
-                                        <RoomForProvider hotelId={id}/> : <RoomForUser hotelId={id}/>
-                                }
-                                <div className="text-center">
-                                    <Button variant="primary" onClick={onUpdate} className="mx-2 px-4">수정하기</Button>
-                                    <Button variant="danger" onClick={onDelete} className="mx-2 px-4">삭제하기</Button>
-                                    <Button variant="secondary" onClick={goToHotelList} className="mx-2 px-4">호텔 목록으로
-                                        가기</Button>
-                                </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-            <ReviewModal hotelId={id} show={showReviewModal} handleClose={() => setShowReviewModal(false)} />
-        </Container>
-    );
+                                        <><RoomForProvider hotelId={id}/>
+                                            <div className="text-center">
+                                                <Button variant="primary" onClick={onUpdate}
+                                                        className="mx-2 px-4">수정하기</Button>
+                                                <Button variant="danger" onClick={onDelete}
+                                                        className="mx-2 px-4">삭제하기</Button>
+                                                <Button variant="secondary" onClick={goToHotelList}
+                                                        className="mx-2 px-4">호텔
+                                                    목록으로
+                                                    가기</Button>
+                                            </div>
+                                        </>
+                                    : <><RoomForUser hotelId={id}/>
+                                            <Button variant="secondary" onClick={goToHotelList} className="mx-2 px-4">호텔
+                                                목록으로
+                                                가기</Button>
+                                        </>
+                        }
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
+    <ReviewModal hotelId={id} show={showReviewModal} handleClose={() => setShowReviewModal(false)}/>
+</Container>
+)
+    ;
 };
 
 export default ShowOne;

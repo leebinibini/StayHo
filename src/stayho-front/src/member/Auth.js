@@ -38,18 +38,15 @@ let Auth = () => {
                 let adminInfo = {id, email, name, role, tel};
                 navigate('/admin/menu', {state: {adminInfo: adminInfo}})
                 console.log(role)
-
             } else if (response.status === 200 && response.data.role === 'ROLE_REGISTRANT') {
                 let {id, email, name, role, tel} = response.data;
                 let registrantInfo = {id, email, name, role, tel};
-                navigate('/hotel/write', {state: {registrantInfo: registrantInfo}})
+                navigate('/', {state: {memberInfo: registrantInfo}})
                 console.log(registrantInfo.role)
-
             } else if (response.status === 200 && response.data.result === 'success') {
                 let {id, email, name, role, tel} = response.data;
                 let memberInfo = {id, email, name, role, tel};
                 navigate('/', {state: {memberInfo: memberInfo}})
-
             } else if (!(response.status === 200 && response.data.result === 'fail')) {
                 window.alert("로그인에 실패!")
             }
