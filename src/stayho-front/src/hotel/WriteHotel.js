@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, Container, Form, Row, Col, Card, FormControl, FormText} from "react-bootstrap";
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -9,10 +9,6 @@ const WriteHotel = () => {
     let registrantInfo = location.state.memberInfo;
 
     let navigate = useNavigate();
-
-    if(registrantInfo === null){
-        navigate('/member/auth')
-    }
 
     let [modalState, setModalState] = useState(false)
     let [addressData, setAddressData] = useState({})
@@ -100,6 +96,11 @@ const WriteHotel = () => {
         }
     };
 
+    useEffect(() => {
+        if(registrantInfo === null){
+            navigate('/member/auth')
+        }
+    }, []);
     return (
         <Container className="mt-5">
             <Row className="justify-content-center">

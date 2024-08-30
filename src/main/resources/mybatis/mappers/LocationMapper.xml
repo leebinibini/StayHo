@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.LocationMapper">
-    <insert id="insert" parameterType="locationDTO">
+<mapper namespace="com.nc13.StayHo.model.mapper.LocationMapper">
+    <insert id="insert" parameterType="com.nc13.StayHo.model.model.LocationDTO">
         INSERT INTO location
         (hotel_id, address, sido, sigungu, zonecode, buildingName)
         VALUES (#{hotelId}, #{address}, #{sido}, #{sigungu}, #{zonecode}, #{buildingName})
     </insert>
-    <update id="update" parameterType="locationDTO">
+    <update id="update" parameterType="com.nc13.StayHo.model.model.LocationDTO">
         UPDATE location SET
         address=#{address}, sido=#{sido}, sigungu=#{sigungu}, zonecode=#{zonecode}, buildingName=#{buildingName}
         WHERE hotel_id= #{hotelId}
@@ -17,7 +17,7 @@
         DELETE FROM location
         WHERE hotel_id= #{id}
     </delete>
-    <select id="select" parameterType="int" resultType="locationDTO">
+    <select id="select" parameterType="int" resultType="com.nc13.StayHo.model.model.LocationDTO">
         SELECT * FROM location
         WHERE hotel_id=#{id}
     </select>

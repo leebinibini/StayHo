@@ -1,7 +1,7 @@
 //package com.nc13.StayHo.domain.review.controller;
 //
-//import com.nc13.StayHo.domain.review.dto.ReviewRegisterDTO;
-//import com.nc13.StayHo.domain.review.service.ReviewService;
+//import com.nc13.StayHo.model.model.ReviewRegisterDTO;
+//import com.nc13.StayHo.service.origin.ReviewService;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;

@@ -7,25 +7,25 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.nc13.StayHo.domain.hotel.model.HotelDTO" alias="hotelDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.hotelDescription.model.HotelDescriptionDTO" alias="hotelDescriptionDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.review.entity.Review" alias="Review"/>
-        <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewUpdateDTO" alias="ReviewUpdateDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewSelectDTO" alias="ReviewSelectDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.review.dto.ReviewRegisterDTO" alias="ReviewRegisterDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.room.dto.RoomDTO" alias="roomDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.room.dto.SynthesisDTO" alias="synthesisDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.roomDescription.dto.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.price.dto.PriceDTO" alias="priceDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationDTO" alias="locationDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.location.dto.LocationInfoDTO" alias="locationInfoDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchResultDTO" alias="searchResultDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.search.dto.SearchConditionDTO" alias="searchConditionDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.reservation.domain.ReservationDTO" alias="reservationDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.img.dto.HotelImgDTO" alias="hotelImgDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.img.dto.RoomImgDTO" alias="roomImgDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.wishList.model.WishListDTO" alias="wishListDTO"/>
-        <typeAlias type="com.nc13.StayHo.domain.img.dto.ReviewImgDTO" alias="reviewImgDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.HotelDTO" alias="hotelDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.HotelDescriptionDTO" alias="hotelDescriptionDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.entity.Review" alias="Review"/>
+        <typeAlias type="com.nc13.StayHo.model.model.ReviewUpdateDTO" alias="ReviewUpdateDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.ReviewSelectDTO" alias="ReviewSelectDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.ReviewRegisterDTO" alias="ReviewRegisterDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.RoomModel" alias="roomModel"/>
+        <typeAlias type="com.nc13.StayHo.model.model.SynthesisDTO" alias="synthesisDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.RoomDescriptionDTO" alias="roomDescriptionDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.PriceDTO" alias="priceDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.LocationDTO" alias="locationDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.LocationInfoDTO" alias="locationInfoDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.SearchResultDTO" alias="searchResultDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.SearchConditionDTO" alias="searchConditionDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.ReservationDTO" alias="reservationDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.HotelImgDTO" alias="hotelImgDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.RoomImgDTO" alias="roomImgDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.WishListDTO" alias="wishListDTO"/>
+        <typeAlias type="com.nc13.StayHo.model.model.ReviewImgDTO" alias="reviewImgDTO"/>
         <package name="com.nc13.StayHo.domain.Member.Model"/>
         <package name="com.nc13.StayHo.domain.hotel.model"/>
         <package name="com.nc13.StayHo.domain.hotelDescription.model"/>

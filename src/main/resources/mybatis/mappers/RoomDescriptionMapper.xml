@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.RoomDescriptionMapper">
+<mapper namespace="com.nc13.StayHo.model.mapper.RoomDescriptionMapper">
 <insert id="insert" parameterType="roomDescriptionDTO">
     INSERT INTO room_description
     (room_id, bath, bed, view)

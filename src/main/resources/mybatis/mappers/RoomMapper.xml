@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.RoomMapper">
-    <insert id="insert" parameterType="roomDTO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+<mapper namespace="com.nc13.StayHo.model.mapper.RoomMapper">
+    <insert id="insert" parameterType="roomModel" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO room (limit_people, type, hotel_id)
         values(#{limitPeople}, #{type}, #{hotelId})
     </insert>
@@ -39,7 +39,7 @@
         ON room.id= price.room_id
         WHERE room.id=#{id}
     </select>
-    <update id="update" parameterType="roomDTO">
+    <update id="update" parameterType="roomModel">
         UPDATE room SET
         limit_people=#{limitPeople}, type= #{type}
         WHERE id=#{id}

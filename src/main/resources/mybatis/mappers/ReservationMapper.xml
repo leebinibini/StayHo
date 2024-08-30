@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.ReservationMapper">
+<mapper namespace="com.nc13.StayHo.model.mapper.ReservationMapper">
     <select id="selectAll" resultType="reservationDTO" parameterType="int">
         SELECT * FROM reservation
         WHERE member_id = #{member_id}

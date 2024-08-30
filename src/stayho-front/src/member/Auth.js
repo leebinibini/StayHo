@@ -43,7 +43,7 @@ let Auth = () => {
                 let {id, email, name, role, tel} = response.data;
                 let registrantInfo = {id, email, name, role, tel};
                 navigate(-1, {state: {memberInfo: registrantInfo}})
-                console.log(registrantInfo.role)
+                console.log(registrantInfo)
 
             } else if (response.status === 200 && response.data.result === 'success') {
                 let {id, email, name, role, tel} = response.data;

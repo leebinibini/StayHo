@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.SearchMapper">
+<mapper namespace="com.nc13.StayHo.model.mapper.SearchMapper">
     <insert id="createView">
         create or replace view search_view as
         select
@@ -27,9 +27,6 @@
         on hotel.id= img.hotel_id
         ;
     </insert>
-    <select id="selectView" resultType="searchResultDTO">
-        select * from search_view;
-    </select>
     <select id="selectSearch" resultType="searchResultDTO" parameterType="searchConditionDTO">
         select main.id, name, rating, price, room_id, swimming_pool, parking, smoking, restaurant, laundry_facilities, fitness_center
         from search_view as main, ( select id, min(price) as min_price from search_view group by id ) as priceTable
