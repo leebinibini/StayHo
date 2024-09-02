@@ -2,7 +2,7 @@ package com.nc13.StayHo.service.impl;
 
 
 import com.nc13.StayHo.model.model.MemberDTO;
-import com.nc13.StayHo.service.origin.MemberService;
+import com.nc13.StayHo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

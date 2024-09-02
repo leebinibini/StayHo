@@ -2,7 +2,7 @@ package com.nc13.StayHo.controller;
 
 import com.nc13.StayHo.model.model.ReviewRegisterDTO;
 import com.nc13.StayHo.model.model.ReviewUpdateDTO;
-import com.nc13.StayHo.service.origin.ReviewService;
+import com.nc13.StayHo.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

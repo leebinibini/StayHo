@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
     private final RoomMapper mapper;
-    private final RoomDescriptionService roomDescriptionService;
-    private final PriceService priceService;
-    private final ImgService imgService;
+    private final RoomDescriptionServiceImpl roomDescriptionService;
+    private final PriceServiceImpl priceService;
+    private final ImgServiceImpl imgService;
 
     @Override
     public Integer insert(SynthesisDTO params, List<MultipartFile> files) {
@@ -30,6 +30,9 @@ public class RoomServiceImpl implements RoomService {
         result *= roomDescriptionService.insert(descriptionDTO);
         var priceDTO = new PriceDTO(roomModel.getId(), params.getPrice(), params.getSurcharge());
         result *= priceService.insert(priceDTO);
+        if (!files.isEmpty()){
+            result*= imgService.insertRoom(files, roomModel.getId());
+        }
         return result;
     }
 

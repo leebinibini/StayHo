@@ -1,5 +1,6 @@
 package com.nc13.StayHo.service.impl;
 
+import com.nc13.StayHo.model.mapper.ReservationMapper;
 import com.nc13.StayHo.model.model.ReservationDTO;
 import com.nc13.StayHo.repository.ReservationRepositoryImpl;
 import com.nc13.StayHo.service.ReservationService;
@@ -13,45 +14,45 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
 
-    private final ReservationRepositoryImpl REPOSITORY;
+    private final ReservationMapper mapper;
 
     @Override
     public List<ReservationDTO> selectAll(int member_id) {
-        return REPOSITORY.selectAll(member_id);
+        return mapper.selectAll(member_id);
     }
 
     @Override
     public List<ReservationDTO> selectAllAdmin() {
-        return REPOSITORY.selectAllAdmin();
+        return mapper.selectAllAdmin();
     }
 
     @Override
     public List<ReservationDTO> selectAllRegistrant(int member_id) {
-        return REPOSITORY.selectAllRegistrant(member_id);
+        return mapper.selectAllRegistrant(member_id);
     }
 
     @Override
     public ReservationDTO selectOne(int id) {
-        return REPOSITORY.selectOne(id);
+        return mapper.selectOne(id);
     }
 
     @Override
-    public void update(ReservationDTO reservationDTO) {
-        REPOSITORY.update(reservationDTO);
+    public Integer update(ReservationDTO reservationDTO) {
+        return mapper.update(reservationDTO);
     }
 
     @Override
-    public void confirm(ReservationDTO reservationDTO) {
-        REPOSITORY.confirm(reservationDTO);
+    public Integer confirm(ReservationDTO reservationDTO) {
+        return mapper.confirm(reservationDTO);
     }
 
     @Override
-    public void delete(int id) {
-        REPOSITORY.delete(id);
+    public Integer delete(int id) {
+        return mapper.delete(id);
     }
 
     @Override
-    public void insert(ReservationDTO reservationDTO) {
+    public Integer insert(ReservationDTO reservationDTO) {
         Calendar calendar = Calendar.getInstance();
 
         // 체크인 시간 09:00 설정
@@ -64,7 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
         calendar.set(Calendar.HOUR_OF_DAY, 11);
         reservationDTO.setCheckOut(calendar.getTime());
 
-        REPOSITORY.insert(reservationDTO);
+        return mapper.insert(reservationDTO);
     }
 
 

@@ -2,7 +2,7 @@ package com.nc13.StayHo.controller;
 
 import com.nc13.StayHo.model.model.MemberDTO;
 import com.nc13.StayHo.model.enums.Role;
-import com.nc13.StayHo.service.origin.MemberService;
+import com.nc13.StayHo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

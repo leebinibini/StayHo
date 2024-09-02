@@ -2,7 +2,6 @@ package com.nc13.StayHo.controller;
 
 import com.nc13.StayHo.model.model.WishListDTO;
 import com.nc13.StayHo.service.impl.WishListServiceImpl;
-import com.nc13.StayHo.service.origin.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/wishes")
 @RequiredArgsConstructor
 public class WishListController {
-    private final WishListService wishListService;
+    private final WishListServiceImpl wishListService;
 
 
     @PostMapping("")

@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ImgService {
     Integer insertRoom(List<MultipartFile> files, Long roomId);
-    Integer insertHotel(List<MultipartFile> files, Long hotelId);
+    Integer insertHotel(List<MultipartFile> files, int hotelId);
+    Integer updateHotel(List<MultipartFile> files, int[] delList,int hotelId);
     Integer insertReview(List<MultipartFile> files, Long reviewId);
     Integer delete(int id);
     Integer deleteReviewImgByReviewId(int reviewId);

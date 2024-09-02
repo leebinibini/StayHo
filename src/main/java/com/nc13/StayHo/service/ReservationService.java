@@ -7,12 +7,12 @@ import java.util.List;
 
 @Service
 public interface ReservationService {
-    List<ReservationDTO> selectAll(int member_id);
-    List<ReservationDTO> selectAllAdmin();
-    List<ReservationDTO> selectAllRegistrant(int member_id);
+    List<?> selectAll(int member_id);
+    List<?> selectAllAdmin();
+    List<?> selectAllRegistrant(int member_id);
     ReservationDTO selectOne(int id);
-    void update(ReservationDTO reservationDTO);
-    void confirm(ReservationDTO reservationDTO);
-    void delete(int id);
-    void insert(ReservationDTO reservationDTO);
+    Integer update(ReservationDTO reservationDTO);
+    Integer confirm(ReservationDTO reservationDTO);
+    Integer delete(int id);
+    Integer insert(ReservationDTO reservationDTO);
 }

@@ -1,4 +1,4 @@
-package com.nc13.StayHo.service.origin;
+package com.nc13.StayHo.service;
 
 import com.nc13.StayHo.model.model.MemberDTO;
 import org.apache.ibatis.session.SqlSession;

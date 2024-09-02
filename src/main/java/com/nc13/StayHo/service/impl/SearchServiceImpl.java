@@ -29,10 +29,10 @@ public class SearchServiceImpl implements SearchService {
             condition.setSido(condition.getSido().substring(0, 2));
         }
         var result = new ArrayList<>();
-        var list= searchMapper.selectSearch(condition);
+        List<SearchResultDTO> list= (List<SearchResultDTO>) searchMapper.selectSearch(condition);
         var images= new ArrayList<>();
         for (SearchResultDTO resultDTO : list) {
-            var imgList = imgMapper.selectHotel(resultDTO.getId());
+            List<HotelImgDTO> imgList = (List<HotelImgDTO>) imgMapper.selectHotel(resultDTO.getId());
             if (imgList.isEmpty()) {
                 imgList.add(new HotelImgDTO("hotel", "default.png", resultDTO.getId()));
             }

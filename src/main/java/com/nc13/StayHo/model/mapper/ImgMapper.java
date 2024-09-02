@@ -1,5 +1,6 @@
 package com.nc13.StayHo.model.mapper;
 
+import com.nc13.StayHo.model.model.HotelImgDTO;
 import com.nc13.StayHo.model.model.RoomImgDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,7 @@ public interface ImgMapper {
 
     List<?> selectReview(@Param("id") int id);
 
+    Integer insertHotel(@Param("hotelDTO") HotelImgDTO hotelImgDTO);
+
+    Integer updateHotel(@Param("hotelDTO") HotelImgDTO hotelImgDTO);
 }
