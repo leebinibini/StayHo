@@ -11,7 +11,7 @@ import java.util.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/hotels")
+@RequestMapping("/api/hotels")
 @RequiredArgsConstructor
 public class HotelController {
     private final HotelServiceImpl hotelService;

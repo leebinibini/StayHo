@@ -31,13 +31,13 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/reservation/**", "/").permitAll()
                                 .requestMatchers("/reservation/registrant/*").permitAll()
-                                .requestMatchers("/search", "/room/**", "/location/**","/image/**", "/hotel/**", "/hotelDescription/**").permitAll()
+                                .requestMatchers("/api/search", "/api/rooms/**", "/api/locations/**","/api/images/**", "/hotels/**", "/hotelDescription/**").permitAll()
                                 .requestMatchers("/registrant/**").hasAnyAuthority("ROLE_REGISTRANT")
                                 .requestMatchers("/registrant/**").permitAll()
                                 .requestMatchers("/member/**" , "/registrant/reRegister").permitAll()
                                 .requestMatchers("/registrant/update","/registrant/withdraw","/hotel/write","/registrant/reAuth").hasAnyAuthority("ROLE_REGISTRANT")
                                 .requestMatchers("/admin/adMyPage").hasAnyAuthority("ROLE_ADMIN")
-                                .requestMatchers("/wishlist/**").authenticated()
+                                .requestMatchers("/api/wishlists/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .formLogin((form) ->
