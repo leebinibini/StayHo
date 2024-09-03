@@ -37,7 +37,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<?> selectByHotel(Long id) {
+    public List<?> selectByHotel(int id) {
         return mapper.selectByHotel(id);
     }
 
@@ -47,7 +47,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<?> selectWImg(Long id) {
+    public List<?> selectWImg(int id) {
         var result = new ArrayList<>();
         result.add(mapper.select(id));
         result.add(imgService.selectRoom(id));
@@ -56,12 +56,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public SynthesisDTO select(Long id) {
+    public SynthesisDTO select(int id) {
         return mapper.select(id);
     }
 
     @Override
-    public Integer update(Long id, SynthesisDTO params, List<MultipartFile> files, int[] delImgList) {
+    public Integer update(int id, SynthesisDTO params, List<MultipartFile> files, int[] delImgList) {
         var result= 1;
         var roomModel = new RoomModel(params.getLimitPeople(), params.getType(), params.getHotelId());
         roomModel.setId(id);
@@ -74,9 +74,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Integer delete(Long[] id) {
+    public Integer delete(int[] id) {
         var result= 1;
-        for (Long i : id){
+        for (int i : id){
             result*= mapper.delete(i);
         }
         return result;

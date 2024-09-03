@@ -19,7 +19,7 @@ public interface ImgMapper {
 
     Integer deleteReview(@Param("reviewId") int reviewId);
 
-    List<?> selectRoom(@Param("id") Long id);
+    List<?> selectRoom(@Param("id") int id);
 
     List<?> selectReview(@Param("id") int id);
 

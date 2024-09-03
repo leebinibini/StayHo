@@ -4,14 +4,14 @@ import lombok.Data;
 
 @Data
 public class PriceDTO {
-    private Long roomId;
+    private int roomId;
     private int price;
     private int surcharge;
 
     public PriceDTO() {
     }
 
-    public PriceDTO(Long roomId, int price, int surcharge) {
+    public PriceDTO(int roomId, int price, int surcharge) {
         this.roomId = roomId;
         this.price = price;
         this.surcharge = surcharge;

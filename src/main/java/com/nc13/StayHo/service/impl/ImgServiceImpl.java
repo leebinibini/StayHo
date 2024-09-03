@@ -22,7 +22,7 @@ public class ImgServiceImpl implements ImgService {
     private final String HOTEL_PATH = "hotel";
 
     @Override
-    public Integer insertRoom(List<MultipartFile> files, Long roomId) {
+    public Integer insertRoom(List<MultipartFile> files, int roomId) {
         int result = 1;
         if (!(new File(ROOM_PATH)).exists()) {
             new File(ROOM_PATH).mkdirs();
@@ -80,7 +80,7 @@ public class ImgServiceImpl implements ImgService {
     }
 
     @Override
-    public Integer insertReview(List<MultipartFile> files, Long reviewId) {
+    public Integer insertReview(List<MultipartFile> files, int reviewId) {
         return 0;
     }
 
@@ -95,7 +95,7 @@ public class ImgServiceImpl implements ImgService {
     }
 
     @Override
-    public List<?> selectRoom(Long id) {
+    public List<?> selectRoom(int id) {
         return mapper.selectRoom(id);
     }
 

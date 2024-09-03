@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RoomModel {
 
-    private Long id;
+    private int id;
     private int limitPeople;
     private String type;
     private int hotelId;

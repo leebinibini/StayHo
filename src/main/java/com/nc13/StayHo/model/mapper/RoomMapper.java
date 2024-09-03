@@ -11,10 +11,10 @@ import java.util.List;
 @Mapper
 public interface RoomMapper {
     Integer insert(@Param("roomModel") RoomModel roomModel);
-    List<?> selectByHotel(@Param("id") Long id);
+    List<?> selectByHotel(@Param("id") int id);
     List<?> selectByHotelForSearch(SearchConditionDTO conditionDTO);
-    SynthesisDTO select(Long id);
+    SynthesisDTO select(int id);
     Integer update(RoomModel roomModel);
-    Integer delete(Long id);
+    Integer delete(int id);
 
 }

@@ -7,10 +7,10 @@ public class RoomImgDTO {
     private int id;
     private String filepath;
     private String filename;
-    private Long roomId;
+    private int roomId;
 
     public RoomImgDTO(){}
-    public RoomImgDTO(String path, String name, Long roomId){
+    public RoomImgDTO(String path, String name, int roomId){
         this.filepath= path;
         this.filename= name;
         this.roomId= roomId;
